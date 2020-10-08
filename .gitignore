@@ -1,0 +1,6 @@
+*.olean
+/.venv
+/.vscode
+/_target
+/_build
+/leanpkg.path
