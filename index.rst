@@ -5,7 +5,7 @@ MTH1001 in Lean
     :numbered:
     :maxdepth: 2
 
-    introduction
+    prop_logic
     quantifiers_and_equality
 
 

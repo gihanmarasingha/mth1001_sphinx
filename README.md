@@ -1,7 +1,7 @@
-Theorem Proving in Lean
------------------------
+MTH1001 in Lean
+---------------
 
-Built using Sphinx and restructured text.
+Built using Sphinx and restructured text. Based on the document *Theorem Proving in Lean* by Jeremy Avigad, et al.
 
 # How to build
 
@@ -24,9 +24,5 @@ make leantest
 # How to deploy
 
 ```
-./deploy.sh leanprover theorem_proving_in_lean
+./deploy.sh leanprover mth1001_in_lean
 ```
-
-# How to contribute
-
-Pull requests with corrections are welcome. Please follow our `commit conventions <https://github.com/leanprover/lean/blob/master/doc/commit_convention.md>`. If you have questions about whether a change will be considered helpful, please contact Jeremy Avigad, ``avigad@cmu.edu``.

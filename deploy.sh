@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 if [ "$#" -ne 2 ]; then
-    echo "Usage example: $0 leanprover theorem_proving_in_lean"
+    echo "Usage example: $0 leanprover mth1001_in_lean"
     exit 1
 fi
 
@@ -14,7 +14,7 @@ mkdir deploy
 cd deploy
 git init
 cp -r ../_build/html/./ .
-cp ../_build/latex/theorem_proving_in_lean.pdf .
+cp ../_build/latex/mth1001_in_lean.pdf .
 git add .
 git commit -m "Update `date`"
 git push git@github.com:$1/$2 +HEAD:gh-pages
