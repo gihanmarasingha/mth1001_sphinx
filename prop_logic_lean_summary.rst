@@ -83,10 +83,13 @@ Reiteration is represented in a tactic-style proof by the ``exact`` tactic.
 
 .. code-block:: lean
 
+  variable p : Prop
+  -- BEGIN
   example (h : p) : p :=
   begin
     exact h,
   end
+  -- END
 
 
 Conjunction (and)
@@ -121,8 +124,12 @@ for ``p`` and ``q``, respectively.
 
 .. code-block:: lean
 
+  variables p q : Prop
+
+  -- BEGIN
   example (h : p ∧ q) : q :=
   h.right -- Term-style right and elimination.
+  -- END
 
 
 We can use the ``have``, ..., ``from`` notation to insert a term-style proof into a tactic-style
@@ -130,12 +137,16 @@ proof. Below, ``h.right`` is a proof term for ``q``.
 
 .. code-block:: lean
 
+  variables p q : Prop
+
+  -- BEGIN
   example (h : p ∧ q) : q :=
   begin
     have hq : q, from
       h.right, -- Term-style right and elimination.
     exact hq,
   end
+  -- END
 
 Conjunction introduction
 ------------------------
@@ -149,26 +160,37 @@ The ``split`` tactic applies conjunction introduction backward.
 
 .. code-block:: lean
 
+  variables p q : Prop
+
+  -- BEGIN
   example (h₁ : p) (h₂ : q) : p ∧ q :=
   begin
     split, -- This replaces the goal p ∧ q with two new goals: 1. p and 2. q.
     { exact h₁, }, -- This closes the goal for p.
     { exact h₂, }, -- This closes the goal for q.
   end
+  -- END
 
 The ``and.intro`` function, applied to ``h₁ : p`` and ``h₂ : q``, gives a proof term for ``p ∧ q``.
 This is a forward application of conjunction introduction.
 
 .. code-block:: lean
 
+  variables p q : Prop
+
+  -- BEGIN
   example (h₁ : p) (h₂ : q) : p ∧ q :=
   and.intro h₁ h₂
+  -- END
 
 This can also be written using French quotes (a general Lean notation for the so-called constructor
 of an inductive data type).
 
 .. code-block:: lean
 
+  variables p q : Prop
+
+  -- BEGIN
   example (h₁ : p) (h₂ : q) : p ∧ q :=
   ⟨h₁, h₂⟩ -- Enter these 'French quotes' with `\<` and  `\>`
 
@@ -176,10 +198,14 @@ This proof term can be used within a tactic block.
 
 .. code-block:: lean
 
+  variables p q : Prop
+
+  -- BEGIN
   example (h₁ : p) (h₂ : q) : p ∧ q :=
   begin
     exact and.intro h₁ h₂ -- Or `exact ⟨h₁, h₂⟩`.
   end
+  -- END
 
 
 Implication
@@ -196,28 +222,40 @@ The ``apply`` tactic uses implication elimination backward.
 
 .. code-block:: lean
 
+  variables p q : Prop
+
+  -- BEGIN
   example (h : p → q) (k : p) : q :=
   begin
     apply h, -- This is a backward proof that changes the goal to proving p.
     exact k,
   end
+  -- END
 
 Given ``h₁ : p → q`` and ``h₂ : p``, the expression ``h₁ h₂`` is a proof term for ``q``. This is
 forward implication elimination.
 
 .. code-block:: lean
 
+  variables p q : Prop
+
+  -- BEGIN
   example (h₁ : p → q) (h₂ : p) : q :=
   h₁ h₂ -- h₁ h₂ is the result of implication elimination on h₁ and h₂.
+  -- END
 
 As usual, this proof term can be used within a tactic block using the ``exact`` tactic.
 
 .. code-block:: lean
 
+  variables p q : Prop
+
+  -- BEGIN
   example (h₁ : p → q) (h₂ : p) : q :=
   begin
     exact h₁ h₂,
   end
+  -- END
 
 Implication introduction
 ------------------------
@@ -230,27 +268,39 @@ Tactic-style, if the goal is to prove ``p → q``, then ``intro h`` introduces a
 
 .. code-block:: lean
 
+  variables p q : Prop
+
+  -- BEGIN
   example (k : q) : p → q :=
   begin
     intro h, -- This is equivalent to 'Assume h : p' in mathematics. 
     exact k, -- We close the goal using our proof of q.
   end
+  -- END
 
 The term style proof is similar, using ``assume`` instead of ``intro``.
 
 .. code-block:: lean
 
+  variables p q : Prop
+
+  -- BEGIN
   example (k : q) : p → q :=
   assume h,
     k
+  -- END
 
 If desired, you can make the type of ``h`` explicit, when giving a term-style proof.
 
 .. code-block:: lean
 
+  variables p q : Prop
+
+  -- BEGIN
   example (k : q) : p → q :=
   assume h : p,
     k
+  -- END
 
 Disjunction (or)
 ================
@@ -273,19 +323,27 @@ respectively.
 
 .. code-block:: lean
 
+  variables p q : Prop
+
+  -- BEGIN
   example (h : p) : p ∨ q :=
   begin
     left, -- This changes the goal, by left or introduction, to proving p
     exact h,
   end
+  -- END
 
 Forward, given ``h : p``, the expression ``or.inl h`` is a proof term for ``p ∨ q``. Likewise,
 if ``h : q``, the expression ``or.inr h`` is a proof term for ``p ∨ q``.
 
 .. code-block:: lean
 
+  variables p q : Prop
+
+  -- BEGIN
   example (h : p) : p ∨ q :=
   or.inl h
+  -- END
 
 Disjunction elimination
 -----------------------
@@ -305,23 +363,31 @@ corresponding, in turn, to term-style and tactic-style implication elimination.
 
 .. code-block:: lean
 
+  variables p q r : Prop
+
+  -- BEGIN
   example (h : p ∨ q) (h₂ : p → r) (h₃ : q → r) : r :=
   begin
     cases h with hp hq,
     { exact h₂ hp, }, -- `h₂ hp` is implication elimination to give `r`.
     { apply h₃, exact hq, }, -- A tactic-style implication elimination.
   end
+  -- END
 
 Here is a more typical example of disjunction elimination.
 
 .. code-block:: lean
 
+  variables p q r : Prop
+
+  -- BEGIN
   example (h₁ : (p ∧ r) ∨ (r ∧ q)) : r :=
   begin
     cases h₁ with h₂ h₂,
     { exact h₂.right, }, -- In this subproof, `h₂ : p ∧ r`. The subgoal is `r`.
     { exact h₂.left, }, -- In this subproof, `h₂ : r ∧ q`. The subgoal is `r`.
   end
+  -- END
 
 
 Given ``h₁ : p ∨ q``, ``h₂ : p → r``, ``h₃ : q → r``, the function ``or.elim`` applied to ``h₁``,
@@ -329,17 +395,25 @@ Given ``h₁ : p ∨ q``, ``h₂ : p → r``, ``h₃ : q → r``, the function `
 
 .. code-block:: lean
 
+  variables p q r : Prop
+
+  -- BEGIN
   example (h₁ : p ∨ q) (h₂ : p → r) (h₃ : q → r) : r :=
   or.elim h₁ h₂ h₃
+  -- END
 
 Here is a term-style proof of the previous result.
 
 .. code-block:: lean
 
+  variables p q r : Prop
+
+  -- BEGIN
   example (h₁ : (p ∧ r) ∨ (r ∧ q)) : r :=
   or.elim h₁
     (assume h₂ : p ∧ r, h₂.right) -- A term-style proof of `p ∧ r → r`
     (assume h₂ : r ∧ q, h₂.left) -- A term-style proof of `r ∧ q → r`
+  -- END
 
 If and only if (iff)
 ====================
@@ -358,19 +432,27 @@ left and right iff elimination simultaneously.
 
 .. code-block:: lean
 
+  variables p q : Prop
+
+  -- BEGIN
   example (h : p ↔ q) : p → q :=
   begin
     cases h with h₁ h₂,
     exact h₁,
   end
+  -- END
 
 Likewise, given ``h : p ↔ q``, ``iff.elim_left h`` is a proof term for ``p → q`` and
 ``iff.elim_right h`` is a proof term for ``q → p``.
 
 .. code-block:: lean
 
+  variables p q : Prop
+
+  -- BEGIN
   example (h : p ↔ q) : p → q :=
   iff.elim_left h
+  -- END
 
 Iff introduction
 ----------------
@@ -385,20 +467,28 @@ The ``split`` tactic applies iff introduction backward.
 
 .. code-block:: lean
 
+  variables p q : Prop
+
+  -- BEGIN
   example (h₁ : p → q) (h₂ : q → p) : p ↔ q :=
   begin
     split, -- This replaces the goal `p ↔ q` with 1. p → q and 2. q → p.
     { exact h₁, }, -- Closes the goal `p → q`.
     { exact h₂, }, -- Closes the goal `q → p`.
   end
+  -- END
 
 The ``iff.intro`` function, applied to ``h₁ : p → q`` and ``h₂ : q → p``, gives a proof term for
 ``p ∧ q``. This is a forward application of iff introduction.
 
 .. code-block:: lean
 
+  variables p q : Prop
+
+  -- BEGIN
   example (h₁ : p → q) (h₂ : q → p) : p ↔ q :=
   iff.intro h₁ h₂
+  -- END
 
 
 False and negation
@@ -419,18 +509,26 @@ The ``exfalso`` tactic represents backward false elimination.
 
 .. code-block:: lean
 
+  variables p q : Prop
+
+  -- BEGIN
   example (h : false) : p :=
   begin
     exfalso, -- This changes the goal from `p` to `false`.
     exact h, -- We close the goal with `h`.
   end
+  -- END
 
 Given ``h : false``, the expression ``false.elim h`` is a proof term for ``p``.
 
 .. code-block:: lean
 
+  variables p : Prop
+
+  -- BEGIN
   example (h : false) : p :=
   false.elim h
+  -- END
 
 False introduction
 ------------------
@@ -447,19 +545,27 @@ The ``apply`` tactic uses false introduction backward.
 
 .. code-block:: lean
 
+  variables p : Prop
+
+  -- BEGIN
   example (h : ¬p) (k : p) : false :=
   begin
     apply h, -- This changes the goal to proving `p`.
     exact k,
   end
+  -- END
 
 Given ``h₁ : ¬p`` and ``h₂ : p``, the expression ``h₁ h₂`` is a proof term for ``false``. This is
 forward false introduction.
 
 .. code-block:: lean
 
+  variables p : Prop
+
+  -- BEGIN
   example (h₁ : ¬p) (h₂ : p) : false :=
   h₁ h₂
+  -- END
 
 
 Negation introduction
@@ -476,19 +582,27 @@ Tactic-style, if the goal is to prove ``¬p``, then ``intro h`` introduces an as
 
 .. code-block:: lean
 
+  variables p : Prop
+
+  -- BEGIN
   example (k : false) : ¬p :=
   begin
     intro h, -- This is equivalent to 'assume h : p' in mathematics.
     exact k, -- We close the goal using our proof of `false`.
   end
+  -- END
 
 The term-style proof is similar.
 
 .. code-block:: lean
 
+  variables p : Prop
+
+  -- BEGIN
   example (k : false) : ¬p :=
   assume h : p,
     k
+  -- END
 
 Summary
 =======
