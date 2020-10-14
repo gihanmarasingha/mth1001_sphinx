@@ -19,6 +19,8 @@ install-deps:
 	test -f $(VENVDIR)/bin/pip || python3 -m venv $(VENVDIR)
 	pip install 'wheel>=0.29' # needed for old ubuntu versions, https://github.com/pallets/markupsafe/issues/59
 	pip install sphinx
+	pip install sphinxcontrib.proof
+
 .PHONY: help Makefile
 
 # Catch-all target: route all unknown targets to Sphinx using the new

@@ -30,7 +30,7 @@ sys.path.insert(0, os.path.abspath('.'))
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx.ext.mathjax', 'sphinx.ext.githubpages', 'lean_sphinx']
+extensions = ['sphinx.ext.mathjax', 'sphinx.ext.githubpages', 'lean_sphinx', 'sphinxcontrib.proof']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -82,12 +82,29 @@ source_parsers = {
 # use numbering for section references with :numref:, e.g. 'Section 3.2'.
 numfig = True
 
+# Options for sphinx contrib proof
+
+proof_theorem_types = {
+   "algorithm": "Algorithm",
+   "conjecture": "Conjecture",
+   "corollary": "Corollary",
+   "definition": "Definition",
+   "example": "Example",
+   "lemma": "Lemma",
+   "observation": "Observation",
+   "proof": "Proof",
+   "property": "Property",
+   "theorem": "Theorem",
+   "mathsrule" : "Rule"
+}
+
 
 # -- Options for HTML output ----------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
+#html_theme = 'sphinx_rtd_theme'
 html_theme = 'alabaster'
 
 # Theme options are theme-specific and customize the look and feel of a theme
@@ -95,15 +112,14 @@ html_theme = 'alabaster'
 # documentation.
 #
 html_theme_options = {
-    'logo_name': True,
-    'font_family': 'Times New Roman, Times, serif',
-    'head_font_family': 'Times New Roman, Times, serif',
-    'code_bg': 'white',
-    'code_font_size': '10pt',
-    'extra_nav_links': {'PDF version':'mth1001_in_lean.pdf',
-                       'Lean Home':'https://leanprover.github.io/'},
-    'sidebar_width' : '230px',
-    # 'page_width' : '960px',
+#    'logo_name': True,
+   # 'font_family': 'Times New Roman, Times, serif',
+   # 'head_font_family': 'Times New Roman, Times, serif',
+   # 'code_bg': 'white',
+
+    #'extra_nav_links': {'PDF version':'mth1001_in_lean.pdf', 'Lean Home':'https://leanprover.github.io/'},
+   # 'sidebar_width' : '230px',
+   # 'page_width' : '1080px',
     # 'fixed_sidebar' : True
 }
 
@@ -157,6 +173,7 @@ latex_elements = {
     # load packages and make box around code lighter
     'preamble': r'''
 \usepackage{unixode}
+\usepackage{amsthm}
 \definecolor{VerbatimBorderColor}{rgb}{0.7,0.7,0.7}
 ''',
 
@@ -164,6 +181,7 @@ latex_elements = {
     #
     # 'figure_align': 'htbp',
 }
+proof_latex_notheorem = ["proof"] # Needed to disable proof numbering in sphinxcontrib.proof
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
@@ -191,7 +209,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
     (master_doc, 'mth1001_in_lean', u'MTH1001 in Lean',
-     author, 'Gihan Marasingha', 'An introduction to MTH1001 in Lean',
+     author, 'mth1001_in_lean', 'An introduction to MTH1001 in Lean',
      'Miscellaneous'),
 ]
 

@@ -5,9 +5,9 @@ MTH1001 in Lean
     :numbered:
     :maxdepth: 2
 
-    prop_logic
-    quantifiers_and_equality
-
+    prop_logic_theory
+    prop_logic_lean_summary
+    pred_logic
 
 .. Indices and tables
    ==================

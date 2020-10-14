@@ -1,8 +1,10 @@
 .. _prop_logic:
 
-***************************
-Propositional Logic in Lean
-***************************
+********************************
+Propositional Logic Lean Summary
+********************************
+
+.. _prop_variables:
 
 Propositional variables and special symbols
 ===========================================
@@ -138,12 +140,12 @@ proof. Below, ``h.right`` is a proof term for ``q``.
 Conjunction introduction
 ------------------------
 
-**Forwards**: given :math:`h_1 : p` and :math:`h_2 : q`, we have a proof of :math:`p\land q`.
+**Forward**: given :math:`h_1 : p` and :math:`h_2 : q`, we have a proof of :math:`p\land q`.
 
-**Backwards**: to prove :math:`p\land q`, it suffices to prove :math:`p` and :math:`q`.
+**Backward**: to prove :math:`p\land q`, it suffices to prove :math:`p` and :math:`q`.
 
 
-The ``split`` tactic applies conjunction introduction backwards.
+The ``split`` tactic applies conjunction introduction backward.
 
 .. code-block:: lean
 
@@ -155,7 +157,7 @@ The ``split`` tactic applies conjunction introduction backwards.
   end
 
 The ``and.intro`` function, applied to ``h₁ : p`` and ``h₂ : q``, gives a proof term for ``p ∧ q``.
-This is a forwards application of conjunction introduction.
+This is a forward application of conjunction introduction.
 
 .. code-block:: lean
 
@@ -186,11 +188,11 @@ Implication
 Implication elimination
 -----------------------
 
-**Forwards**: given :math:`h_1 : p \to q` and :math:`h_2 : p`, we have a proof of :math:`q`.
+**Forward**: given :math:`h_1 : p \to q` and :math:`h_2 : p`, we have a proof of :math:`q`.
 
-**Backwards**: given :math:`h : p \to q`, to prove :math:`q`, it suffices to prove :math:`p`.
+**Backward**: given :math:`h : p \to q`, to prove :math:`q`, it suffices to prove :math:`p`.
 
-The ``apply`` tactic uses implication elimination backwards.
+The ``apply`` tactic uses implication elimination backward.
 
 .. code-block:: lean
 
@@ -201,7 +203,7 @@ The ``apply`` tactic uses implication elimination backwards.
   end
 
 Given ``h₁ : p → q`` and ``h₂ : p``, the expression ``h₁ h₂`` is a proof term for ``q``. This is
-forwards implication elimination.
+forward implication elimination.
 
 .. code-block:: lean
 
@@ -258,15 +260,15 @@ Disjunction introduction
 
 There are two disjunction introduction rules, left and right.
 
-**Forwards**
+**Forward**
   * (**Left or introduction**) given :math:`h : p`, we have a proof of :math:`p \lor q`.
   * (**Right or introduction**) given :math:`h : q`, we have a proof of :math:`p \lor q`.
 
-**Backwards**
+**Backward**
   * (**Left or introduction**) to prove :math:`p`, it suffices to prove :math:`p \lor q`.
   * (**Right or introduction**) to prove :math:`q`, it suffices to prove :math:`p \lor q`.
 
-The ``left`` and ``right`` tactics represent backwards left or introduction and right or introduction,
+The ``left`` and ``right`` tactics represent backward left or introduction and right or introduction,
 respectively.
 
 .. code-block:: lean
@@ -277,7 +279,7 @@ respectively.
     exact h,
   end
 
-Forwards, given ``h : p``, the expression ``or.inl h`` is a proof term for ``p ∨ q``. Likewise,
+Forward, given ``h : p``, the expression ``or.inl h`` is a proof term for ``p ∨ q``. Likewise,
 if ``h : q``, the expression ``or.inr h`` is a proof term for ``p ∨ q``.
 
 .. code-block:: lean
@@ -288,10 +290,10 @@ if ``h : q``, the expression ``or.inr h`` is a proof term for ``p ∨ q``.
 Disjunction elimination
 -----------------------
 
-**Forwards**: given :math:`h_1 : p \lor q`, :math:`h_2 : p \to r`, and :math:`h_3 : q \to r`, we
+**Forward**: given :math:`h_1 : p \lor q`, :math:`h_2 : p \to r`, and :math:`h_3 : q \to r`, we
 have a proof of :math:`r`.
 
-**Backwards**: given :math:`h : p \lor q`, to prove :math:`r`, it suffices to (1) assume
+**Backward**: given :math:`h : p \lor q`, to prove :math:`r`, it suffices to (1) assume
 :math:`hp : p` and deduce :math:`r` and (2) assume :math:`hq : q` and deduce :math:`r`.
 
 Given ``h : p ∨ q``, the ``cases`` tactic applied as ``cases h with hp hq`` replaces the goal
@@ -373,13 +375,13 @@ Likewise, given ``h : p ↔ q``, ``iff.elim_left h`` is a proof term for ``p →
 Iff introduction
 ----------------
 
-**Forwards**: given :math:`h_1 : p \to q` and  :math:`h_2 : q \to p`,  we
+**Forward**: given :math:`h_1 : p \to q` and  :math:`h_2 : q \to p`,  we
 have a proof of :math:`p \leftrightarrow q`.
 
-**Backwards**: to prove :math:`p \leftrightarrow q`, it suffices to prove :math:`p \to q` and
+**Backward**: to prove :math:`p \leftrightarrow q`, it suffices to prove :math:`p \to q` and
 :math:`q \to p`.
 
-The ``split`` tactic applies iff introduction backwards.
+The ``split`` tactic applies iff introduction backward.
 
 .. code-block:: lean
 
@@ -391,7 +393,7 @@ The ``split`` tactic applies iff introduction backwards.
   end
 
 The ``iff.intro`` function, applied to ``h₁ : p → q`` and ``h₂ : q → p``, gives a proof term for
-``p ∧ q``. This is a forwards application of iff introduction.
+``p ∧ q``. This is a forward application of iff introduction.
 
 .. code-block:: lean
 
@@ -409,11 +411,11 @@ The symbol :math:`\bot`, referred to as false or contradiction or arbitrary cont
 referred to in one fundamental rule of inference, *ex falso sequitur quodlibet*, also called
 *ex falso* or false elimination. This rule states that anything follows from false.
 
-**Forwards**: given :math:`h : \bot`, we have a proof of :math:`p`.
+**Forward**: given :math:`h : \bot`, we have a proof of :math:`p`.
 
-**Backwards**: to prove :math:`p`, it suffices to prove :math:`\bot`.
+**Backward**: to prove :math:`p`, it suffices to prove :math:`\bot`.
 
-The ``exfalso`` tactic represents backwards false elimination.
+The ``exfalso`` tactic represents backward false elimination.
 
 .. code-block:: lean
 
@@ -436,12 +438,12 @@ False introduction
 The expression :math:`\neg p` is a shorthand for :math:`p \to \bot`. The rule of false introduction
 is thus merely implication elimination in another guise.
 
-**Forwards**: given :math:`h_1 : \neg p` and :math:`h_2 : p`, we have a proof of :math:`\bot`.
+**Forward**: given :math:`h_1 : \neg p` and :math:`h_2 : p`, we have a proof of :math:`\bot`.
 
-**Backwards**: given :math:`h : \neg p`, to prove :math:`\bot`, it suffices to prove :math:`p`.
+**Backward**: given :math:`h : \neg p`, to prove :math:`\bot`, it suffices to prove :math:`p`.
 
 
-The ``apply`` tactic uses false introduction backwards.
+The ``apply`` tactic uses false introduction backward.
 
 .. code-block:: lean
 
@@ -452,7 +454,7 @@ The ``apply`` tactic uses false introduction backwards.
   end
 
 Given ``h₁ : ¬p`` and ``h₂ : p``, the expression ``h₁ h₂`` is a proof term for ``false``. This is
-forwards false introduction.
+forward false introduction.
 
 .. code-block:: lean
 
