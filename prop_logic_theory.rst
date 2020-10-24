@@ -46,7 +46,7 @@ binary, applying to two propositions.
 
   A proposition is a propositional variable or one of :math:`(\neg \alpha)`, :math:`(\alpha\land\beta)`,
   :math:`(\alpha\lor\beta)`, :math:`(\alpha\to\beta)`, :math:`(\alpha\leftrightarrow\beta)`, where
-  :math:`\alpha` and :math:`\beta` are propostions.
+  :math:`\alpha` and :math:`\beta` are propositions.
 
 
 For example, if our propositional variables are :math:`P`, :math:`Q`, and :math:`R`, then all the
@@ -95,7 +95,7 @@ Here is an example of a rule of inference. This rule is called left conjunction 
 
 In essence, a rule of inference is a black box that takes certain inputs (the premises) and
 produces an output. In this case, the output is a proof of :math:`P`. Here, and in every
-statement of a rule of interfence, the names of propostions that appear are to be treated as 
+statement of a rule of interfence, the names of propositions that appear are to be treated as 
 generic. Thus :math:`P` and :math:`Q` can be replaced with any propositions.
 
 As an example application of this rule of inference, suppose we have a premise
@@ -221,9 +221,20 @@ Rather than introducing an intermediate hypothesis ``h₂``, the proof can be ca
   end
   -- END
 
+If a Lean proof can be accomplished with one tactic, one need not use a ``begin`` ... ``end`` block
+but can instead write the tactic after ``by``, as below.
+
+.. code-block:: lean
+
+  variables p q r : Prop
+  -- BEGIN
+  example (h : (p ∧ q) ∧ r) : q :=
+  by exact (h.left).right
+  -- END
+
 This can be written mathematically as follows.
 
-  We show :math:`q` by right conjunction elimination applied to the result of left conjunction
+  The result follows by right conjunction elimination applied to the result of left conjunction
   elimination applied to :math:`h`.
 
 Alternatively, we can use the ``cases`` tactic, which performs left and right and elimination
@@ -287,6 +298,9 @@ Lean uses ``and.intro`` to represent forward conjunction introduction.
   end
   -- END
 
+  Alternatively, one can use the 'anonymous constructor' notation ``⟨h₃, h₂⟩`` in place of
+  ``and.intro h₃ h₂``. Here, ``⟨`` and ``⟩`` are written as ``\<`` and ``\>`` respectively.
+
 .. proof:proof:: Backward Proof
 
   By conjunction introduction, it suffices to prove 1. :math:`Q` and 2. :math:`P`.
@@ -303,9 +317,9 @@ tactic replaces the goal of proving ``q ∧ p`` with two goals 1. to prove ``q``
   -- BEGIN
   example (h : p ∧ q) : q ∧ p :=
   begin
-    split,
-    show q, from h.right, 
-    show p, from h.left,
+    split,                -- By and introduction, it suffices to prove both `q` and `p`.
+    show q, from h.right, -- We show `q` by right and elimination on `h`.
+    show p, from h.left,  -- We show `p` by left and elimination on `h`.
   end
   -- END
 
@@ -349,7 +363,8 @@ Here's a forward proof.
 
   - The result follows by conjunction introduction on :math:`h_4` and :math:`h_6`.
 
-The same proof can be represented in Lean.
+The same proof can be represented in Lean. In the last line below (just to show that we can), we
+we the anonymous constructor notation to express conjunction introduction.
 
 .. code-block:: lean
 
@@ -357,10 +372,10 @@ The same proof can be represented in Lean.
   -- BEGIN
   example (h : (p ∧ q) ∧ r) : p ∧ (q ∧ r) :=
   begin
-    cases h with h₂ h₃,     -- h₂ : (p ∧ q), h₃ : r
-    cases h₂ with h₄ h₅,    -- h₄ : p, h₅ : q
-    have h₆ : q ∧ r, from and.intro h₅ h₃,
-    show p ∧ (q ∧ r), from and.intro h₄ h₆,
+    cases h with h₂ h₃,                     -- We have `h₂ : (p ∧ q)`, `h₃ : r` by left & right and elim. on `h`.
+    cases h₂ with h₄ h₅,                    -- We have `h₄ : p` and `h₅ : q` by left & right and elim. on `h₂`.
+    have h₆ : q ∧ r, from and.intro h₅ h₃,  -- We have `h₆ : q ∧ r` by and introduction on `h₅` and `h₃`.
+    show p ∧ (q ∧ r), from ⟨h₄, h₆⟩,         -- We show `p ∧ (q ∧ r)` by and introduction on `h₄` and `h₆`.
   end
   -- END
 
@@ -527,11 +542,13 @@ The Lean equivalent is the combination of the ``show`` and ``from`` tactics.
 Implication
 ===========
 
-The symbol :math:`\to` is read 'implies'. The proposition :math:`P \to Q` can be read either as
-':math:`P` implies :math:`Q`' or as 'if :math:`P`, then :math:`Q`'.
+The *conditional* connective :math:`\to` is read 'implies'.
+The proposition :math:`P \to Q` can be read either as ':math:`P` implies :math:`Q`' or as
+'if :math:`P`, then :math:`Q`'.
 
 In a proposition of the form :math:`P \to Q`, the proposition :math:`P` is called the *antecedent*
-and :math:`Q` is called the *consequent*.
+and :math:`Q` is called the *consequent*. The proposition :math:`P\to Q` is called an *implication*
+or a *conditional*.
 
 .. _sec_imp_elim:
 
@@ -720,6 +737,32 @@ To make explicit what is being assumed, you may instead use the ``assume`` tacti
   end
   -- END
 
+The next result requires reiteration.
+
+.. _thm_reflexivity_imp:
+
+.. proof:theorem:: Reflexivity of implication
+
+   Let :math:`P` be a proposition. Then :math:`P \to P`.
+
+.. proof:proof::
+
+  Assume :math:`h : P`. By implication introduction, it suffices to prove :math:`P`. The result
+  follows by reiteration on :math:`h`.
+
+.. code-block:: lean
+
+  variables {p : Prop}
+  namespace hidden
+  -- BEGIN
+  theorem id : p → p :=
+  begin
+    assume h : p,   -- Assume `h : p`. It suffices to prove `p`.
+    show p, from h, -- We show `p` by reiteration on `h`.
+  end
+  -- END
+  end hidden
+
 .. _thm_and_comm2:
 
 .. proof:theorem:: Commutativity of conjunction (II)
@@ -854,9 +897,7 @@ with our proof of the new result.
   end
 
   example : (a → b) ∧ (b ∧ a) → (b ∧ a) ∧ (a → b) :=
-  begin
-    exact and_of_and (a → b) (b ∧ a)
-  end
+  by exact and_of_and (a → b) (b ∧ a)
   -- END
 
 Placeholders
@@ -871,17 +912,15 @@ that the first and second underscores should be replaced with ``a → b`` and ``
 .. code-block:: lean
 
   variables a b : Prop
- 
+
   theorem and_of_and (p q : Prop) : p ∧ q → q ∧ p :=
   begin
-    assume h,
+    intro h,
     exact and.intro (h.right) (h.left)
   end
   -- BEGIN
   example : (a → b) ∧ (b ∧ a) → (b ∧ a) ∧ (a → b) :=
-  begin
-    exact and_of_and _ _
-  end
+  by exact and_of_and _ _
   -- END
 
 
@@ -920,9 +959,7 @@ previous ``exact and_of_and (a → b) (b ∧ a)``. In the new proof, the argumen
   end
 
   example : (a → b) ∧ (b ∧ a) → (b ∧ a) ∧ (a → b) :=
-  begin
-    exact and_of_and_v2
-  end
+  by exact and_of_and_v2
   -- END
   
 Using theorems with the ``apply`` tactic
@@ -954,9 +991,7 @@ these new goals.
   end
 
   example (a b : Prop) : (a → b) ∧ (b ∧ a) → (b ∧ a) ∧ (a → b) :=
-  begin
-    apply and_of_and, 
-  end
+  by apply and_of_and
   -- END
 
 In more interesting examples, Lean cannot automatically close the new goals introduced by ``apply``.
@@ -966,7 +1001,7 @@ implication.
 
 .. _thm_imp_trans1:
 
-.. proof:theorem::
+.. proof:theorem:: Transitivity of implication
 
   Let :math:`P`, :math:`Q`, and :math:`R` be propositions.
   Then :math:`(P\to Q)\to((Q\to R)\to (P \to R))`.
@@ -1015,7 +1050,7 @@ Second, we can develop this idea via the rules of inference for implication to '
 of the theorem and intepret it as stating that for given propositions :math:`S`, :math:`T`, and
 :math:`U` *and* given :math:`h_1 : S \to T`, we have a proof of :math:`(T \to U) \to (S \to U)`.
 
-Third, we can peel off the next implication. The theorem then states that given propostions
+Third, we can peel off the next implication. The theorem then states that given propositions
 :math:`S`, :math:`T`, and :math:`U`, given :math:`h_1 : S \to T` and :math:`h_2 : T\to U`, we have
 a proof of :math:`S\to U`. There's even a fourth option that I leave for the reader to
 determine.
@@ -1116,8 +1151,535 @@ Here is a Lean template for the proof.
 If and only if
 ==============
 
-Rewriting and implicit theorems
-===============================
+The biconditional connective :math:`\leftrightarrow` is also called 'if and only if' or 'iff'.
+The proposition :math:`P \leftrightarrow Q` is read ':math:`P` if and only if :math:`Q`' or
+':math:`P` is equivalent to :math:`Q`'.
+
+There are strong parallels between the rules of inference for iff and those for conjunction.
+
+.. proof:mathsrule:: If and only if elimination
+
+  .. raw:: latex
+
+    \ 
+
+  * (*Left iff elimination*) given :math:`h : P \leftrightarrow Q`, we have a proof of :math:`P\to Q`.
+  * (*Right iff elimination*) given :math:`h : P \leftrightarrow Q`, we have a proof of :math:`Q\to P`.
+
+In Lean, if ``h : p ↔ q``, then ``h.1`` (alternatively ``iff.elim_left h``) is a proof of ``p → q``.
+Likewise, ``h.2`` (alternatively ``iff.elim_right h``) is a proof of ``q → p``.
+
+.. proof:mathsrule:: Iff introduction, forward
+
+  Given :math:`h_1 : P \to Q` and :math:`h_2 : Q\to P`, we have a proof of
+  :math:`P\leftrightarrow Q`.
+
+In Lean, given ``h₁ : p → q`` and ``h₂ : q → p``, the term ``iff.intro h₁ h₂`` is
+a proof of ``p ↔ q``. The same proof term can be denoted using the anonymous constructor notation
+as ``⟨h₁, h₂⟩``. Recall that ``⟨`` and ``⟩`` are written as ``\<`` and ``\>`` respectively.
+
+.. proof:mathsrule:: Iff introduction, backward
+
+  To prove :math:`P\leftrightarrow Q`, it suffices to prove :math:`P\to Q` and :math:`Q\to P`.
+
+We'll use these rules of inference to prove our (almost) final form of commutativity of conjunction.
+The proof below uses :numref:`Theorem %s <thm_and_comm2>`, that if :math:`P` and :math:`Q` are
+propositions, then :math:`P \land Q\to Q \land P`.
+
+.. _thm_and_comm3:
+
+.. proof:theorem:: Commutativity of conjunction (III)
+
+  Let :math:`R` and :math:`S` be propositions. Then :math:`R \land S \leftrightarrow S \land R`.
+
+.. proof:proof::
+
+  By iff introduction, it suffices to prove 1. :math:`R\land S\to S\land R` and
+  2. :math:`S\land R\to R\land S`. We close both goals by :numref:`Theorem %s <thm_and_comm2>`.
+
+In Lean, using one proof to close more than one goal is denoted by the ``;`` tactic combinator, as
+used in the proof below.
+
+.. code-block:: lean
+
+  variables p q s r : Prop
+  theorem and_of_and : p ∧ q → q ∧ p :=
+  begin
+    intro h,                   -- Assume `h : p ∧ q`. It suffices to prove `q ∧ p`.
+    split,                     -- By `∧` intro., it suffices to prove both `q` and `p`.
+    { show q, from h.right, }, -- We show `q` from right `∧` elimination on `h`.
+    { show p, from h.left, },  -- We show `p` from left `∧` elimination on `h`.
+  end
+  namespace hidden
+  -- BEGIN
+  theorem and_comm : r ∧ s ↔ s ∧ r :=
+  begin
+    split;
+    apply and_of_and,
+  end
+  -- END
+  end hidden
+
+
+.. _sec_refl_sym_trans_iff:
+
+Reflexivity, Symmetry, Transitivity of iff
+------------------------------------------
+
+Iff has some particularly nice properties.
+
+* Reflexivity. For every proposition :math:`P`, we have :math:`P\leftrightarrow P`.
+
+* Symmetry. For all propositions :math:`P` and :math:`Q`, given :math:`h : P \leftrightarrow Q`,
+  we have :math:`Q \leftrightarrow P`.
+
+* Transitivity. For all propositions :math:`P`, :math:`Q`, and :math:`R`, given
+  :math:`h_1 : P \leftrightarrow Q` and :math:`h_2 : Q \leftrightarrow R`, we have
+  :math:`P \leftrightarrow R`.
+
+.. proof:proof:: Reflexivity
+
+  By iff introduction, it suffices to prove :math:`P\to P` and :math:`P \to P`. Both these goals
+  are closed by :numref:`Theorem %s <thm_reflexivity_imp>`, the reflexivity of implication.
+
+.. code-block:: lean
+
+  variables (p : Prop)
+
+  -- BEGIN
+  example : p ↔ p :=
+  begin
+    split,                   -- By iff introduction, it suffices to prove `p → p` and `p → p`
+    { show p → p, from id }, -- We show `p → p` from reflexivity of implication.
+    { show p → p, from id }, -- We show `p → p` from reflexivity of implication.
+  end
+  -- END
+
+As in our Lean proof of :numref:`Theorem %s <thm_and_comm3>`, we may employ the  ``;`` tactic
+combinator to combine the proofs of the two subgoals that arise from the use of the ``split`` tactic.
+
+.. code-block:: lean
+
+  variables (p : Prop)
+
+  -- BEGIN
+  example : p ↔ p :=
+  begin
+    split;        -- By iff introduction, it suffices to prove `p → p` and `p → p`.
+    { exact id }, -- We close both subgoals by reflexivity of implication.
+  end
+  -- END
+
+The proof of symmetry of iff is almost identical to the proof of
+:numref:`Exampe %s <example_and_comm1>`, the commutativity of conjunction.
+
+.. proof:proof:: Symmetry of iff
+
+  By iff introduction, it suffices to prove :math:`Q\to P` and :math:`P \to Q`.
+  We show :math:`Q \to P` by right iff elimination on :math:`h`. We show :math:`P\to Q` by left iff
+  elimination on :math:`h`.
+
+The Lean proof is virtually identical that that of :numref:`Exampe %s <example_and_comm1>`
+
+.. code-block:: lean
+ 
+  variables (p q : Prop)
+
+  -- BEGIN
+  example (h : p ↔ q) : q ↔ p :=
+  begin
+    split,                    -- By iff introduction, it suffices to prove `q → p` and `p → q`.
+    { show q → p, from h.2 }, -- We show `q → p` by right iff elimination on `h`.
+    { show p → q, from h.1 }, -- We show `p → q` by left iff elimination on `h`.
+  end
+  -- END
+
+We now proof transitivity. That is, given :math:`h_1 : P \leftrightarrow Q` and
+:math:`h_2 : Q \leftrightarrow R`, we have a proof of :math:`P \leftrightarrow R`.
+
+.. proof:proof:: Transitivity of iff
+
+  By iff introduction, it suffices to prove 1. :math:`P\to R` and 2. :math:`R\to P`.
+
+  1. We show :math:`P\to R`. Applying the transtivity of implication
+     (:numref:`Theorem %s <thm_imp_trans1>`), it suffices to prove a. :math:`P\to A` and
+     b. :math:`A\to R` (for some proposition :math:`A`).
+
+     a. We show :math:`P\to Q` by left iff eliminiation on :math:`h_1`.
+
+     b. We show :math:`Q\to R` by left iff elimination on :math:`h_2`.
+
+  2. The proof of :math:`R\to P` is similar and is left to the reader.
+
+
+.. code-block:: lean
+
+  variables p q r : Prop
+
+  theorem imp_trans1 : (p → q) → (q → r) → (p → r) :=
+  λ h₁ h₂ h₃, h₂ (h₁ h₃)
+  -- BEGIN
+  example (h₁ : p ↔ q) (h₂ : q ↔ r) : p ↔ r :=
+  begin
+    split,                            -- By iff intro., it suffices to prove `p → r` and `r → p`.
+    { show p → r, apply imp_trans1,   -- We show `p → r`. By transitivity of `→`, it suffices to prove `p → ?` and `? → r`. 
+      { show p → q, from h₁.1, },     -- We show `p → q` by left iff elimination on `h₁`.
+      { show q → r, from h₂.1, }, },  -- We show `q → r` by left iff elimination on `h₂`.
+   { show r → p, sorry  },            -- The proof of `r → p` is left to the reader.
+  end
+  -- END
+
+.. _sec_rewriting:
+
+Rewriting
+=========
+
+Whenever two propositions :math:`P` and :math:`Q` are judged to be equal, the proposition :math:`P`
+can be replaced with :math:`P`, wherever :math:`P` appears. This process is called *rewriting*.
+
+Rewriting a goal
+----------------
+
+We'll use rewriting in proving the following result.
+
+.. proof:example::
+
+  Let :math:`x, y, z` be natural numbers. Then :math:`x * (y + z) = x * z + y * x`.
+
+Our proof will call on the following intermediate results (which will be proved in due course).
+
+.. proof:theorem:: (Left) distributivity of multiplication over addition
+
+  Let :math:`a, b, c` be natural numbers. Then :math:`a * (b + c) = a * b + a * c`.
+
+.. proof:theorem:: Commutativity of addition
+
+  Let :math:`a` and :math:`b` be natural numbers. Then :math:`a + b = b + a`.
+
+.. proof:theorem:: Commutativity of multiplication
+
+  Let :math:`a` and :math:`b` be natural numbers. Then :math:`a * b = b * a`.
+
+Returning to the example, we have to prove :math:`x * (y + z) = x * z + y * x`. As a first
+step, we can rewrite this using the left distributivity of multiplication over addition (or, more
+simply, distributivity) applied to :math:`x`, :math:`y` and :math:`z`. By application, I mean that the
+variables :math:`x`, :math:`y` and :math:`z` take the roles of :math:`a`, :math:`b` and :math:`c`,
+respectively in the distributive law.
+
+The distributive law with these varaibles subsituted reads :math:`x * (y + z) = x * y + x * z`.
+We rewrite the goal using the proposition. The left side of the goal is replaced with the right side
+of the preceding equation, changing the goal to one of proving :math:`x * y + x * z = x * z + y * x`.
+
+.. proof:proof::
+
+  Rewriting using distributivity applied to :math:`x`, :math:`y`, and :math:`z`, the goal is to prove
+  :math:`x * y + x * z = x * z + y * x`.
+
+  Rewriting using commutativity of addition applied to :math:`x * y` and :math:`x * z`, the goal is
+  to prove :math:`x * z + x * y = x * z + y * x`.
+
+  Rewriting using commutativity of multiplication applied to  :math:`x` and :math:`y`, the goal is 
+  to prove :math:`x * z + y * x = x * z + y * x`.
+
+  This is trivially true (formally, it's true by reflexivity of :math:`=`).
+
+With two of the above rewrites, it isn't stricly necessary to identify the variables being used.
+For example, in the initial goal, the distributivity law could only possibly apply to the variables
+:math:`x`, :math:`y`, and :math:`z` as there is no expression of the form :math:`a * (b + c)` in
+the goal except for :math:`x * (y + z)`.
+
+In Lean, we use the ``rw`` tactic to denote rewriting. Given ``h : P = Q``, the tactic ``rw h``
+will replace the first occurrence (reading left-to-right) of ``P`` with ``Q``. If the
+expression ``h`` depends on variables or other hypotheses, then Lean will look for the first
+expression in the goal that matches the shape of ``h`` and instantiate variables as necessary.
+
+In the code below, ``mul_add`` is the theorem that for all natural numbers ``a``, ``b``, and ``c``,
+we have ``a * (b + c) = a * b + a * c``. Lean matches the left side of this equation with
+``x * (y + z)`` after instantiating ``a`` as ``x``, ``b`` as ``y`` and ``c`` as ``z``.
+
+Having performed that rewrite, the goal becomes ``x * y + x * z = x * z + y * x``.
+
+The ``add_comm`` states that for all natural numbers ``a`` and ``b``, we have ``a + b = b + a``.
+There are *two* subexpressions in the goal ``x * y + x * z = x * z + y * x`` that match with
+``add_comm``, namely ``x * y + x * z`` and  ``x * z + y * x``. However, Lean performs the rewrite on
+the first subexpression that matches. In this case, it's ``x * y + x * z``.
+
+Having performed ``rw add_comm``, the goal becomes ``x * z + x * y = x * z + y * x``.
+
+We need to be precise is our last rewrite. This rewrite involves the theorem ``mul_comm`` which
+states that for all natural numbers ``a`` and ``b``, we have ``a * b = b * a``. The first
+subexpression of the goal to which this theorem applies is ``x * z``. That is, the result of
+performing ``rw mul_comm`` would be identical to the result of performing ``rw x z``, namely to
+change the goal to ``z * x + x * y = x * z + y * x``. 
+
+
+However, rewriting ``x * z`` as ``z * x``
+doesn't resolve the goal! Instead, we need to rewrite applying ``mul_comm`` to ``x`` and ``y``.
+
+This leaves, as a goal, ``x * z + y * x = x * z + y * x``. Lean automatically closes this goal
+by the reflexivity of ``=`` (viz. the fact that ``a = a``, for every ``a``).
+
+
+.. code-block:: lean
+
+  import data.nat.basic
+  
+  variables x y z : ℕ
+  -- BEGIN
+  example : x * (y + z) = x * z + y * x :=
+  begin
+    rw mul_add,
+    rw add_comm,
+    rw mul_comm x y,
+  end
+  -- END
+
+Several rewrites can be combined by enclosing them in brackets, as below.
+
+.. code-block:: lean
+
+  import data.nat.basic
+  
+  variables x y z : ℕ
+  -- BEGIN
+  example : x * (y + z) = x * z + y * x :=
+  by rw [mul_add, add_comm, mul_comm x y]
+  -- END
+
+Rewriting a hypothesis
+----------------------
+
+Given a hypothesis :math:`h : P = Q`, we can rewrite any other hypothesis :math:`k` by replacing
+occurrences of :math:`P` in :math:`k` with :math:`Q`.
+
+.. proof:example::
+
+  Let :math:`x, y, z` be natural numbers. Given :math:`k : y * x = z`, we have 
+  :math:`x * (y + z) = z + x * z`.
+
+.. proof:proof::
+
+  Rewrite using commutativity of multiplication at :math:`k` to give :math:`k : x * y = z`.
+
+  Rewrite using distributivity. The goal is :math:`x * y + x * z = z + x * z`.
+
+  Rewrite using :math:`k`. The goal is :math:`z + x * z = z + x * z`, which is trivially true.
+
+The Lean version of 'rewrite using :math:`h` at :math:`k`' is ``rw h at k`` as shown below.
+
+.. code-block:: lean
+
+  import data.nat.basic
+  
+  variables x y z : ℕ
+  -- BEGIN
+  example (k : y * x = z) : x * (y + z) = z + x * z :=
+  begin
+    rw mul_comm at k,
+    rw mul_add,
+    rw k,
+  end
+  -- END
+
+Rewriting in reverse
+--------------------
+
+Given a hypothesis :math:`h : P = Q`, we've seen that we  can rewrite the goal (or another hypothesis)
+by replacing occurrences of :math:`P` with :math:`Q`. However, by symmetry of :math:`=`, we can
+express :math:`h` as :math:`h : Q = P` and then go on to replace occurrences of :math:`Q` in the
+goal (or another hypothesis) by :math:`P`.
+
+We may refer to this process as 'rewriting using :math:`h` in reverse'.
+
+Recall that the distributive law states :math:`a * (b + c) = a * b + a * c`.
+We can use this (in reverse) to rewrite the expression :math:`x * y + x * z = (z + y) * x` as
+:math:`x * (y + z) = (z + y) * x`. This is the first step in the proof of the following result.
+
+.. proof:example::
+
+  Let :math:`x`, :math:`y` and :math:`z` be natural numbers. Then
+  :math:`x * y + x * z = (z + y) * x`.
+
+.. proof:proof::
+
+  Rewriting using the distributive law (in reverse), the goal is :math:`x * (y + z) = (z + y) * x`.
+
+  Rewriting using the commutativity of multiplication, the goal is :math:`(y + z) * x = (z + y) * x`.
+
+  Rewriting using the commutativity of addition, the goal is :math:`(z + y) * x = (z + y) * x`. 
+  This is trivially true.
+
+In Lean, we denote rewriting using ``h`` in reverse as ``rw ←mul_add``, as in the example below.
+
+.. code-block:: lean
+
+  import data.nat.basic
+  
+  variables x y z : ℕ
+  -- BEGIN
+  example : x * y + x * z = (z + y) * x :=
+  begin
+    rw ←mul_add,
+    rw add_comm,
+    rw mul_comm,
+  end
+  -- END
+
+Propositional Extensionality and Rewriting
+==========================================
+
+In advanced courses on mathematical logic (for the avoidance of doubt, this is not an advanced course),
+one typically proves theorems *about* systems of logic. One such theorem is that given propositions
+:math:`P` and :math:`Q` and given :math:`h : P \leftrightarrow Q`, if the proposition :math:`Q` is
+substituted for :math:`P` wherever :math:`P` appears in a theorem then result will still be a
+theorem. 
+
+We will not prove this theorem of meta propositional logic but we pause to note that the reflexivity,
+symmetry, and transitivity properties of :math:`\leftrightarrow`, when taken together, suggest
+very strongly that propositions :math:`P` and :math:`Q` should be treated as equal if
+:math:`P\leftrightarrow Q`.
+
+To simplify matters, we will take treat this theorem as a rule, the principle of propositional
+extensionality.
+
+.. proof:mathsrule:: Propositional extensionality
+
+  Let :math:`P` and :math:`Q` be propositions. Given :math:`h : P \leftrightarrow Q`, we have
+  :math:`P = Q`.
+
+Rewriting a goal 
+----------------
+
+Given :math:`h : P \leftrightarrow Q`, we can denote the use of propositional extensionality on the
+by writing, 'Rewriting using :math:`h`, the goal is ...', as in :numref:`Section %s <sec_rewriting>`.
+We use this form of expression in the examples below.
+
+In our first example, we use propositional extensionality to give a quick proof of transitivity of
+implication. Given :math:`h_1 : P \leftrightarrow Q` and :math:`h_2 : Q \leftrightarrow R` we have
+a proof of :math:`P \leftrightarrow R`.
+
+.. proof:proof::
+
+  Rewriting using :math:`h_1`, the goal is to prove prove :math:`Q \leftrightarrow R`.
+  This holds by reiteration on :math:`h_2`.
+
+Compare this to the rather more involved proof given in :numref:`Section %s <sec_refl_sym_trans_iff>`.
+
+In Lean, we use the ``rw`` tactic to rewrite the goal.
+
+.. code-block:: lean
+
+  variables p q r : Prop
+
+  -- BEGIN
+  example (h₁ : p ↔ q) (h₂ : q ↔ r) : p ↔ r :=
+  begin
+    rw h₁,    -- Rewriting using `h₁`, the goal is to prove `q ↔ r`.
+    exact h₂, -- This holds by reiteration on `h₂`.
+  end
+  -- END
+
+In the next example, we rewrite using De Morgan's law (a result we will prove later):
+:math:`\neg(P \lor Q) \leftrightarrow
+\neg P \land \neg Q` and our commtativity of conjunction result, :numref:`Theorem %s <thm_and_comm3>`.
+
+.. proof:example::
+
+  Let :math:`P` and :math:`Q` be propositions. Then :math:`\neg(P \lor Q) \leftrightarrow 
+  \neg Q \land \neg P`.
+
+.. proof:proof::
+
+  Rewriting using De Morgan's law, the goal is to prove
+  :math:`\neg P \land \neg Q \leftrightarrow \neg Q \land\neg P`. This holds by applying
+  commutativity of conjunction.
+
+In the Lean proof below, ``not_or_distrib`` is the name of the relvant De Morgan's law.
+
+.. code-block:: lean
+
+  import logic.basic
+
+  variables p q : Prop
+
+  -- BEGIN
+  example : ¬(p ∨ q) ↔ ¬q ∧ ¬p :=
+  begin
+    rw not_or_distrib, -- Rewrite using De Morgan's law. The goal is `¬p ∧ ¬q ↔ ¬q ∧ ¬p`.
+    apply and_comm,    -- This holds by applying commutativity of conjunction.
+  end
+  -- END
+
+Rewriting a hypothesis
+----------------------
+
+We can use rewriting (i.e. propositional extensionality) on hypotheses just as we can on goals.
+
+.. _example_rumtumtugger:
+
+.. proof:example::
+
+  Let :math:`P` and :math:`Q` be propositions. Given :math:`k : \neg(P \lor Q)`, we have a proof of
+  :math:`\neg Q \land \neg P`.
+
+.. proof:proof::
+
+  Rewriting using De Morgan's law at :math:`k`, we have :math:`k : \neg P \land \neg Q`.
+  Rewriting using commutativity of conjunction, the goal is :math:`\neg P \land \neg Q`.
+  The result follows by reiteration on :math:`k`.
+
+.. code-block:: lean
+
+  import logic.basic
+
+  variables p q : Prop
+
+  -- BEGIN
+  example (k : ¬(p ∨ q)) : ¬q ∧ ¬p :=
+  begin
+    rw not_or_distrib at k, -- Rewriting using De Morgan's law at `k`, we have `k : ¬p ∧ ¬q`.
+    rw and_comm,            -- Rewriting using commutativity of conjunction, the goal is `¬p ∧ ¬q`.
+    exact k,                -- This holds by reiteration on `k`.
+  end
+  -- END
+
+Rewriting in reverse
+--------------------
+
+Given :math:`h : P \leftrightarrow Q` to rewrite using :math:`h` in reverse is to replace occurrences
+of :math:`Q` in the goal (or in another hypothesis) with :math:`P`.
+
+By rewriting in reverse, we give an alternative proof of :numref:`Example %s <example_rumtumtugger>`.
+For this, we need the commutative law of disjunction (to be proved later). Namely, given propositions
+:math:`S` and :math:`T`, we have :math:`S \lor T \leftrightarrow T \lor S`.
+
+.. proof:proof:: Proof of :numref:`Example %s <example_rumtumtugger>`
+
+  Rewriting using De Morgan's law in reverse, the goal is :math:`\neg(Q \lor P)`.
+
+  Rewriting using commutativity of disjunction, the goal is :math:`\neg(P \lor Q)`.
+
+  We close the goal by reiteration on :math:`k`.
+
+As in :numref:`Section %s <sec_rewriting>`, we denote rewriting using ``h`` in reverse as
+``rw ←mul_add``, as in the example below.
+
+
+.. code-block:: lean
+
+  import logic.basic
+
+  variables p q : Prop
+
+  -- BEGIN
+  example (h : ¬(p ∨ q)) : ¬q ∧ ¬p :=
+  begin
+    rw ←not_or_distrib, 
+    rw or_comm,        
+    exact h,          
+  end
+  -- END
+  
 
 An introduction to existential quantification
 =============================================
