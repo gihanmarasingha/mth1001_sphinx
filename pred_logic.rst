@@ -1,4 +1,4 @@
-.. _pred_logic:
+.. _sec_pred_logic:
 
 ***************
 Predicate Logic

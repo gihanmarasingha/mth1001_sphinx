@@ -1,4 +1,4 @@
-.. _prop_logic:
+.. _sec_prop_logic_summary:
 
 ********************************
 Propositional Logic Lean Summary

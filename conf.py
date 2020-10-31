@@ -95,7 +95,8 @@ proof_theorem_types = {
    "proof": "Proof",
    "property": "Property",
    "theorem": "Theorem",
-   "mathsrule" : "Rule"
+   "mathsrule" : "Rule",
+   "axiom" : "Axiom"
 }
 
 

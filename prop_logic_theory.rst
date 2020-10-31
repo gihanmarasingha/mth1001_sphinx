@@ -1,8 +1,8 @@
-.. _prop_logic_tutorial:
+.. _sec_prop_logic_tutorial:
 
-**************************
-Propositional Logic Theory
-**************************
+*********************************
+The Theory of Propositional Logic
+*********************************
 
 
 Propositions and propositional variables
@@ -118,7 +118,7 @@ will also include the hypotheses :math:`k_2`.
 Conjunction 
 ===========
 
-Conjunction Elimination
+Conjunction elimination
 -----------------------
 
 There are two conjunction elimination rules, left and right.
@@ -138,7 +138,7 @@ the premise :math:`h : (P \land Q)\land R`.
   We have :math:`h_2 : P\land Q` by left conjunction elimination on :math:`h`. The result follows
   by right conjunction elimination on :math:`h_2`.
 
-Conjunction Elimination in Lean
+Conjunction elimination in Lean
 -------------------------------
 
 This is expressed in Lean as follows.
@@ -258,7 +258,7 @@ This can be written mathematically as follows.
   We have :math:`h_2 : p \land q` and :math:`h_3 : r` by left and right conjunction elimination,
   respectively, on :math:`h`. The result follows by right conjunction elimination on :math:`h_2`.
 
-Conjunction Introduction
+Conjunction introduction
 ------------------------
 
 The rule of conjunction introduction can be expressed in two forms, forward and backward.
@@ -867,7 +867,7 @@ Indeed, the *statement* of :numref:`Example %s <example_and_comm_funny>` is esse
 
 Indeed, one should think of :numref:`Theorem %s <thm_and_comm2>` as stating that
 :math:`P \land Q \to Q \land P` *for all* propositions :math:`P` and :math:`Q`. We will develop the
-notion of 'for all' further in :numref:`Section %s <pred_logic>`.
+notion of 'for all' further in :numref:`Section %s <sec_pred_logic>`.
 
 For the moment, we should think of the variables :math:`P` and :math:`Q` that appear in the
 statement of :numref:`Theorem %s <thm_and_comm2>` as being *placeholders*, *inputs* or *parameters*
@@ -1220,10 +1220,17 @@ used in the proof below.
   -- END
   end hidden
 
+Converse
+--------
+
+Given a conditional :math:`P\to Q`, its *converse* is the conditional :math:`Q\to P`. The rules of
+inference for iff effectively assert that to prove a biconditional :math:`P \leftrightarrow Q`
+is to prove a conditional :math:`P\to Q` and its converse :math:`Q\to P`.
+
 
 .. _sec_refl_sym_trans_iff:
 
-Reflexivity, Symmetry, Transitivity of iff
+Reflexivity, symmetry, transitivity of iff
 ------------------------------------------
 
 Iff has some particularly nice properties.
@@ -1336,6 +1343,7 @@ Rewriting
 
 Whenever two propositions :math:`P` and :math:`Q` are judged to be equal, the proposition :math:`P`
 can be replaced with :math:`P`, wherever :math:`P` appears. This process is called *rewriting*.
+Technically, equality is a notion of predicate logic rather than propositional logic.
 
 Rewriting a goal
 ----------------
@@ -1525,7 +1533,7 @@ In Lean, we denote rewriting using ``h`` in reverse as ``rw ←mul_add``, as in 
   end
   -- END
 
-Propositional Extensionality and Rewriting
+Propositional extensionality and rewriting
 ==========================================
 
 In advanced courses on mathematical logic (for the avoidance of doubt, this is not an advanced course),
@@ -1579,9 +1587,9 @@ In Lean, we use the ``rw`` tactic to rewrite the goal.
   end
   -- END
 
-In the next example, we rewrite using De Morgan's law (a result we will prove later):
-:math:`\neg(P \lor Q) \leftrightarrow
-\neg P \land \neg Q` and our commtativity of conjunction result, :numref:`Theorem %s <thm_and_comm3>`.
+In the next example, we rewrite using De Morgan's law [#]_ :math:`\neg(P \lor Q) \leftrightarrow
+\neg P \land \neg Q` and our commtativity of conjunction result,
+:numref:`Theorem %s <thm_and_comm3>`.
 
 .. proof:example::
 
@@ -1609,6 +1617,10 @@ In the Lean proof below, ``not_or_distrib`` is the name of the relvant De Morgan
     apply and_comm,    -- This holds by applying commutativity of conjunction.
   end
   -- END
+
+.. [#] We'll prove this later as :numref:`Theorem %s <thm_not_or_distrib>`. Another of De Morgan's
+       laws is :numref:`Theorem %s <thm_not_and_distrib>`, which asserts
+       :math:`\neg(P\land Q) \leftrightarrow\neg P\lor\neg Q`.
 
 Rewriting a hypothesis
 ----------------------
@@ -1653,7 +1665,9 @@ By rewriting in reverse, we give an alternative proof of :numref:`Example %s <ex
 For this, we need the commutative law of disjunction (to be proved later). Namely, given propositions
 :math:`S` and :math:`T`, we have :math:`S \lor T \leftrightarrow T \lor S`.
 
-.. proof:proof:: Proof of :numref:`Example %s <example_rumtumtugger>`
+We are now in a position to prove :numref:`Example %s <example_rumtumtugger>`.
+
+.. proof:proof::
 
   Rewriting using De Morgan's law in reverse, the goal is :math:`\neg(Q \lor P)`.
 
@@ -1679,16 +1693,1020 @@ As in :numref:`Section %s <sec_rewriting>`, we denote rewriting using ``h`` in r
     exact h,          
   end
   -- END
-  
-
-An introduction to existential quantification
-=============================================
 
 Disjunction
 ===========
 
+Disjunction introduction
+------------------------
+
+There are two disjunction introduction rules, left and right. Each comes in both a forward and a
+backward flavour.
+
+.. proof:mathsrule:: Disjunction introduction, forward
+
+  .. raw:: latex
+
+    \ 
+
+  * (*Left or introduction*) given :math:`h : P`, we have a proof of :math:`P \lor Q`.
+  * (*Right or introduction*) given :math:`h : Q`, we have a proof of :math:`P \lor Q`.
+
+.. _example_s_or_t_or_u_intro:
+
+.. proof:example::
+
+  Let :math:`S`, :math:`T`, and :math:`U` be propositions. Given :math:`h : T`, we have
+  :math:`S \lor (T \lor U)`.
+
+.. proof:proof:: Forward
+
+  We have :math:`h_2 : T \lor U` by left or introduction on :math:`h`. The result follows by right
+  or introduction on :math:`h_2`.
+
+In Lean, given ``h : p``, the expression ``or.inl h`` is a proof term for ``p ∨ q``. Given, ``h : q``,
+the expression ``or.inr h`` is a proof term for ``p ∨ q``.
+
+.. code-block:: lean
+
+  variables s t u : Prop
+
+  -- BEGIN
+  example (h : t) : s ∨ (t ∨ u) :=
+  begin
+    have h₂ : t ∨ u, from or.inl h,
+    exact or.inr h₂,
+  end
+  -- END
+
+.. proof:mathsrule:: Disjunction introduction, backward
+
+  .. raw:: latex
+
+    \ 
+
+  * (*Left or introduction*) to prove :math:`P \lor Q`, it suffices to prove :math:`P`.
+  * (*Right or introduction*) to prove :math:`P \lor Q`, it suffices to prove :math:`Q`.
+
+We give a backward proof of :numref:`Example %s <example_s_or_t_or_u_intro>`.
+
+.. proof:proof:: Backward
+
+  We show :math:`S \lor (T \lor U)`. By backward right or introduction, it suffices to prove
+  :math:`T\lor U`. By backward left introduction, it suffices to prove :math:`T`.
+  We show :math:`T` by reiteration on :math:`h`.
+
+The Lean tactic for backward left or introduction is ``left``. That for backward right or
+introduction is ``right``.
+
+.. code-block:: lean
+
+  variables s t u : Prop
+
+  -- BEGIN
+  example (h : t) : s ∨ (t ∨ u) :=
+  begin
+    right,           -- By right or introduction, it suffices to prove `t ∨ u`.
+    left,            -- By left or introduction, it suffice to prove `t`.
+    show t, from h,  -- We show `t` by reiteration on `h`.
+  end
+  -- END
+
+Disjunction elimination
+-----------------------
+
+This is the most challenging rule so far. We start with an example.
+
+Suppose we know of Peggy that she keeps rabbits or she grows strawberries.
+Further, we have 1. if Peggy keeps rabbits, then she needs straw as bedding material for the rabbits.
+We also have 2. if Peggy grows strawberries, then she needs straw to keep the strawberries off the
+ground and help keep them clean. We deduce that Peggy needs straw.
+
+The deduction here is an application of disjunction elimination.
+
+.. proof:mathsrule:: Disjunction elimination, backward
+
+  Let :math:`P`, :math:`Q`, and :math:`R` be propositions. Given :math:`h : P \lor Q`, to prove
+  :math:`R`, it suffices 1. to show :math:`R` on the assumption :math:`h_1 : P` and 2. to show
+  :math:`R` on the assumption :math:`h_2 : Q`.
+
+Here is an archetypal example of backward disjunction elimination.
+
+.. proof:example::
+
+  Let :math:`P`, :math:`Q`, and :math:`R` be propositions. Given :math:`h : P \lor Q`,
+  :math:`k_1 : P \to R`, and :math:`k_2 : Q\to R`, we have a proof of :math:`R`.
+
+.. proof:proof::
+
+  By or elimination on :math:`h`, it suffices 1. to show :math:`R` on the assumption :math:`h_1 : P`
+  and 2. to show :math:`R` on the assumption :math:`h_2 : Q`.
+  
+  1. We show :math:`R` by implication elimination on :math:`k_1` and :math:`h_1`.
+
+  2. We show :math:`R` by implication elimination on :math:`k_2` and :math:`h_2`.
+
+
+The Lean tactic used for decomposing a conjunction is ``cases``. Suppose the current goal is ``r``.
+Given ``h : p ∨ q``, the expression ``cases h with h₁ h₂`` causes Lean to create two new goals.
+1. to prove ``r`` with ``h₁ : p`` added to the context and 2. to prove ``r`` with ``h₂ : q`` added
+to the context. 
+
+.. code-block:: lean
+
+  variables p q r : Prop
+
+  -- BEGIN
+  example (h : p ∨ q) (k₁ : p → r) (k₂ : q → r) : r :=
+  begin
+  -- By or elim. on `h`, it suffices
+    -- 1. to show `r` on the assumption `h₁ : p` and 
+    -- 2. to show `r` on the assumption `h₂ : q`.
+    cases h with h₁ h₂, 
+    { show r, from k₁ h₁, }, -- We show `r` by implication elimination on `k₁` and `h₁`.
+    { show r, from k₂ h₂, }, -- We show `r` by implication elimination on `k₂` and `h₂`.
+  end
+  -- END
+
+The forward disjunction elimination rule is a restatement of the result just proved.
+
+.. proof:mathsrule:: Disjunction elimination, forward
+
+  Let :math:`P`, :math:`Q`, and :math:`R` be propositions. Given :math:`h : P \lor Q`, 
+  :math:`k_1 : P \to R` and :math:`k_2 : Q \to R`, we have a proof of :math:`R`.
+
+The parallel between the forward and backward versions of disjunction elimination are evident when
+one realises that to prove :math:`k_1 : P \to R`, for example, is to assume :math:`h_1 : P` and to
+deduce :math:`R`.
+
+
+In Lean, given ``h : p ∨ q``, ``k₁ : p → r``, and ``k₂ : q → r``, the expression ``or.elim h k₁ k₂``
+is a proof term for ``r``. This considerably shortens the proof of the previous result.
+
+.. code-block:: lean
+
+  variables p q r : Prop
+
+  -- BEGIN
+  example (h : p ∨ q) (k₁ : p → r) (k₂ : q → r) : r :=
+  by exact or.elim h k₁ k₂
+  -- END
+
+Commutativity and associativity of disjunction
+----------------------------------------------
+
+As a more interesting example, we have a preliminary result on the commutativity of disjunction.
+
+.. _thm_or_comm1:
+
+.. proof:theorem:: Commutativity of disjunction (I)
+
+  Let :math:`S` and :math:`T` be propositions. Given :math:`h : S \lor T`, we have :math:`T \lor S`.
+
+We give a proof via backward or elimination and forward or introduction.
+
+.. proof:proof::
+
+  By or elimination on :math:`h`, it suffices 1. to assume :math:`h_1 : S` and deduce
+  :math:`T \lor S` and 2. to assume :math:`h_2 : T` and deduce :math:`T \lor S`.
+
+  1. Assume :math:`h_1 : S`. We show :math:`T\lor S` by right or introduction on :math:`h_1`.
+
+  2. Assume :math:`h_2 : T`. We show :math:`T\lor S` by left or introduction on :math:`h_2`.
+
+
+.. code-block:: lean
+
+  variables s t : Prop
+
+  -- BEGIN
+  theorem or_of_or (h : s ∨ t) : t ∨ s :=
+  begin
+    cases h with h₁ h₂, 
+    { exact or.inr h₁,}, 
+    { exact or.inl h₂, },
+  end
+  -- END
+
+Using the above result, we can prove a more symmetrical version of the commutativity result.
+
+.. proof:theorem:: Commutativity of disjunction (II)
+
+  Let :math:`P` and :math:`Q` be propositions. Then :math:`P \lor Q \leftrightarrow Q\lor P`.
+
+.. proof:proof::
+
+  By iff introduction, it suffices to prove 1. :math:`P\lor Q\to Q\lor P` and 2.
+  :math:`Q\lor P\to P\lor Q`. Both these goals can be closed by applying
+  :numref:`Theorem %s <thm_or_comm1>`.
+
+.. code-block:: lean
+
+  variables p q s t : Prop
+
+  theorem or_of_or (h : s ∨ t) : t ∨ s :=
+  begin
+    cases h with h₁ h₂, 
+    { exact or.inr h₁,}, 
+    { show t ∨ s, from or.inl h₂, },
+  end
+  namespace hidden
+  -- BEGIN
+  theorem or_comm : p ∨ q ↔ q ∨ p :=
+  begin
+    split;
+    apply or_of_or
+  end
+  -- END
+  end hidden
+
+The associativity result is more involved. We give a partial Lean proof of the result. Fill in
+the ``sorry`` s below to complete the proof.
+
+.. code-block:: lean
+
+  variables {p q r : Prop}
+  namespace hidden
+  -- BEGIN
+  theorem or_assoc : (p ∨ q) ∨ r ↔ p ∨ (q ∨ r) :=
+  begin
+    split,
+    { intro h,
+      cases h with h₁ h₂,
+      { cases h₁ with m₁ m₂,
+        { left, exact m₁, },
+        { right, left, exact m₂, }, },
+      { sorry, }, },
+    { sorry, },
+  end
+  -- END
+  end hidden
+
 False and negation
 ==================
 
+Rules for false and negation
+----------------------------
+
+The symbol :math:`\bot`, read 'arbitrary contradiction' or 'false' is a constant proposition.
+Its use is governed most fundamentally by the principle *ex falso sequitur quodlibet*, 'out of false,
+whatever you like follows', also called false elimination.
+
+This principle is illustrated by such English-language phrases as, 'If Torquay United wins the FA Cup,
+then I'm a monkey's uncle'. The premise 'Torquay United wins the FA Cup' being considered a
+contradiction, I can derive anything from its assumption.
+
+.. proof:mathsrule:: False elimination (*ex falso*), forward
+
+  Given :math:`h : \bot`, we have a proof of :math:`P`.
+
+.. proof:mathsrule:: False elimination (*ex falso*), backward
+
+  To prove :math:`P`, it suffices to prove :math:`\bot`.
+
+.. _ex_neg_elim:
+
+.. proof:example::
+
+  Let :math:`P` and :math:`Q` be propositions. We have :math:`(P \to \bot) \to (P \to Q)`.
+
+.. proof:proof::
+
+  * Assume :math:`h_1 : P \to bot`. It suffices to prove :math:`P \to Q` (by implication intro.).
+
+  * Assume :math:`h_2 : P`. It suffice to prove :math:`Q` (by implication intro.).
+
+  * By false elimination, it suffices to prove :math:`\bot`.
+
+  * We show :math:`\bot` by implication elimination on :math:`h_1` and :math:`h_2`.
+
+``false`` is the Lean equivalent of :math:`\bot`. If ``h`` is a proof term for ``false``, then
+``false.elim h`` is a proof term for ``p`` (where ``p`` is the current goal).
+
+.. code-block:: lean
+
+  variables {p q : Prop}
+  -- BEGIN
+  example : (p → false) → (p → q) :=
+  begin
+    assume h₁ : p → false,
+    assume h₂ : p,
+    show q, from false.elim (h₁ h₂)
+  end
+  -- END
+
+Alternativly, the tactic ``exfalso`` can be used to change the current goal to one of proving
+``false``.
+
+.. code-block:: lean
+
+  variables {p q : Prop}
+  -- BEGIN
+  example : (p → false) → (p → q) :=
+  begin
+    assume h₁ : p → false,
+    assume h₂ : p,
+    exfalso,
+    show false, from h₁ h₂
+  end
+  -- END
+
+We write :math:`\neg P` as a shorthand for :math:`P \to \bot`. The expression :math:`\neg P` is read
+'the negation of :math:`P`' or 'not :math:`P`'. With this notation, we can re-express the above
+example. 
+
+.. proof:theorem::
+
+  Let :math:`P` and :math:`Q` be propositions. Given :math:`h_1 : \neg P` and :math:`h_2 : P`, we
+  have a proof of :math:`Q`.
+
+This follows on applying :numref:`Example %s <ex_neg_elim>` with :math:`h_1` and :math:`h_2`.
+
+.. code-block:: lean
+
+  variables {p q : Prop}
+  -- BEGIN
+  example (h₁ : ¬p) (h₂ : p) : q :=
+  begin
+    exfalso,
+    show false, from h₁ h₂
+  end
+  -- END
+
+Alternatively, the powerful ``contradiction`` tactic searches the context for a contradition (viz.
+the appearance of a proposition and its neagation in the context) and uses it to close the goal.
+
+.. code-block:: lean
+
+  variables {p q : Prop}
+  -- BEGIN
+  example (h₁ : ¬p) (h₂ : p) : q :=
+  begin
+    contradiction
+  end
+  -- END
+
+In the special case where :math:`Q` is :math:`\bot`, this result is called *false introduction* and
+is often treated as a rule of inference, though it is really just implication elimination in
+disguise.
+
+.. proof:theorem:: False introduction, forward
+
+  Given :math:`h_1 : \neg P` and :math:`h_2 : P`, we have a proof of :math:`\bot`.
+
+.. proof:theorem:: False introduction, backward
+
+  Given :math:`h_1 : \neg P`, to prove :math:`\bot`, it suffices to prove :math:`P`.
+
+Another derived result is negation introduction, which is implication introduction in
+disguise.
+
+.. proof:theorem:: Negation introduction
+
+  Let :math:`P` be a proposition. To prove :math:`\neg P` is to assume :math:`\bot` and derive
+  :math:`P`.
+
+Applications of false and negation
+----------------------------------
+
+.. proof:example::
+
+  Let :math:`P` and :math:`Q` be propositions. Given :math:`h : \neg(P\lor Q)`, we have :math:`\neg P`.
+
+Here's a proof using negation introduction and backward false introduction.
+
+.. proof:proof::
+
+  Assume :math:`h_1 : P`. By negation introduction, it suffices to derive :math:`\bot`.
+  By false introduction on :math:`h`, it suffices to prove :math:`p \lor q`. This follows by left
+  or introduction on :math:`h_1`.
+
+In the Lean proof below, we use ``apply`` to prove invoke (backward) false introduction, just as we
+would when invoking implication elimination. This is because false introduction *is* implication
+elimination.
+
+Likewise, we use ``assume`` for negation introduction, just as we do for implication introduction.
+
+.. code-block:: lean
+
+  variables {p q : Prop}
+  -- BEGIN
+  example (h : ¬(p ∨ q)) : ¬p :=
+  begin
+    assume h₁ : p,   -- It suffices to prove `false`.
+    apply h,         -- By false introduction on `h`, it suffices to prove `p ∨ q`.
+    exact or.inl h₁, -- This follows by left or introduction on `h₁`.
+  end
+  -- END
+
+The next example shows one can derive the implication :math:`P\to Q` given the hypothesis
+:math:`\neg P \lor Q`. We'll later show the converse of this assertion.
+
+.. proof:example:: One direction of material conditional
+
+  Let :math:`P` and :math:`Q` be propositions. Then :math:`\neg P \lor Q \to (P\to Q)`.
+
+.. proof:proof::
+
+  Assume :math:`h_1 : \neg P\lor Q`. Assume :math:`h_2 : P`. It suffices to prove :math:`Q`.
+  By or elimination on :math:`h_1`, it suffices to 1. assume :math:`h_3 : \neg P` and derive
+  :math:`Q` and 2. assume :math:`h_4 : Q` and derive :math:`Q`.
+
+  1. Assume :math:`h_3 : \neg P`. By false elimination, it suffices to prove :math:`\bot`. We show this by
+     false introduction on :math:`h_3` and :math:`h_2`.
+
+  2. Assume :math:`h_4 : Q`. We show :math:`Q` by reiteration on :math:`h_4`.
+
+In the Lean proof below we write ``h₃ h₂`` for a forward false introduction using ``h₃`` and ``h₂``.
+This is because we are really doing implication elimination on ``h₃`` and ``h₂``.
+
+.. code-block:: lean
+
+  variables {p q : Prop}
+  -- BEGIN
+  example : (¬p ∨ q) → (p → q) :=
+  begin
+    intros h₁ h₂,                  -- Assume `h₁ : ¬p ∨ q`. Assume `h₂ : p`. It suffices to prove `q`.
+    -- By or elim. on `h₁`, it suffices to 1. assume `h₃ : ¬p` and derive `q` and 2. assume `h₄ : q` and derive `q`
+    cases h₁ with h₃ h₄,        
+    { exfalso,                    -- By false elimination, it suffices to prove `false`.
+      show false, from h₃ h₂, },  -- We show false by false introduction on `h₃` and `h₂`.
+    { show q, from h₄, },         -- We show `q` by reiteration on `h₄`.
+  end
+  -- END
+
+The next result is one half of a result that shows :math:`P` is equivalent to :math:`\neg\neg P`.
+We prove the other half of this result in :numref:`Section %s <sec_classical_reasoning>`.
+
+.. _thm_not_not_of_self:
+
+.. proof:theorem:: One direction of double negation
+
+  Let :math:`P` be a proposition. We have :math:`P\to\neg\neg P`.
+
+.. proof:proof::
+
+  * Assume :math:`h_1 : P`. It suffices to prove :math:`\neg\neg P`.
+
+  * Assume :math:`h_2 : \neg P`. By negation introduction, it suffices to prove :math:`\bot`.
+
+  * We show :math:`\bot` by false introduction on :math:`h_2` and :math:`h_1`.
+
+.. code-block:: lean
+
+  variable p : Prop
+  -- BEGIN
+  theorem not_not_of_self : p → ¬¬p :=
+  begin
+    intros h₁ h₂,           -- Assume `h₁ : p`. Assume `h₂ : ¬p`. It suffices to prove `false`.
+    show false, from h₂ h₁, -- We show `false` by false introduction on `h₂` and `h₁`.
+  end
+  -- END
+
+The contrapositive of a conditional :math:`P\to Q` is the proposition :math:`\neg Q\to\neg P`.
+In :numref:`Section %s <sec_classical_reasoning>`, we'll prove that a proposition is equivalent to
+its contrapositive. We'll prove one half of that assertion now.
+
+.. _thm_mt:
+
+.. proof:theorem:: One direction of contrapositive theorem, *modus tollens*
+
+  Let :math:`P` and :math:`Q` be propositions. Then :math:`(P\to Q)\to(\neg Q\to\neg P)`.
+
+We give the Lean proof below with the corresponding mathematical proof in the comments.
+Note I could have replaced the first two lines with a single line, ``intros h₁ h₂ h₃``.   
+
+.. code-block:: lean
+
+  variables {p q : Prop}
+  -- BEGIN
+  theorem mt : (p → q) → (¬q → ¬p) :=
+  begin
+    intros h₁ h₂, -- Assume `h₁ : p → q`, `h₂ : ¬q`. It suffices to prove `¬p`.
+    intro h₃,     -- Assume `h₃ : p`. By negation introiduction, it suffices to prove `false`.
+    apply h₂,     -- By fale introduction on `h₂`, it suffices to prove `q`.
+    exact h₁ h₃,  -- This follows by implication elimination on `h₁` and `h₃`.
+  end
+  -- END
+
+De Morgan's laws state 1. :math:`\neg(P \land Q)\leftrightarrow\neg P\lor \neg Q` and 2.
+:math:`\neg(P\lor Q)\leftrightarrow\neg P \land \neg Q`.
+
+In total, there are four directions to prove. We give proofs of three directions in this section
+and the remaining direction in :numref:`Section %s <sec_classical_reasoning>`. 
+
+.. _thm_not_or_of_not_and_not:
+
+.. proof:theorem:: De Morgan, 'not or of not and not'
+
+  Let :math:`P` and :math:`Q` be propositions. Then :math:`\neg P \land\neg Q\to\neg(P\lor Q)`.
+
+Our first proof uses each rule of inference explicitly.
+
+.. code-block:: lean
+
+  variables {p q : Prop}
+  -- BEGIN
+  theorem not_or_of_not_and_not : ¬p ∧ ¬q →  ¬(p ∨ q) :=
+  begin
+    assume h₁ : ¬p ∧ ¬q, -- Assume `h₁ : ¬p ∧ ¬q`. By implication introduction, it suffices to prove `¬(p ∨ q)`.
+    cases h₁ with h₃ h₄, -- We have `h₃ : ¬p` and `h₄ : ¬q` by left and right `∧` elim. on `h₁`.
+    assume h₅ : p ∨ q,   -- Assume `h₅ : p ∨ q`. By negation introduction, it suffices to prove `false`.
+    -- By or elimination on `h₅`, it suffices to 1. assume `h₆ : p` and derive `false` and 2. assume `h₇ : q` and derive `false`.
+    cases h₅ with h₆ h₇,
+    { exact h₃ h₆, },    -- The goal in the first case is closed by false introduction on `h₃` and `h₆`.
+    { exact h₄ h₇, },    -- The goal in the second case is closed by false introduction on `h₄` and `h₇`.
+
+  end 
+  -- END
+
+The second proof greatly simplifies this by using the ``rintro`` tactic, which introduces an
+assumption and decomposes it recursively. That is, it applies ``cases`` recursively to each
+introduced hypothesis.
+
+Note the differences in how we use ``rintro``. In our first application, we use ``rintro ⟨h₃, h₄⟩``
+to introduce and decompose a hypothesis representing the conjunction ``¬p ∧ ¬q``.
+The anonymous-constructor-like notation ``⟨h₃, h₄⟩`` appears here because the conjunction connective
+has one constructor, ``and.intro``. The decomposition introduces ``h₃ : ¬p`` and ``h₄ : ¬q`` into
+the context.
+
+We next use ``rintro (h₆ | h₇)`` to introduce and decompose a hypothesis representing the
+disjuction ``p ∨ q``. As disjunction has two constructors, ``or.inl`` and ``or.inr``, the
+decomposition introduces *two* new goals. This corresponds to or elimination.
+
+.. code-block:: lean
+
+  import tactic.rcases
+  variables {p q : Prop}
+  -- BEGIN
+  theorem not_or_of_not_and_not : ¬p ∧ ¬q →  ¬(p ∨ q) :=
+  begin
+    rintro ⟨h₃, h₄⟩,   -- By `→` intro and left and right `∧` elim, we have `h₃ : ¬p` and `h₄ : ¬q`.
+    -- By `→` intro and or elim., it suffices to 1. assume `h₆ : p` and derive `false` and 2. assume `h₇ : q` and derive `false`.
+    rintro (h₆ | h₇),
+    { exact h₃ h₆, }, -- The goal in the first case is closed by false introduction on `h₃` and `h₆`.
+    { exact h₄ h₇, }, -- The goal in the second case is closed by false introduction on `h₄` and `h₇`.
+  end 
+  -- END
+
+Several successive ``rintro`` lines can be combined, albeit with some loss of readability.
+
+.. code-block:: lean
+
+  import tactic.rcases
+  variables {p q : Prop}
+  -- BEGIN
+  theorem not_or_of_not_and_not : ¬p ∧ ¬q →  ¬(p ∨ q) :=
+  begin
+    rintro ⟨h₃, h₄⟩ (h₆ | h₇),
+    { exact h₃ h₆, }, -- The goal in the first case is closed by false introduction on `h₃` and `h₆`.
+    { exact h₄ h₇, }, -- The goal in the second case is closed by false introduction on `h₄` and `h₇`.
+  end 
+  -- END
+
+.. _thm_not_and_not_of_not_or:
+
+.. proof:theorem:: De Morgan, 'not and not of not or'
+
+  Let :math:`P` and :math:`Q` be propositions. Then :math:`\neg(P\lor Q)\to\neg P\land\neg Q`.
+
+Here is a partial Lean proof. Fill in the ``sorry`` s. Hint: you've already seen the proof of the
+first subgoal earlier in this section.
+
+.. code-block:: lean
+
+  variables {p q : Prop}
+
+  -- BEGIN
+  theorem not_and_not_of_not_or : ¬(p ∨ q) → ¬p ∧ ¬q :=
+  begin
+    intro h₁, -- Assume `h₁ : ¬(p ∨ q)`. It suffices to prove `¬p ∧ ¬q`.
+    split,    -- By and introduction, it suffices to prove 1. `¬p` and 2. `¬q`.
+    { sorry },
+    { sorry },
+  end 
+  -- END
+
+By iff introduction on :numref:`Theorem %s <thm_not_or_of_not_and_not>` and
+:numref:`Theorem %s <thm_not_and_not_of_not_or>`, we have our first complete De Morgan's law.
+
+.. _thm_not_or_distrib:
+
+.. proof:theorem:: De Morgan, 'not or distrib'
+
+  Let :math:`P` and :math:`Q` be propositions. Then
+  :math:`\neg(P\lor Q)\leftrightarrow\neg P\land\neg Q`.
+
+
+.. code-block:: lean
+
+  variables {p q : Prop}
+  theorem not_and_not_of_not_or : ¬(p ∨ q) → ¬p ∧ ¬q :=
+  λ hnpq, ⟨ λ hp, hnpq (or.inl hp) , λ hq, hnpq (or.inr hq) ⟩
+  theorem not_or_of_not_and_not : ¬p ∧ ¬q → ¬(p ∨ q) :=
+  λ hnphq hpq, or.elim hpq (λ hp, hnphq.1 hp) (λ hq, hnphq.2 hq)
+  -- BEGIN
+  theorem not_or_distrib : ¬(p ∨ q) ↔ ¬p ∧ ¬ q :=
+  begin
+    split,
+    { exact not_and_not_of_not_or, },
+    { exact not_or_of_not_and_not, },
+  end
+  -- END
+
+
+.. _thm_not_and_of_not_or_not:
+
+.. proof:theorem:: De Morgan, 'not and of not or not'
+
+  Let :math:`P` and :math:`Q` be propositions. Then :math:`\neg P \lor\neg Q\to\neg(P\land Q)`.
+
+
+Here's part of the Lean proof. Fill in the ``sorry``.
+
+.. code-block:: lean
+
+  import tactic.rcases
+  variables {p q : Prop}
+  namespace hidden
+  -- BEGIN
+  theorem not_and_of_not_or_not : ¬p ∨ ¬q → ¬(p ∧ q) :=
+  begin
+    assume h₁ : ¬p ∨ ¬q, -- Assume `h₁ : ¬p ∨ ¬q`. It suffices to prove `¬(p ∧ q)`.
+    rintro ⟨h₂, h₃⟩,      -- Introduce `p ∧ q`. By and elim., `h₂ : p` and `h₃ : q`. By neg. intro, it suffices to prove `false`.
+    -- By or elim. on `h₁`, it suffices to 1. assume `h₄ : ¬p` and prove `false` and 2. assume `h₅ : ¬q` and prove `false`.
+    cases h₁ with h₄ h₅, 
+    { exact h₄ h₂, }, -- This follows by negation introduction on `h₁` and `h₃`.
+    { sorry },
+  end 
+  -- END
+  end hidden
+
+.. _sec_classical_reasoning:
+
 Classical reasoning
 ===================
+
+Intuitionistic and constructive reasoning
+-----------------------------------------
+
+You've now seen all the rules of inference for 'intuitionistic' propositional logic.
+Congratulations! Intuitionistic logic (more generally 'constructive reasoning') is a form of
+reasoning first investigated by L. E. J. Brouwer in the early 20th century.
+
+From a constructive proof of a theorem, one can extract a method for constructing the described
+mathematical object. Almost all school mathematics is constructive.
+
+For example, in school you prove that every quadratic equation :math:`ax^2 + bx  +c = 0`, where
+:math:`a, b, c` are real (or complex) numbers with :math:`a\ne0`, has a (real or complex) solution
+
+.. math::
+
+  \frac{-b + \sqrt{a^2-4ac}}{2a}.
+
+This is an explicit construction of a root of the quadratic. Can you conceive of a proof of
+existence that *doesn't* involve the construction of a root?
+
+For a more elementary example, let :math:`P` be a proposition. Can you prove :math:`P \lor \neg P`?
+Using constructive reasoning you can't. In general, a constructive proof of :math:`A \lor B`
+requires that you prove :math:`A` or that you prove :math:`B`.
+
+A mathematician using constructive reasoning will not be able to say, 'The Queen likes tea or the
+Queen doesn't like tea' unless they can prove either that the Queen likes tea or that the Queen
+doesn't like tea.
+
+The law of the excluded middle
+------------------------------
+
+To resolve this issue, 'classical reasoning' takes :math:`P\lor\neg P` as an axiom [#]_, called the
+law of the excluded middle.
+
+.. proof:axiom:: Law of the excluded middle
+
+  Let :math:`P` be a proposition. Then we have a proof of :math:`P\lor\neg P`.
+
+A mathematician using this law can deduce, 'The Queen likes tea or the Queen doesn't like tea',
+without any knowledge of the Queen's beverage preferences.
+
+In Lean, the law of the excluded middle is a theorem called ``classical.em``. Here's a very short
+example in which we prove ``q ∨ ¬q``.
+
+.. code-block:: lean
+
+  variables {q : Prop}
+  -- BEGIN
+  example : q ∨ ¬q := classical.em q
+  -- END
+
+We'll give a proof of the result below, using the law of the excluded middle. The proof needs
+elements of predicate logic together with results on even and odd numbers. We will cover this
+in-depth in :numref:`Section %s <sec_pred_logic>`.
+
+.. _ex_x_xplus3_even:
+
+.. proof:example::
+
+  Let :math:`x` be an integer. Then :math:`x(x+3)` is even.
+
+.. proof:proof::
+
+  By definition of 'even', our goal is to prove that there exists an integer :math:`m` such that
+  :math:`x(x+3)=2m`. 
+  
+  Let :math:`P` denote ':math:`x` is even'. By the law of the excluded middle, applied to :math:`P`,
+  we have :math:`h_1 : P\lor\neg P`.
+
+  By or elimination on :math:`h_1`, it suffices to 1. assume :math:`h_2 : P` and derive the goal
+  and 2. assume :math:`h_3 : \neg P` and derive the goal.
+
+  1. Assume :math:`h_2 : P`. That is, :math:`x` is even. By definition, there exists an integer
+  :math:`k` such that :math:`x = 2k`. Assume :math:`k` is an integer for which :math:`x = 2k`. Then
+
+  .. math::
+
+    x(x+3) = 2k(x+3) = 2(k(x+3)).
+
+  Take :math:`m := k(x+3)`. Then there is an integer :math:`m` such that :math:`x(x+3)=2m`.
+
+  2. Assume :math:`h_3 : \neg P`. That is, :math:`x` is not even. Thus (why?) :math:`x` is odd.
+  So there is an integer :math:`k` such that :math:`x = 2k + 1`. Assume :math:`k` is an integer
+  for which :math:`x = 2k+1`. Then :math:`x+3 = (2k+1)+3=2(k+2)`.
+  We deduce
+  
+  .. math::
+    x(x+3) = x\times(2(k+2)) = 2(x(k+2)).
+    
+  Take :math:`m := x(k+2)`. Then there is an integer :math:`m` such that :math:`x(x+3)=2m`.
+
+  This completes the proof.
+
+.. [#] Technically,many systems that use classical reasoning, including Lean, assume the
+   *axiom of choice*, a rather more sophisticated statement, and use it to deduce the law of the
+   excluded middle.
+
+Proof by cases
+--------------
+
+:numref:`Example %s <ex_x_xplus3_even>` is an instance of a method of proof called *proof by cases*.
+Below, give a proof of the general proof method.
+
+.. proof:theorem:: Proof by cases
+
+  Let :math:`A` and :math:`B` be propositions. Given :math:`h_1 : A \to B` and
+  :math:`h_2 : \neg A \to B`, we have a proof of :math:`B`.
+
+.. proof:proof::
+
+  By the law of the excluded middle, applied to :math:`A`, we have :math:`h : A \lor \neg A`.
+  By or elimination applied to :math:`h`, to prove :math:`B`, it suffices to
+  1. assume :math:`k_1 : A` and derive :math:`B` and 2. assume :math:`k_2 : \neg A` and derive
+  :math:`B`.
+
+  1. Assume :math:`k_1 : A`. We show :math:`B` by implication elimination on :math:`h_1` and
+  :math:`k_1`.
+
+  2. Assume :math:`k_2 : \neg A`. We show :math:`B` by implication elimination on :math:`h_2` and
+  :math:`k_2`.
+
+As an application of proof by cases, we show the remaining direction of De Morgan's law.
+
+.. _thm_not_or_not_of_not_and:
+
+.. proof:theorem:: De Morgan's law, 'not or not of not and'
+
+  Let :math:`P` and :math:`Q` be propositions. Then :math:`\neg(P\land Q)\to\neg P\lor\neg Q`.
+
+.. proof:proof::
+
+  Assume :math:`h_1 : \neg(P\land Q)`. It suffices to prove :math:`\neg P\lor\neg Q`.
+
+  Via proof by cases, it suffices to 1. assume :math:`h_2 : P` and derive :math:`\neg P\lor\neg Q`
+  and 2. assume :math:`h_2 : \neg P` and derive :math:`\neg P\lor\neg Q`.
+
+  1. Assume :math:`h_2 : P`. By right or introduction, it suffices to prove :math:`\neg Q`.
+     Assume :math:`h_3 : Q`. By negation introduction, it suffices to prove :math:`\bot`.
+     By false introduction on :math:`h_1`, it suffices to prove :math:`P\land Q`.
+     This follows by and introduction on :math:`h_1` and :math:`h_2`.
+
+  2. We leave this part of the proof as an exercise for the reader.
+
+This method of reasoning is represented in Lean with the ``by_cases`` tactic. Depending on your
+version of Lean, you may need to declare that propositions are 'decidable' using the command
+``local attribute [instance] classical.prop_decidable``. Fill in the ``sorry`` below.
+
+.. code-block:: lean
+
+  variables {p q : Prop}
+  -- BEGIN
+  local attribute [instance] classical.prop_decidable
+
+  theorem not_or_not_of_not_and : ¬(p ∧ q) → ¬p ∨ ¬q :=
+  begin
+    assume h₁ : ¬(p ∧ q),    -- Assume `h₁ : ¬(p ∧ q)`. It suffices to prove `¬p ∨ ¬q`.
+    -- Via proof by cases, it suffices to prove we can derive `¬p ∨ ¬q` 1. assuming `h₂ : p` and 2. assuming `h₂ : ¬p`.
+    by_cases h₂ : p,         
+    { right,                 -- Assume `h₂ : p`. By right or introduction, it suffices to prove `¬q`.
+      assume h₃ : q,         -- Assume `h₃ : q`. By negation introduction, it suffices to prove `false`.
+      apply h₁,              -- By false introduction on `h₁`, it suffices to prove `p ∧ q`.
+      exact ⟨h₂, h₃⟩, },      -- This follows by and introduction on `h₂` and `h₃`.
+    { sorry }, 
+  end
+  -- END
+
+By iff introduction on our previous :numref:`Theorem %s <thm_not_and_of_not_or_not>` and
+:numref:`Theorem %s <thm_not_or_not_of_not_and>`, we deduce the final iff De Morgan's law.
+
+.. _thm_not_and_distrib:
+
+.. proof:theorem:: De Morgan's law, 'not and distrib'
+
+  Let :math:`P` and :math:`Q` be propositions. Then
+  :math:`\neg(P\land Q)\leftrightarrow\neg P\lor\neg Q`.
+
+.. code-block:: lean
+
+  variables {p q : Prop}
+  theorem not_or_not_of_not_and : ¬(p ∧ q) → ¬p ∨ ¬q :=
+  λ hnpq, or.elim (classical.em p) (λ hp, or.inr (λ hq, hnpq ⟨hp, hq⟩)) (λ hnp, or.inl hnp)
+  theorem not_and_of_not_or_not : ¬p ∨ ¬q → ¬(p ∧ q) :=
+  λ hnpnq hpq, or.elim hnpnq (λ hnp, hnp hpq.1) (λ hnq, hnq hpq.2)
+  -- BEGIN
+  theorem not_and_distrib : ¬(p ∧ q) ↔ ¬p ∨ ¬ q :=
+  begin
+    split,
+    { exact not_or_not_of_not_and, },
+    { exact not_and_of_not_or_not, },
+  end
+  -- END
+
+Double negation
+---------------
+
+.. _thm_double_negation:
+
+.. proof:theorem:: Double negation
+
+  Let :math:`P` be a proposition. Then :math:`\neg\neg P \leftrightarrow P`.
+
+.. proof:proof::
+
+  By iff introduction, it suffices to prove 1. :math:`\neg\neg P \to P` and 2. :math:`P\to\neg\neg P`.
+
+  1. Assume :math:`h_1 : \neg\neg P`. It suffices to prove :math:`P`.
+     Via proof by cases, it suffices to prove :math:`P` separately on the assumptions a. :math:`h_2 : P`
+     and b. :math:`h_2 : \neg P`.
+ 
+     a. Assume :math:`h_2 : P`. We show :math:`P` by reiteration on :math:`h_2`.
+
+     b. Assume :math:`h_2 : \neg P`. By false elimination, it suffices to prove :math:`\bot`.
+        We show :math:`\bot` by false introduction on :math:`h_1` and :math:`h_2`.
+
+  2. This follows by :numref:`Theorem %s <thm_not_not_of_self>`.
+
+.. code-block:: lean
+
+  variables {p : Prop}
+  theorem not_not_of_self : p → ¬¬p := λ hp hnp, hnp hp
+  local attribute [instance] classical.prop_decidable
+  -- BEGIN
+  theorem not_not : ¬¬p ↔ p :=
+  begin
+    split,                      -- By iff intro., it suffices to prove 1. `p → ¬¬p` and 2. `¬¬p → p`.
+    { assume h₁ : ¬¬p,          -- Assume `h₁ : ¬¬p`. It suffices to prove `p`.
+      by_cases h₂ : p,          -- We'll show `p` via proof by cases on `p`. 
+      { exact h₂,  },           -- Assume `h₂ : p`. The goal, `p` follows by reiteration on `h₂`.
+      { exfalso,                -- By false elimination, it suffices to prove `false`.
+        exact h₁ h₂, }, },      -- This follows by false introduction on `h₁` and `h₂`.
+    { exact not_not_of_self, }, -- Goal 2. follows by a previously-proved theorem.
+  end
+  -- END
+
+As an example application, we give another proof of 
+::numref:`Theorem %s <thm_not_or_not_of_not_and>`, this time using double negation instead of
+proof by cases. Recall that ``not_or_distrib`` is our constructive result ``¬(a ∨ b) ↔ ¬a ∧ ¬b``.
+
+.. code-block:: lean
+
+  import logic.basic
+  variables {p q : Prop}
+  local attribute [instance] classical.prop_decidable
+  -- BEGIN
+  example : ¬(p ∧ q) → ¬p ∨ ¬ q :=
+  begin
+    assume h₁ : ¬(p ∧ q), -- Assume `h₁ : ¬(p ∧ q)`. It sfufice to prove `¬p ∨ ¬q`.
+    have h₂ : ¬¬(¬p ∨ ¬q) ↔ ¬p ∨ ¬q, from not_not, -- By double negation, we have `¬¬(¬p ∨ ¬q) ↔ ¬p ∨ ¬q`.
+    rw ←h₂,                 -- Rewriting with `h₂`, the goal is to show `¬¬(¬p ∨ ¬q)`.
+    rw not_or_distrib,      -- Rewriting with `not_or_distrib`, the goal is to show `¬(¬¬p ∧ ¬¬q)`
+    repeat { rw not_not, }, -- Repeatedly rewriting with double negation, the goal is to show `¬(p ∧ q)`.
+    show ¬(p ∧ q), from h₁, -- We show `¬(p ∧ q)` from `h₁`.
+  end
+  -- END
+
+
+
+Proof by contradiction
+----------------------
+
+Negation introduction is the (derived) rule that :math:`\neg P` is proved by assuming :math:`P`
+and deriving :math:`\bot`. Proof by contradiction (also called *reductio ad absurdum*) is a similar
+result, formed by subsituting :math:`Q` for :math:`\neg P` and using double negation.
+
+.. proof:theorem:: Proof by contradiction
+
+  Let :math:`Q` be a proposition. To prove :math:`Q`, it suffices to assume :math:`\neg Q` and
+  derive :math:`\bot`.
+
+This theorem is really just a restatement of one direction of the double negation result.
+
+.. proof:proof::
+
+  By left iff elimination on the double negation result, :numref:`Theorem %s <thm_double_negation>`, 
+  we have :math:`\neg\neg Q \to Q`.
+
+  By implication introduction, this means :math:`Q` follows on the assumption :math:`\neg\neg Q`
+  By definition of :math:`\neg`, to prove :math:`\neg\neg Q` is to assume :math:`\neg Q` and
+  derive :math:`\bot`.
+
+In Lean, we invoke proof by contradiction using the ``by_contradiction`` tactic. We see this in
+use below in yet another proof of :numref:`Theorem %s <thm_not_or_not_of_not_and>`
+
+.. code-block:: lean
+
+  import logic.basic
+  variables {p q : Prop}
+  local attribute [instance] classical.prop_decidable
+  -- BEGIN
+  example : ¬(p ∧ q) → ¬p ∨ ¬ q :=
+  begin
+    assume h₁ : ¬(p ∧ q),      -- Assume `h₁ : ¬(p ∧ q)`. It sfufice to prove `¬p ∨ ¬q`.
+    by_contradiction h₂,       -- For a contradiciton, assume `h₂ : ¬(¬p ∨ ¬q)`. It suffices to prove `false`.
+    rw not_or_distrib at h₂,   -- Rewriting using De Morgan's law `not_or_distrib`, `h₂` is `¬¬p ∧ ¬¬q`.
+    repeat {rw not_not at h₂}, -- Repeatedly using double negation, `h₂` is `p ∧ q`.
+    show false, from h₁ h₂,    -- We show false by false introduction on `h₁` and `h₂`. 
+  end
+  -- END
+
+Proof by contrapositive
+-----------------------
+
+Recall that the contrapositive of a conditional :math:`P\to Q` is the proposition
+:math:`\neg Q\to\neg P`. Using constructive reasoning, we previously proved
+:numref:`Theorem %s <thm_mt>`, that :math:`(P\to Q)\to(\neg Q\to\neg P)`.
+
+By proving the converse of this result we will have, by iff introduction,
+:math:`(\neg Q\to\neg P) \leftrightarrow (P\to Q)`.
+
+.. proof:theorem:: Proof by contrapositive, 'not imp not'
+
+  Let :math:`P` and :math:`Q` be propositions. Then :math:`\neg Q\to\neg P \leftrightarrow P\to Q`.
+
+.. proof:proof::
+
+  By iff introduction, it suffices to prove 1. :math:`(\neg Q\to\neg P)\to (P\to Q)`. and
+  2. :math:`(P\to Q)\to(\neg Q\to\neg P)`.
+
+  1. Assume :math:`h_1 : \neg Q\to\neg P`. It suffices to prove :math:`P\to Q`.
+     Assume :math:`h_2 : P`. It suffices to prove :math:`Q`.
+     For a contradiction, assume :math:`h_3 : \neg Q`. It suffices to prove :math:`\bot`.
+     We have :math:`h_4 : \neg P` from implication elimination on :math:`h_1` and :math:`h_3`.
+     We show :math:`\bot` by false introduction on :math:`h_4` and :math:`h_2`.
+
+  2. We show :math:`(P\to Q)\to(\neg Q\to\neg P)` by :numref:`Theorem %s <thm_mt>`, modus tollens. 
+
+.. code-block:: lean
+
+  import logic.basic
+  variables {p q : Prop}
+  local attribute [instance] classical.prop_decidable
+  namespace hidden
+  -- BEGIN
+  theorem not_imp_not : (¬q → ¬p) ↔ (p → q) :=
+  begin
+    split, -- By iff intro., it suffices to prove 1. `¬q → ¬p → p → q` and 2. `p → q → ¬q → ¬p`.
+    { intros h₁ h₂, -- Assume `h₁ : ¬q → ¬p`, `h₂ : p`. It suffices to prove `q`.
+      by_contradiction h₃, -- For a contradiction, assume `h₃ : ¬q`. It suffices to prove `false`.
+      have h₄ : ¬p, from h₁ h₃, -- We have `h₄ : ¬p` by implication elimination on `h₁` and `h₃`.
+      show false, from h₄ h₂, -- We show `false` by false introduction on `h₄` and `h₂`.
+    },
+    { exact mt }, -- We show `(p → q) → (¬q → ¬p)` by modus tollens.
+  end
+  -- END
+  end hidden
+
+As an example, we'll use proof by contrapositive to give another proof of
+:numref:`Theorem %s <thm_not_or_not_of_not_and>`.
+
+.. code-block:: lean
+
+  import logic.basic
+  variables {p q : Prop}
+  local attribute [instance] classical.prop_decidable
+  -- BEGIN
+  example : ¬(p ∧ q) → ¬p ∨ ¬ q :=
+  begin
+    rw ←not_imp_not, -- It suffices to prove the contrapositive, `¬(¬p ∨ ¬q) → ¬¬(p ∧ q)`.
+    rw not_or_distrib, -- By De Morgan's Law `not_or_distrib`, it suffices to prove `¬¬p ∧ ¬¬q → ¬¬(p ∧ q)`.
+    repeat {rw not_not}, -- By repeated double negation, it suffices to prove `p ∧ q → p ∧ q`.
+    exact id, -- This follows by `id`, the reflexivity of implication.
+  end
+  -- END
