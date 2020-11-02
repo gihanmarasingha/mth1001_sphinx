@@ -1,22 +1,31 @@
+
 #!/usr/bin/env bash
 set -e
 if [ "$#" -ne 2 ]; then
-    echo "Usage example: $0 leanprover mth1001_in_lean"
+    echo "Usage example: $0 gihanmarasingha mth1001_sphinx"
     exit 1
 fi
 
 # Build
-make clean html latexpdf
+make clean html examples latexpdf
 
 # 3. Deploy
 rm -rf deploy
-mkdir deploy
+git clone git@github.com:$1/$2 deploy
 cd deploy
-git init
-cp -r ../_build/html/./ .
-cp ../_build/latex/mth1001_in_lean.pdf .
+rm -rf * .gitignore
+cp -Lr ../to-be-deployed/./ .
 git add .
 git commit -m "Update `date`"
-git push git@github.com:$1/$2 +HEAD:gh-pages
-cd ../
+git push
+
+git checkout gh-pages
+rm -rf * .gitignore .buildinfo .nojekyll
+cp -r ../build/html/./ .
+cp ../build/latex/mathematics_in_lean.pdf .
+git add .
+git commit -m "Update `date`"
+git push
+
+cd ..
 rm -rf deploy
