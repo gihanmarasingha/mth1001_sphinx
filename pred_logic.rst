@@ -251,6 +251,10 @@ The universal quantifier, written :math:`\forall` is one of the two operators of
 It is read 'for all', 'for every', or 'for each'. Informally, :math:`\forall x, P(x)` is the
 assertion that :math:`P(x)` holds for every :math:`x`.
 
+Usually, the type of :math:`x` in the above expression can be inferred from the type of :math:`P`.
+To be explicit, we can use a type ascription :math:`x : U` as in the expression
+:math:`\forall (x : U), P(x)`.
+
 Formally, the meaning of the universal quantifier is defined by two rules of inference.
 
 For all elimination
@@ -369,8 +373,179 @@ Below, we have predicates ``S`` and ``T`` on a type ``U``. The function that tak
   end
   -- END
 
+For a more familiar example, we'll show :math:`(\forall x : \mathbb Z, x^2 \ge 0) \to (-4)^2 \ge 0`.
+
+.. proof:proof::
+
+  Assume :math:`h : \forall x : \mathbb Z, x^2 \ge 0`. It suffices to prove :math:`(-4)^2\ge0`.
+  But :math:`-4 : \mathbb Z`. The result follows by for all elimination on :math:`h` and :math:`-4`.
+
+In the Lean code below, we need to use the type ascription ``4 : ℤ``. The reason is that Lean, by
+default, interprets numerals as terms of type ``ℕ``. It then balks at ``-4``.
+
+.. code-block:: lean
+
+  import data.int.basic
+  -- BEGIN
+  example : (∀ x : ℤ, x^2 ≥ 0) → ((-(4 : ℤ))^2 ≥ 0) :=
+  begin
+    intro h,
+    exact h (-4),
+  end
+  -- END
+
+For all introduction
+--------------------
+
+.. proof:mathsrule:: For all introduction
+
+  Let :math:`P` be a predicate on a type :math:`U`. To prove :math:`\forall x, P(x)` is to assume
+  :math:`u : U` and derive :math:`P(u)`.
+
+Again, note the similarity between this rule and implication introduction.
+
+All the results we've seen so far that begin with, 'Let :math:`P` and :math:`Q` be propositions'
+can be replaced with universally quantified statements that don't specify the names of the
+propositions.
+
+.. proof:theorem:: Commutativity of conjunction (IV)
+
+  We have :math:`\forall P : \mathrm{Prop}, \forall Q : \mathrm{Prop}, P \land Q \leftrightarrow Q\land P`.
+
+.. proof:proof::
+
+  Assume :math:`R` and :math:`S` are propositions. It suffices to show
+  :math:`R\land S \leftrightarrow S\land R`. But this follows by
+  :numref:`Theorem %s <thm_and_comm3>`. 
+
+In Lean, we use ``intro`` to denote for all introduction (as we do for implication introduction).
+
+.. code-block:: lean
+
+  example : ∀ p q : Prop, p ∧ q ↔ q ∧ p :=begin
+    intros r s, -- Assume `r : Prop` and `s : Prop`. It suffices to prove `r ∧ s ↔ s ∧ r`.
+    split; -- By iff intro., it suffices to prove 1. `r ∧ s → s ∧ r` and 2. `s ∧ r → r ∧ s`. We'll use the same proof in each case.
+    { intro h, exact ⟨h.2, h.1⟩, }, -- Assume the antecedent, `h`. The goal is closed by and intro. on `h.1` and `h.2`
+  end
+
+Our final example uses both for all introduction and for all elimination.
+
+.. proof:example::
+
+  Let :math:`P` and :math:`Q` be predicates on a type :math:`U`. We have
+
+  .. math::
+
+    (\forall x, P(x)\land Q(x))\to(\forall y, Q(y)\land P(y)).
+
+Here is the Lean proof, with the matheatical proof given in the comments.
+
+.. code-block:: lean
+
+  variables (U : Type*) (P Q : U → Prop)
+  
+  example : (∀ x, P x ∧ Q x) → (∀ y, Q y ∧ P y) :=
+  begin
+    intro h, -- Assume `h : ∀ x, P x ∧ Q x`. By `→` intro., it suffices to prove `∀ y, Q y ∧ P y`.
+    intro u, -- Assume `u : U`. By `∀` intro, it suffices to prove `Q u ∧ P u`.
+    rw and_comm,  -- By commutativity of conjunction, it suffices to prove `P u ∧ Q u`.
+    exact h u, -- This follows by `∀` elim. on `h` and `u`.
+  end
+
+
+
+
+
 Existential quantification
 ==========================
+
+The existential quantifier, written :math:`\exists` is read 'there exists', 'there is', or
+'for some'. Informally, :math:`\exists x, P(x)` is the assertion that there is some :math:`u` for
+which :math:`P(u)` holds.
+
+As with the universal quantifier, we can make the types explicit via a type ascription,
+writing :math:`\exists (x : U), P(x)`, for example.
+
+Formally, the meaning of the universal quantifier is defined by two rules of inference.
+
+Exists introduction
+-------------------
+
+.. proof:mathsrule:: Exists introduction, forward
+
+  Let :math:`P` be a predicate on a type :math:`U`. Given :math:`u : U` and :math:`h : P(u)`,
+  we have a proof of :math:`\exists x, P(x)`.
+
+.. proof:example::
+
+  Given :math:`5 : \mathbb N` and :math:`h : 5 \ge 3`, we have :math:`\exists x, x \ge 3`.
+
+The proof is simply an application of exists introduction to :math:`5 : \mathbb N` and :math:`h`.
+
+In Lean, if ``u : U`` and ``h : P u``, then ``exists.intro u h`` is a proof of ``∃ x, P x``
+
+.. code-block:: lean
+
+  example (h : 5 ≥ 3) : ∃ x, x ≥ 3 :=
+  by exact exists.intro 5 h
+
+To be more concise, we can use the anonymous constructor notation.
+
+.. code-block:: lean
+
+  example (h : 5 ≥ 3) : ∃ x, x ≥ 3 :=
+  by exact ⟨5, h⟩
+
+
+.. proof:mathsrule:: Exists introduction, backward
+
+  Let :math:`P` be a predicate on a type :math:`U`. Given :math:`u : U`, to prove
+  :math:`\exists x, P(x)`, it suffices to prove :math:`P(u)`.
+
+.. proof:example::
+
+  Let :math:`P` and :math:`Q` be predictes on a type :math:`U`. Given :math:`u : U`,
+  :math:`h_1 : P(u)\to Q(u)` and :math:`h_2 : P(u)`, we have a proof of :math:`\exists x, Q(x)`.
+
+.. proof:proof::
+
+  By exists introduction on :math:`u`, it suffices to prove :math:`Q(u)`.
+  But this follows by implication elimination on :math:`h_1` and :math:`h_2`.
+
+In Lean, the ``use`` tactic indicates backward exists introduction. We use this to give a Lean
+proof of the example above.
+
+.. code-block:: lean
+
+  import tactic.interactive
+  variables (U : Type*) (P Q : U → Prop)
+  -- BEGIN
+  example (u : U) (h₁ : P u → Q u) (h₂ : P u) : ∃ x, Q x :=
+  begin
+    use u,       -- By `∃` intro. on `u`, it suffices to prove `Q u`
+    exact h₁ h₂, -- This follows by `→` elim. on `h₁` and `h₂`.
+  end
+  -- END
+
+Here is a forward Lean proof of the same result.
+
+.. code-block:: lean
+
+  variables (U : Type*) (P Q : U → Prop)
+  -- BEGIN
+  example (u : U) (h₁ : P u → Q u) (h₂ : P u) : ∃ x, Q x :=
+  begin
+    have h₃ : Q u, from h₁ h₂, -- We have `Q u` from `→` elim. on `h₁` and `h₂`.
+    exact exists.intro u h₃,   -- The result follows from exists intro. on `u` and `h₃`.
+  end
+  -- END
+
+Exists elimination
+------------------
+
+
+
+
 
 Negating quantifiers
 ====================
