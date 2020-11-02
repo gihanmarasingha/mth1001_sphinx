@@ -543,13 +543,164 @@ Here is a forward Lean proof of the same result.
 Exists elimination
 ------------------
 
-Suppose you want to prove, 'A person in Britain has competed in the Olympics' and you know,
-'there exists a person in Britain who has won a gold medal at the Olympics'
+Suppose you want to prove, 'A person in Britain has competed in the Olympics' and you have a
+hypothesis :math:`h`, 'there exists a person in Britain who has won a gold medal at the Olympics'.
 
+By :math:`h`, we can take :math:`u`, a person in Britain for which we have hypothesis :math:`k`,
+':math:`u` has one a gold medal at the Olmpics'. To prove the original goal, it suffices to
+prove the goal with the assumption of :math:`u` and :math:`k`. This observation is the essence
+of exists elimination, the rule of inference used to eliminate the existential quantifier.
 
+.. proof:mathsrule:: Exists elimination, backward
+
+  Let :math:`P` be a predicate on a type :math:`U`. Given :math:`h : \exists x, P(x)`, to prove
+  :math:`C`, it suffices to derive :math:`C` under the assumptions :math:`u : U` and
+  :math:`k : P(u)`.
+
+This rule should be reminscent of disjunction eliminiation.
+
+.. _example_exsandt_to_exs:
+
+.. proof:example::
+
+  Let :math:`S` and :math:`T` be predicates on a type :math:`U`. Given :math:`h : \exists x, S(x) \land T(x)`,
+  we have :math:`\exists y, S(y)`.
+
+.. proof:proof::
+
+  By exists elimination, it suffices to prove :math:`\exists y, S(y)` under the assumptions :math:`u : U`
+  and :math:`k : S(u)\land T(u)`.
+
+  By exists introduction on :math:`u : U`, it suffices to prove :math:`S(u)`. This follows by
+  left conjunction eliminiation on :math:`k`.
+
+In Lean, we use the ``cases`` tactic for backward exists elimination. Suppose ``h : ∃ (x : U), P x``,
+then ``cases h with u k`` removes ``h`` from the context and replaces it with ``u : U`` and ``k : P u``.
+Below, we give a Lean version of the proof above.
+
+.. code-block:: lean
+
+  import tactic.interactive
+  variables (U : Type*) (S T : U → Prop)
+  -- BEGIN
+  example (h : ∃ x, S x ∧ T x) : ∃ y, S y :=
+  begin
+    cases h with u k, -- By exists elim. on `h`, it suffices to prove the goal assuming `u : U` and `k : S u ∧ T u`.
+    use u, -- By exists intro. on `u`, it suffices to prove `S u`.
+    exact k.left, -- This follows by left `∧` elim. on `k`.
+  end
+  -- END
+
+.. proof:mathsrule:: Exists elimination, forward
+
+  Let :math:`P` be a predicate on a type :math:`U`. Given :math:`h_1 : \exists (x : U), P(x)` and
+  :math:`h_2 : \forall (y : U), P(y) \to C`, we have a proof of :math:`C`.
+
+We give a forward proof of :numref:`Example %s <example_exsandt_to_exs>` in Lean below. 
+The Lean function used in a forward exists elimination proof is ``exists.elim``. Given
+``h₁ : ∃ (x : U), P x`` and ``h₂ : ∀ (y : U), P y → C``, the expression ``exists.elim h₁ h₂``
+is a proof term for ``C``.
+
+.. code-block:: lean
+
+  import tactic.interactive
+  variables (U : Type*) (S T : U → Prop)
+  -- BEGIN
+  example (h₁ : ∃ x, S x ∧ T x) : ∃ y, S y :=
+  begin
+    have h₂ : ∀ y, S y ∧ T y → ∃ y, S y, -- We'll show `h₂ : ∀ y, S y ∧ T y → ∃ y, S y`.
+    { assume u : U, -- Assume `u : U`. It suffices to prove `S u ∧ T u → ∃ y, S y`.
+      assume k₁ : S u ∧ T u, -- Assume `S u ∧ T u`. It suffices to prove `∃ y, S y`.
+      have h₃ : S u, from k₁.left, -- We have `h₃ : S u` by left `∧` elim. on `k₁`,
+      show ∃ y, S y, from exists.intro u h₃, }, -- We show `∃ y, S y` by exists intro. on `u` and `h₃`.
+    exact exists.elim h₁ h₂, -- The result follows by exists elim. on `h₁` and `h₂`.
+  end
+  -- END
 
 Negating quantifiers
 ====================
+
+If you had to prove that *not* every matheamtician is a billionaire, you'd merely have to point to
+me and show that I'm not a billionaire. Intuitively, the negation, :math:`\neg(\forall x, P(x))`,
+of a universally quantified statement is just the existentially quantified statement
+:math:`\exists x, \neg P(x)` in which the predicate has been negated. 
+
+Likewise, if you had to prove it's not the case that there is a mathemtician who lives on Pluto,
+you would have to show that every mathematician does not live on Pluto. That is, the negation,
+:math:`\neg(\exists x, P(x))`, of an existentially quantified statement is the universally
+quantified statement :math:`\forall x, \neg P(x)` in which the predicate has been negated.
+
+These are claims that require proof.
+
+.. proof:theorem:: Negation of an existentially quantified statement
+
+  Let :math:`P` be a predicate on a type :math:`U`. then
+
+  .. math::
+
+    \neg(\exists x, P(x)) \leftrightarrow \forall x, \neg P(x).
+
+Here is a Lean proof.
+
+.. code-block:: lean 
+
+  import tactic.interactive
+  variables {U : Type*} {P : U → Prop}
+  namespace hidden
+  -- BEGIN
+  theorem not_exists : ¬(∃ x, P x) ↔ ∀ x, ¬P x :=
+  begin
+    -- By iff intro., it suffices to prove 1. `¬(∃ x, P x) → ∀ x, ¬P x` and 2. `∀ x, ¬P x → ¬(∃ x, P x)`
+    split, 
+    { intro h₁,    -- Case 1. Assume `h₁ : ¬(∃ x, P x)`. By `→` intro, it suffices to prove `∀ x, ¬P x`.
+      intro u,     -- Assume `u : U`. By for all intro., it suffices to show `¬P u`.
+      intro h₂,    -- Assume `h₂ : P u`. By negation introduction, it suffices to prove `false`.
+      apply h₁,    -- By false introduction on `h₁`, it suffices to prove `∃ x, P x`.
+      use u,       -- By `∃` intro on `u`, it suffices to prove `P u`.
+      exact h₂, }, -- This follows by reiteration on `h₂`.
+    { intro h₁,    -- Assume `h₁ : ∀ x, ¬P x`. It suffices to prove `¬∃ x, P x`.
+      intro h₂,   --- Assume `h₂ : ∃ x, P x`. By negation introduction, it suffices to prove `false`.
+      -- By `∃` elim. on `h₂`, it suffices to prove `false` assuming `u : U` and `hu : P u`.
+      cases h₂ with u hu,
+      have h₃ : ¬P u, from h₁ u, -- By `∀` elim. on `h₁` applied to `u`, we have `h₃ : ¬P u`.
+      exact h₃ hu, }, -- We show the goal by false introduction on `h₃` and `hu`.
+  end
+  -- END
+  end hidden
+
+
+.. proof:theorem:: Negation of a universally quantified statement
+
+  Let :math:`P` be a predicate on a type :math:`U`. then
+
+  .. math::
+
+    \neg(\forall x, P(x)) \leftrightarrow \exists x, \neg P(x).
+
+Complete the following proof of the above theorem.
+
+.. code-block:: lean
+
+  import tactic.interactive
+  variables {U : Type*} {P : U → Prop}
+  namespace hidden
+  -- BEGIN
+  theorem not_forall : ¬(∀ x, P x) ↔ ∃ x, ¬P x :=
+  begin
+    -- By iff intro., it suffices to prove 1. `¬(∀ x, P x) → ∃ x, ¬P x` and 2. `∃ x, ¬P x → ¬(∀ x, P x)`
+    split, 
+    { intro h₁, -- Case 1. Assume `h₁ : ¬(∀ x, P x)`. It suffices to prove `∃ x, ¬P x`.
+      by_contradiction h₂, -- For a contradiction, suppose `h₂ : ¬(∃ x, ¬P x)`. It suffices to prove `false`.
+      sorry, },
+    { intro h₁, -- Case 2. Assume `h₁ : ∃ x, ¬P x`. It suffices to prove `¬(∀ x, P x)`.
+      intro h₂, -- Assume `h₂ : ∀ x, P x`. By negation introduction, it suffices to prove `false`.
+      cases h₁ with u hu, -- By `∃` elim. on `h₁`, it suffices to prove the goal assuming `u : U` and `hu : ¬P u`.
+      apply hu, -- By false introduction on `hu`, it suffices to prove `P u`.
+      exact h₂ u, } -- The result follows by for all elimination on `h₂` and `u`.
+  end
+  -- END
+  end hidden
+
 
 Mixing quantifiers
 ==================

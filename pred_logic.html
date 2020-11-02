@@ -6,8 +6,8 @@
     <meta charset="ascii" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>3. Predicate Logic &#8212; MTH1001 in Lean 1.00 documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/proof.css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -538,13 +538,158 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div></div>
 <div class="section" id="exists-elimination">
 <h3><span class="section-number">3.6.2. </span>Exists elimination<a class="headerlink" href="#exists-elimination" title="Permalink to this headline">&#182;</a></h3>
-<p>Suppose you want to prove, &#8216;A person in Britain has competed in the Olympics&#8217; and you know,
-&#8216;there exists a person in Britain who has won a gold medal at the Olympics&#8217;</p>
+<p>Suppose you want to prove, &#8216;A person in Britain has competed in the Olympics&#8217; and you have a
+hypothesis <span class="math notranslate nohighlight">\(h\)</span>, &#8216;there exists a person in Britain who has won a gold medal at the Olympics&#8217;.</p>
+<p>By <span class="math notranslate nohighlight">\(h\)</span>, we can take <span class="math notranslate nohighlight">\(u\)</span>, a person in Britain for which we have hypothesis <span class="math notranslate nohighlight">\(k\)</span>,
+&#8216;<span class="math notranslate nohighlight">\(u\)</span> has one a gold medal at the Olmpics&#8217;. To prove the original goal, it suffices to
+prove the goal with the assumption of <span class="math notranslate nohighlight">\(u\)</span> and <span class="math notranslate nohighlight">\(k\)</span>. This observation is the essence
+of exists elimination, the rule of inference used to eliminate the existential quantifier.</p>
+<div class="proof proof-type-mathsrule" id="id11">
+
+    <div class="proof-title">
+        <span class="proof-type">Rule 3.11</span>
+        
+            <span class="proof-title-name">(Exists elimination, backward)</span>
+        
+    </div><div class="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(P\)</span> be a predicate on a type <span class="math notranslate nohighlight">\(U\)</span>. Given <span class="math notranslate nohighlight">\(h : \exists x, P(x)\)</span>, to prove
+<span class="math notranslate nohighlight">\(C\)</span>, it suffices to derive <span class="math notranslate nohighlight">\(C\)</span> under the assumptions <span class="math notranslate nohighlight">\(u : U\)</span> and
+<span class="math notranslate nohighlight">\(k : P(u)\)</span>.</p>
+</div></div><p>This rule should be reminscent of disjunction eliminiation.</p>
+<div class="proof proof-type-example" id="id12">
+<span id="example-exsandt-to-exs"></span>
+    <div class="proof-title">
+        <span class="proof-type">Example 3.12</span>
+        
+    </div><div class="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(S\)</span> and <span class="math notranslate nohighlight">\(T\)</span> be predicates on a type <span class="math notranslate nohighlight">\(U\)</span>. Given <span class="math notranslate nohighlight">\(h : \exists x, S(x) \land T(x)\)</span>,
+we have <span class="math notranslate nohighlight">\(\exists y, S(y)\)</span>.</p>
+</div></div><div class="proof proof-type-proof">
+
+    <div class="proof-title">
+        <span class="proof-type">Proof </span>
+        
+    </div><div class="proof-content">
+<p>By exists elimination, it suffices to prove <span class="math notranslate nohighlight">\(\exists y, S(y)\)</span> under the assumptions <span class="math notranslate nohighlight">\(u : U\)</span>
+and <span class="math notranslate nohighlight">\(k : S(u)\land T(u)\)</span>.</p>
+<p>By exists introduction on <span class="math notranslate nohighlight">\(u : U\)</span>, it suffices to prove <span class="math notranslate nohighlight">\(S(u)\)</span>. This follows by
+left conjunction eliminiation on <span class="math notranslate nohighlight">\(k\)</span>.</p>
+</div></div><p>In Lean, we use the <code class="docutils literal notranslate"><span class="pre">cases</span></code> tactic for backward exists elimination. Suppose <code class="docutils literal notranslate"><span class="pre">h</span> <span class="pre">:</span> <span class="pre">&#8707;</span> <span class="pre">(x</span> <span class="pre">:</span> <span class="pre">U),</span> <span class="pre">P</span> <span class="pre">x</span></code>,
+then <code class="docutils literal notranslate"><span class="pre">cases</span> <span class="pre">h</span> <span class="pre">with</span> <span class="pre">u</span> <span class="pre">k</span></code> removes <code class="docutils literal notranslate"><span class="pre">h</span></code> from the context and replaces it with <code class="docutils literal notranslate"><span class="pre">u</span> <span class="pre">:</span> <span class="pre">U</span></code> and <code class="docutils literal notranslate"><span class="pre">k</span> <span class="pre">:</span> <span class="pre">P</span> <span class="pre">u</span></code>.
+Below, we give a Lean version of the proof above.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=import%20tactic.interactive%0Avariables%20(U%20%3A%20Type*)%20(S%20T%20%3A%20U%20%E2%86%92%20Prop)%0A--%20BEGIN%0Aexample%20(h%20%3A%20%E2%88%83%20x%2C%20S%20x%20%E2%88%A7%20T%20x)%20%3A%20%E2%88%83%20y%2C%20S%20y%20%3A%3D%0Abegin%0A%20%20cases%20h%20with%20u%20k%2C%20--%20By%20exists%20elim.%20on%20%60h%60%2C%20it%20suffices%20to%20prove%20the%20goal%20assuming%20%60u%20%3A%20U%60%20and%20%60k%20%3A%20S%20u%20%E2%88%A7%20T%20u%60.%0A%20%20use%20u%2C%20--%20By%20exists%20intro.%20on%20%60u%60%2C%20it%20suffices%20to%20prove%20%60S%20u%60.%0A%20%20exact%20k.left%2C%20--%20This%20follows%20by%20left%20%60%E2%88%A7%60%20elim.%20on%20%60k%60.%0Aend%0A--%20END" target="_blank" tryitfile="../examples/pred_logic/unnamed_581.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h</span> <span class="o">:</span> <span class="bp">&#8707;</span> <span class="n">x</span><span class="o">,</span> <span class="n">S</span> <span class="n">x</span> <span class="bp">&#8743;</span> <span class="n">T</span> <span class="n">x</span><span class="o">)</span> <span class="o">:</span> <span class="bp">&#8707;</span> <span class="n">y</span><span class="o">,</span> <span class="n">S</span> <span class="n">y</span> <span class="o">:=</span>
+<span class="kd">begin</span>
+  <span class="n">cases</span> <span class="n">h</span> <span class="k">with</span> <span class="n">u</span> <span class="n">k</span><span class="o">,</span> <span class="c1">-- By exists elim. on `h`, it suffices to prove the goal assuming `u : U` and `k : S u &#8743; T u`.</span>
+  <span class="n">use</span> <span class="n">u</span><span class="o">,</span> <span class="c1">-- By exists intro. on `u`, it suffices to prove `S u`.</span>
+  <span class="n">exact</span> <span class="n">k.left</span><span class="o">,</span> <span class="c1">-- This follows by left `&#8743;` elim. on `k`.</span>
+<span class="kd">end</span>
+</pre></div>
 </div>
+</div><div class="proof proof-type-mathsrule" id="id13">
+
+    <div class="proof-title">
+        <span class="proof-type">Rule 3.13</span>
+        
+            <span class="proof-title-name">(Exists elimination, forward)</span>
+        
+    </div><div class="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(P\)</span> be a predicate on a type <span class="math notranslate nohighlight">\(U\)</span>. Given <span class="math notranslate nohighlight">\(h_1 : \exists (x : U), P(x)\)</span> and
+<span class="math notranslate nohighlight">\(h_2 : \forall (y : U), P(y) \to C\)</span>, we have a proof of <span class="math notranslate nohighlight">\(C\)</span>.</p>
+</div></div><p>We give a forward proof of <a class="reference internal" href="#example-exsandt-to-exs"><span class="std std-numref">Example 3.12</span></a> in Lean below.
+The Lean function used in a forward exists elimination proof is <code class="docutils literal notranslate"><span class="pre">exists.elim</span></code>. Given
+<code class="docutils literal notranslate"><span class="pre">h&#8321;</span> <span class="pre">:</span> <span class="pre">&#8707;</span> <span class="pre">(x</span> <span class="pre">:</span> <span class="pre">U),</span> <span class="pre">P</span> <span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">h&#8322;</span> <span class="pre">:</span> <span class="pre">&#8704;</span> <span class="pre">(y</span> <span class="pre">:</span> <span class="pre">U),</span> <span class="pre">P</span> <span class="pre">y</span> <span class="pre">&#8594;</span> <span class="pre">C</span></code>, the expression <code class="docutils literal notranslate"><span class="pre">exists.elim</span> <span class="pre">h&#8321;</span> <span class="pre">h&#8322;</span></code>
+is a proof term for <code class="docutils literal notranslate"><span class="pre">C</span></code>.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=import%20tactic.interactive%0Avariables%20(U%20%3A%20Type*)%20(S%20T%20%3A%20U%20%E2%86%92%20Prop)%0A--%20BEGIN%0Aexample%20(h%E2%82%81%20%3A%20%E2%88%83%20x%2C%20S%20x%20%E2%88%A7%20T%20x)%20%3A%20%E2%88%83%20y%2C%20S%20y%20%3A%3D%0Abegin%0A%20%20have%20h%E2%82%82%20%3A%20%E2%88%80%20y%2C%20S%20y%20%E2%88%A7%20T%20y%20%E2%86%92%20%E2%88%83%20y%2C%20S%20y%2C%20--%20We'll%20show%20%60h%E2%82%82%20%3A%20%E2%88%80%20y%2C%20S%20y%20%E2%88%A7%20T%20y%20%E2%86%92%20%E2%88%83%20y%2C%20S%20y%60.%0A%20%20%7B%20assume%20u%20%3A%20U%2C%20--%20Assume%20%60u%20%3A%20U%60.%20It%20suffices%20to%20prove%20%60S%20u%20%E2%88%A7%20T%20u%20%E2%86%92%20%E2%88%83%20y%2C%20S%20y%60.%0A%20%20%20%20assume%20k%E2%82%81%20%3A%20S%20u%20%E2%88%A7%20T%20u%2C%20--%20Assume%20%60S%20u%20%E2%88%A7%20T%20u%60.%20It%20suffices%20to%20prove%20%60%E2%88%83%20y%2C%20S%20y%60.%0A%20%20%20%20have%20h%E2%82%83%20%3A%20S%20u%2C%20from%20k%E2%82%81.left%2C%20--%20We%20have%20%60h%E2%82%83%20%3A%20S%20u%60%20by%20left%20%60%E2%88%A7%60%20elim.%20on%20%60k%E2%82%81%60%2C%0A%20%20%20%20show%20%E2%88%83%20y%2C%20S%20y%2C%20from%20exists.intro%20u%20h%E2%82%83%2C%20%7D%2C%20--%20We%20show%20%60%E2%88%83%20y%2C%20S%20y%60%20by%20exists%20intro.%20on%20%60u%60%20and%20%60h%E2%82%83%60.%0A%20%20exact%20exists.elim%20h%E2%82%81%20h%E2%82%82%2C%20--%20The%20result%20follows%20by%20exists%20elim.%20on%20%60h%E2%82%81%60%20and%20%60h%E2%82%82%60.%0Aend%0A--%20END" target="_blank" tryitfile="../examples/pred_logic/unnamed_604.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h&#8321;</span> <span class="o">:</span> <span class="bp">&#8707;</span> <span class="n">x</span><span class="o">,</span> <span class="n">S</span> <span class="n">x</span> <span class="bp">&#8743;</span> <span class="n">T</span> <span class="n">x</span><span class="o">)</span> <span class="o">:</span> <span class="bp">&#8707;</span> <span class="n">y</span><span class="o">,</span> <span class="n">S</span> <span class="n">y</span> <span class="o">:=</span>
+<span class="kd">begin</span>
+  <span class="k">have</span> <span class="n">h&#8322;</span> <span class="o">:</span> <span class="bp">&#8704;</span> <span class="n">y</span><span class="o">,</span> <span class="n">S</span> <span class="n">y</span> <span class="bp">&#8743;</span> <span class="n">T</span> <span class="n">y</span> <span class="bp">&#8594;</span> <span class="bp">&#8707;</span> <span class="n">y</span><span class="o">,</span> <span class="n">S</span> <span class="n">y</span><span class="o">,</span> <span class="c1">-- We&#39;ll show `h&#8322; : &#8704; y, S y &#8743; T y &#8594; &#8707; y, S y`.</span>
+  <span class="o">{</span> <span class="k">assume</span> <span class="n">u</span> <span class="o">:</span> <span class="n">U</span><span class="o">,</span> <span class="c1">-- Assume `u : U`. It suffices to prove `S u &#8743; T u &#8594; &#8707; y, S y`.</span>
+    <span class="k">assume</span> <span class="n">k&#8321;</span> <span class="o">:</span> <span class="n">S</span> <span class="n">u</span> <span class="bp">&#8743;</span> <span class="n">T</span> <span class="n">u</span><span class="o">,</span> <span class="c1">-- Assume `S u &#8743; T u`. It suffices to prove `&#8707; y, S y`.</span>
+    <span class="k">have</span> <span class="n">h&#8323;</span> <span class="o">:</span> <span class="n">S</span> <span class="n">u</span><span class="o">,</span> <span class="k">from</span> <span class="n">k&#8321;.left</span><span class="o">,</span> <span class="c1">-- We have `h&#8323; : S u` by left `&#8743;` elim. on `k&#8321;`,</span>
+    <span class="k">show</span> <span class="bp">&#8707;</span> <span class="n">y</span><span class="o">,</span> <span class="n">S</span> <span class="n">y</span><span class="o">,</span> <span class="k">from</span> <span class="n">exists.intro</span> <span class="n">u</span> <span class="n">h&#8323;</span><span class="o">,</span> <span class="o">},</span> <span class="c1">-- We show `&#8707; y, S y` by exists intro. on `u` and `h&#8323;`.</span>
+  <span class="n">exact</span> <span class="n">exists.elim</span> <span class="n">h&#8321;</span> <span class="n">h&#8322;</span><span class="o">,</span> <span class="c1">-- The result follows by exists elim. on `h&#8321;` and `h&#8322;`.</span>
+<span class="kd">end</span>
+</pre></div>
+</div>
+</div></div>
 </div>
 <div class="section" id="negating-quantifiers">
 <h2><span class="section-number">3.7. </span>Negating quantifiers<a class="headerlink" href="#negating-quantifiers" title="Permalink to this headline">&#182;</a></h2>
+<p>If you had to prove that <em>not</em> every matheamtician is a billionaire, you&#8217;d merely have to point to
+me and show that I&#8217;m not a billionaire. Intuitively, the negation, <span class="math notranslate nohighlight">\(\neg(\forall x, P(x))\)</span>,
+of a universally quantified statement is just the existentially quantified statement
+<span class="math notranslate nohighlight">\(\exists x, \neg P(x)\)</span> in which the predicate has been negated.</p>
+<p>Likewise, if you had to prove it&#8217;s not the case that there is a mathemtician who lives on Pluto,
+you would have to show that every mathematician does not live on Pluto. That is, the negation,
+<span class="math notranslate nohighlight">\(\neg(\exists x, P(x))\)</span>, of an existentially quantified statement is the universally
+quantified statement <span class="math notranslate nohighlight">\(\forall x, \neg P(x)\)</span> in which the predicate has been negated.</p>
+<p>These are claims that require proof.</p>
+<div class="proof proof-type-theorem" id="id14">
+
+    <div class="proof-title">
+        <span class="proof-type">Theorem 3.14</span>
+        
+            <span class="proof-title-name">(Negation of an existentially quantified statement)</span>
+        
+    </div><div class="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(P\)</span> be a predicate on a type <span class="math notranslate nohighlight">\(U\)</span>. then</p>
+<div class="math notranslate nohighlight">
+\[\neg(\exists x, P(x)) \leftrightarrow \forall x, \neg P(x).\]</div>
+</div></div><p>Here is a Lean proof.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=import%20tactic.interactive%0Avariables%20%7BU%20%3A%20Type*%7D%20%7BP%20%3A%20U%20%E2%86%92%20Prop%7D%0Anamespace%20hidden%0A--%20BEGIN%0Atheorem%20not_exists%20%3A%20%C2%AC(%E2%88%83%20x%2C%20P%20x)%20%E2%86%94%20%E2%88%80%20x%2C%20%C2%ACP%20x%20%3A%3D%0Abegin%0A%20%20--%20By%20iff%20intro.%2C%20it%20suffices%20to%20prove%201.%20%60%C2%AC(%E2%88%83%20x%2C%20P%20x)%20%E2%86%92%20%E2%88%80%20x%2C%20%C2%ACP%20x%60%20and%202.%20%60%E2%88%80%20x%2C%20%C2%ACP%20x%20%E2%86%92%20%C2%AC(%E2%88%83%20x%2C%20P%20x)%60%0A%20%20split%2C%0A%20%20%7B%20intro%20h%E2%82%81%2C%20%20%20%20--%20Case%201.%20Assume%20%60h%E2%82%81%20%3A%20%C2%AC(%E2%88%83%20x%2C%20P%20x)%60.%20By%20%60%E2%86%92%60%20intro%2C%20it%20suffices%20to%20prove%20%60%E2%88%80%20x%2C%20%C2%ACP%20x%60.%0A%20%20%20%20intro%20u%2C%20%20%20%20%20--%20Assume%20%60u%20%3A%20U%60.%20By%20for%20all%20intro.%2C%20it%20suffices%20to%20show%20%60%C2%ACP%20u%60.%0A%20%20%20%20intro%20h%E2%82%82%2C%20%20%20%20--%20Assume%20%60h%E2%82%82%20%3A%20P%20u%60.%20By%20negation%20introduction%2C%20it%20suffices%20to%20prove%20%60false%60.%0A%20%20%20%20apply%20h%E2%82%81%2C%20%20%20%20--%20By%20false%20introduction%20on%20%60h%E2%82%81%60%2C%20it%20suffices%20to%20prove%20%60%E2%88%83%20x%2C%20P%20x%60.%0A%20%20%20%20use%20u%2C%20%20%20%20%20%20%20--%20By%20%60%E2%88%83%60%20intro%20on%20%60u%60%2C%20it%20suffices%20to%20prove%20%60P%20u%60.%0A%20%20%20%20exact%20h%E2%82%82%2C%20%7D%2C%20--%20This%20follows%20by%20reiteration%20on%20%60h%E2%82%82%60.%0A%20%20%7B%20intro%20h%E2%82%81%2C%20%20%20%20--%20Assume%20%60h%E2%82%81%20%3A%20%E2%88%80%20x%2C%20%C2%ACP%20x%60.%20It%20suffices%20to%20prove%20%60%C2%AC%E2%88%83%20x%2C%20P%20x%60.%0A%20%20%20%20intro%20h%E2%82%82%2C%20%20%20---%20Assume%20%60h%E2%82%82%20%3A%20%E2%88%83%20x%2C%20P%20x%60.%20By%20negation%20introduction%2C%20it%20suffices%20to%20prove%20%60false%60.%0A%20%20%20%20--%20By%20%60%E2%88%83%60%20elim.%20on%20%60h%E2%82%82%60%2C%20it%20suffices%20to%20prove%20%60false%60%20assuming%20%60u%20%3A%20U%60%20and%20%60hu%20%3A%20P%20u%60.%0A%20%20%20%20cases%20h%E2%82%82%20with%20u%20hu%2C%0A%20%20%20%20have%20h%E2%82%83%20%3A%20%C2%ACP%20u%2C%20from%20h%E2%82%81%20u%2C%20--%20By%20%60%E2%88%80%60%20elim.%20on%20%60h%E2%82%81%60%20applied%20to%20%60u%60%2C%20we%20have%20%60h%E2%82%83%20%3A%20%C2%ACP%20u%60.%0A%20%20%20%20exact%20h%E2%82%83%20hu%2C%20%7D%2C%20--%20We%20show%20the%20goal%20by%20false%20introduction%20on%20%60h%E2%82%83%60%20and%20%60hu%60.%0Aend%0A--%20END%0Aend%20hidden" target="_blank" tryitfile="../examples/pred_logic/unnamed_645.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">theorem</span> <span class="n">not_exists</span> <span class="o">:</span> <span class="bp">&#172;</span><span class="o">(</span><span class="bp">&#8707;</span> <span class="n">x</span><span class="o">,</span> <span class="n">P</span> <span class="n">x</span><span class="o">)</span> <span class="bp">&#8596;</span> <span class="bp">&#8704;</span> <span class="n">x</span><span class="o">,</span> <span class="bp">&#172;</span><span class="n">P</span> <span class="n">x</span> <span class="o">:=</span>
+<span class="kd">begin</span>
+  <span class="c1">-- By iff intro., it suffices to prove 1. `&#172;(&#8707; x, P x) &#8594; &#8704; x, &#172;P x` and 2. `&#8704; x, &#172;P x &#8594; &#172;(&#8707; x, P x)`</span>
+  <span class="n">split</span><span class="o">,</span>
+  <span class="o">{</span> <span class="n">intro</span> <span class="n">h&#8321;</span><span class="o">,</span>    <span class="c1">-- Case 1. Assume `h&#8321; : &#172;(&#8707; x, P x)`. By `&#8594;` intro, it suffices to prove `&#8704; x, &#172;P x`.</span>
+    <span class="n">intro</span> <span class="n">u</span><span class="o">,</span>     <span class="c1">-- Assume `u : U`. By for all intro., it suffices to show `&#172;P u`.</span>
+    <span class="n">intro</span> <span class="n">h&#8322;</span><span class="o">,</span>    <span class="c1">-- Assume `h&#8322; : P u`. By negation introduction, it suffices to prove `false`.</span>
+    <span class="n">apply</span> <span class="n">h&#8321;</span><span class="o">,</span>    <span class="c1">-- By false introduction on `h&#8321;`, it suffices to prove `&#8707; x, P x`.</span>
+    <span class="n">use</span> <span class="n">u</span><span class="o">,</span>       <span class="c1">-- By `&#8707;` intro on `u`, it suffices to prove `P u`.</span>
+    <span class="n">exact</span> <span class="n">h&#8322;</span><span class="o">,</span> <span class="o">},</span> <span class="c1">-- This follows by reiteration on `h&#8322;`.</span>
+  <span class="o">{</span> <span class="n">intro</span> <span class="n">h&#8321;</span><span class="o">,</span>    <span class="c1">-- Assume `h&#8321; : &#8704; x, &#172;P x`. It suffices to prove `&#172;&#8707; x, P x`.</span>
+    <span class="n">intro</span> <span class="n">h&#8322;</span><span class="o">,</span>   <span class="c1">--- Assume `h&#8322; : &#8707; x, P x`. By negation introduction, it suffices to prove `false`.</span>
+    <span class="c1">-- By `&#8707;` elim. on `h&#8322;`, it suffices to prove `false` assuming `u : U` and `hu : P u`.</span>
+    <span class="n">cases</span> <span class="n">h&#8322;</span> <span class="k">with</span> <span class="n">u</span> <span class="n">hu</span><span class="o">,</span>
+    <span class="k">have</span> <span class="n">h&#8323;</span> <span class="o">:</span> <span class="bp">&#172;</span><span class="n">P</span> <span class="n">u</span><span class="o">,</span> <span class="k">from</span> <span class="n">h&#8321;</span> <span class="n">u</span><span class="o">,</span> <span class="c1">-- By `&#8704;` elim. on `h&#8321;` applied to `u`, we have `h&#8323; : &#172;P u`.</span>
+    <span class="n">exact</span> <span class="n">h&#8323;</span> <span class="n">hu</span><span class="o">,</span> <span class="o">},</span> <span class="c1">-- We show the goal by false introduction on `h&#8323;` and `hu`.</span>
+<span class="kd">end</span>
+</pre></div>
 </div>
+</div><div class="proof proof-type-theorem" id="id15">
+
+    <div class="proof-title">
+        <span class="proof-type">Theorem 3.15</span>
+        
+            <span class="proof-title-name">(Negation of a universally quantified statement)</span>
+        
+    </div><div class="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(P\)</span> be a predicate on a type <span class="math notranslate nohighlight">\(U\)</span>. then</p>
+<div class="math notranslate nohighlight">
+\[\neg(\forall x, P(x)) \leftrightarrow \exists x, \neg P(x).\]</div>
+</div></div><p>Complete the following proof of the above theorem.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=import%20tactic.interactive%0Avariables%20%7BU%20%3A%20Type*%7D%20%7BP%20%3A%20U%20%E2%86%92%20Prop%7D%0Anamespace%20hidden%0A--%20BEGIN%0Atheorem%20not_forall%20%3A%20%C2%AC(%E2%88%80%20x%2C%20P%20x)%20%E2%86%94%20%E2%88%83%20x%2C%20%C2%ACP%20x%20%3A%3D%0Abegin%0A%20%20--%20By%20iff%20intro.%2C%20it%20suffices%20to%20prove%201.%20%60%C2%AC(%E2%88%80%20x%2C%20P%20x)%20%E2%86%92%20%E2%88%83%20x%2C%20%C2%ACP%20x%60%20and%202.%20%60%E2%88%83%20x%2C%20%C2%ACP%20x%20%E2%86%92%20%C2%AC(%E2%88%80%20x%2C%20P%20x)%60%0A%20%20split%2C%0A%20%20%7B%20intro%20h%E2%82%81%2C%20--%20Case%201.%20Assume%20%60h%E2%82%81%20%3A%20%C2%AC(%E2%88%80%20x%2C%20P%20x)%60.%20It%20suffices%20to%20prove%20%60%E2%88%83%20x%2C%20%C2%ACP%20x%60.%0A%20%20%20%20by_contradiction%20h%E2%82%82%2C%20--%20For%20a%20contradiction%2C%20suppose%20%60h%E2%82%82%20%3A%20%C2%AC(%E2%88%83%20x%2C%20%C2%ACP%20x)%60.%20It%20suffices%20to%20prove%20%60false%60.%0A%20%20%20%20sorry%2C%20%7D%2C%0A%20%20%7B%20intro%20h%E2%82%81%2C%20--%20Case%202.%20Assume%20%60h%E2%82%81%20%3A%20%E2%88%83%20x%2C%20%C2%ACP%20x%60.%20It%20suffices%20to%20prove%20%60%C2%AC(%E2%88%80%20x%2C%20P%20x)%60.%0A%20%20%20%20intro%20h%E2%82%82%2C%20--%20Assume%20%60h%E2%82%82%20%3A%20%E2%88%80%20x%2C%20P%20x%60.%20By%20negation%20introduction%2C%20it%20suffices%20to%20prove%20%60false%60.%0A%20%20%20%20cases%20h%E2%82%81%20with%20u%20hu%2C%20--%20By%20%60%E2%88%83%60%20elim.%20on%20%60h%E2%82%81%60%2C%20it%20suffices%20to%20prove%20the%20goal%20assuming%20%60u%20%3A%20U%60%20and%20%60hu%20%3A%20%C2%ACP%20u%60.%0A%20%20%20%20apply%20hu%2C%20--%20By%20false%20introduction%20on%20%60hu%60%2C%20it%20suffices%20to%20prove%20%60P%20u%60.%0A%20%20%20%20exact%20h%E2%82%82%20u%2C%20%7D%20--%20The%20result%20follows%20by%20for%20all%20elimination%20on%20%60h%E2%82%82%60%20and%20%60u%60.%0Aend%0A--%20END%0Aend%20hidden" target="_blank" tryitfile="../examples/pred_logic/unnamed_682.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">theorem</span> <span class="n">not_forall</span> <span class="o">:</span> <span class="bp">&#172;</span><span class="o">(</span><span class="bp">&#8704;</span> <span class="n">x</span><span class="o">,</span> <span class="n">P</span> <span class="n">x</span><span class="o">)</span> <span class="bp">&#8596;</span> <span class="bp">&#8707;</span> <span class="n">x</span><span class="o">,</span> <span class="bp">&#172;</span><span class="n">P</span> <span class="n">x</span> <span class="o">:=</span>
+<span class="kd">begin</span>
+  <span class="c1">-- By iff intro., it suffices to prove 1. `&#172;(&#8704; x, P x) &#8594; &#8707; x, &#172;P x` and 2. `&#8707; x, &#172;P x &#8594; &#172;(&#8704; x, P x)`</span>
+  <span class="n">split</span><span class="o">,</span>
+  <span class="o">{</span> <span class="n">intro</span> <span class="n">h&#8321;</span><span class="o">,</span> <span class="c1">-- Case 1. Assume `h&#8321; : &#172;(&#8704; x, P x)`. It suffices to prove `&#8707; x, &#172;P x`.</span>
+    <span class="n">by_contradiction</span> <span class="n">h&#8322;</span><span class="o">,</span> <span class="c1">-- For a contradiction, suppose `h&#8322; : &#172;(&#8707; x, &#172;P x)`. It suffices to prove `false`.</span>
+    <span class="n">sorry</span><span class="o">,</span> <span class="o">},</span>
+  <span class="o">{</span> <span class="n">intro</span> <span class="n">h&#8321;</span><span class="o">,</span> <span class="c1">-- Case 2. Assume `h&#8321; : &#8707; x, &#172;P x`. It suffices to prove `&#172;(&#8704; x, P x)`.</span>
+    <span class="n">intro</span> <span class="n">h&#8322;</span><span class="o">,</span> <span class="c1">-- Assume `h&#8322; : &#8704; x, P x`. By negation introduction, it suffices to prove `false`.</span>
+    <span class="n">cases</span> <span class="n">h&#8321;</span> <span class="k">with</span> <span class="n">u</span> <span class="n">hu</span><span class="o">,</span> <span class="c1">-- By `&#8707;` elim. on `h&#8321;`, it suffices to prove the goal assuming `u : U` and `hu : &#172;P u`.</span>
+    <span class="n">apply</span> <span class="n">hu</span><span class="o">,</span> <span class="c1">-- By false introduction on `hu`, it suffices to prove `P u`.</span>
+    <span class="n">exact</span> <span class="n">h&#8322;</span> <span class="n">u</span><span class="o">,</span> <span class="o">}</span> <span class="c1">-- The result follows by for all elimination on `h&#8322;` and `u`.</span>
+<span class="kd">end</span>
+</pre></div>
+</div>
+</div></div>
 <div class="section" id="mixing-quantifiers">
 <h2><span class="section-number">3.8. </span>Mixing quantifiers<a class="headerlink" href="#mixing-quantifiers" title="Permalink to this headline">&#182;</a></h2>
 </div>
@@ -615,7 +760,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
       &copy;2020, Gihan Marasingha.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.3.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
