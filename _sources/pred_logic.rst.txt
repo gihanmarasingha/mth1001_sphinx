@@ -543,7 +543,8 @@ Here is a forward Lean proof of the same result.
 Exists elimination
 ------------------
 
-
+Suppose you want to prove, 'A person in Britain has competed in the Olympics' and you know,
+'there exists a person in Britain who has won a gold medal at the Olympics'
 
 
 
