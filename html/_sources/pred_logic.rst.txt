@@ -702,6 +702,9 @@ Complete the following proof of the above theorem.
   end hidden
 
 
+
+
+
 Mixing quantifiers
 ==================
 

@@ -11,7 +11,7 @@ Propositions and propositional variables
 From an informal perspective, propositions are statements that can be assigned
 a truth value.
 
-The formal perspective, which is more useful when you want to prove a theorem, propositions are
+From the formal perspective, which is more useful when you want to prove a theorem, propositions are
 simply expressions that can be constructed recursively by applying connectives to other propositions.
 
 As with any recursive definition, we must begin with a base set of propositions. These are called
