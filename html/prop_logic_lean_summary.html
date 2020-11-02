@@ -1,0 +1,691 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="ascii" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2. Propositional Logic Lean Summary &#8212; MTH1001 in Lean 1.00 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/proof.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="3. Predicate Logic" href="pred_logic.html" />
+    <link rel="prev" title="1. The Theory of Propositional Logic" href="prop_logic_theory.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="propositional-logic-lean-summary">
+<span id="sec-prop-logic-summary"></span><h1><span class="section-number">2. </span>Propositional Logic Lean Summary<a class="headerlink" href="#propositional-logic-lean-summary" title="Permalink to this headline">&#182;</a></h1>
+<div class="section" id="propositional-variables-and-special-symbols">
+<span id="prop-variables"></span><h2><span class="section-number">2.1. </span>Propositional variables and special symbols<a class="headerlink" href="#propositional-variables-and-special-symbols" title="Permalink to this headline">&#182;</a></h2>
+<p>Before working with propositions in Lean, you must introduce their names as variables.
+For example, the following statement introduces propositional variables <code class="docutils literal notranslate"><span class="pre">p</span></code>, <code class="docutils literal notranslate"><span class="pre">q</span></code>, and <code class="docutils literal notranslate"><span class="pre">r</span></code>.</p>
+<p>If you&#8217;re reading this online, click <em>try it</em> below and a Lean window will open in which you can
+examine and work with the Lean code.</p>
+<p><strong>Note</strong>: the first time you open the window an entire copy of Lean will be downloaded to your browser.
+This may take a minute or more, depending or your internet speed.
+Alternatively, you can copy and paste the text into a CoCalc window.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20p%20q%20r%20%3A%20Prop%0A--%20This%20is%20a%20one-line%20comment.%20In%20has%20no%20effect%20in%20Lean." target="_blank" tryitfile="../examples/prop_logic_lean_summary/unnamed_22.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">variables</span> <span class="n">p</span> <span class="n">q</span> <span class="n">r</span> <span class="o">:</span> <span class="kt">Prop</span>
+<span class="c1">-- This is a one-line comment. In has no effect in Lean.</span>
+</pre></div>
+</div>
+</div><p>In <a class="reference internal" href="#lean-symbols"><span class="std std-numref">Table 2.1</span></a>, we indicate how to type common symbols in Lean. After typing each
+sequence of characters, press space to ask Lean to convert the sequence into a symbol.</p>
+<span id="lean-symbols"></span><table class="colwidths-given docutils align-default" id="id1">
+<caption><span class="caption-number">Table 2.1 </span><span class="caption-text">Lean Symbols</span><a class="headerlink" href="#id1" title="Permalink to this table">&#182;</a></caption>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 50%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Symbol</p></th>
+<th class="head"><p>Name</p></th>
+<th class="head"><p>Lean</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\land\)</span></p></td>
+<td><p>Conjunction (and)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\and</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\lor\)</span></p></td>
+<td><p>Disjunction (or)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\or</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\to\)</span></p></td>
+<td><p>Implies</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\r</span></code> or <code class="docutils literal notranslate"><span class="pre">\to</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\leftrightarrow\)</span></p></td>
+<td><p>If and only if</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\iff</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\bot\)</span></p></td>
+<td><p>False, contradiction</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\forall\)</span></p></td>
+<td><p>For all</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\all</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\exists\)</span></p></td>
+<td><p>There exists</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\ex</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(h_1\)</span></p></td>
+<td><p>Subscript</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">h\1</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&#10216;</span></code> and <code class="docutils literal notranslate"><span class="pre">&#10217;</span></code></p></td>
+<td><p>French quotes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\&lt;</span></code> and <code class="docutils literal notranslate"><span class="pre">\&gt;</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="reiteration">
+<h2><span class="section-number">2.2. </span>Reiteration<a class="headerlink" href="#reiteration" title="Permalink to this headline">&#182;</a></h2>
+<p>The reiteration rule states that <span class="math notranslate nohighlight">\(p\)</span> follows from <span class="math notranslate nohighlight">\(h : p\)</span>.</p>
+<p>This is represented very simply in a term-style Lean proof. The first line of the proof below can be
+read as &#8216;Given <code class="docutils literal notranslate"><span class="pre">h</span> <span class="pre">:</span> <span class="pre">p</span></code>, here follows a proof of <code class="docutils literal notranslate"><span class="pre">p</span></code>&#8217;.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=example%20(h%20%3A%20p)%20%3A%20p%20%3A%3D%0Ah%20--%20Application%20of%20reiteration." target="_blank" tryitfile="../examples/prop_logic_lean_summary/unnamed_77.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h</span> <span class="o">:</span> <span class="n">p</span><span class="o">)</span> <span class="o">:</span> <span class="n">p</span> <span class="o">:=</span>
+<span class="n">h</span> <span class="c1">-- Application of reiteration.</span>
+</pre></div>
+</div>
+</div><p>Reiteration is represented in a tactic-style proof by the <code class="docutils literal notranslate"><span class="pre">exact</span></code> tactic.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variable%20p%20%3A%20Prop%0A--%20BEGIN%0Aexample%20(h%20%3A%20p)%20%3A%20p%20%3A%3D%0Abegin%0A%20%20exact%20h%2C%0Aend%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_lean_summary/unnamed_84.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h</span> <span class="o">:</span> <span class="n">p</span><span class="o">)</span> <span class="o">:</span> <span class="n">p</span> <span class="o">:=</span>
+<span class="kd">begin</span>
+  <span class="n">exact</span> <span class="n">h</span><span class="o">,</span>
+<span class="kd">end</span>
+</pre></div>
+</div>
+</div></div>
+<div class="section" id="conjunction-and">
+<h2><span class="section-number">2.3. </span>Conjunction (and)<a class="headerlink" href="#conjunction-and" title="Permalink to this headline">&#182;</a></h2>
+<div class="section" id="conjunction-elimination">
+<h3><span class="section-number">2.3.1. </span>Conjunction elimination<a class="headerlink" href="#conjunction-elimination" title="Permalink to this headline">&#182;</a></h3>
+<dl class="simple">
+<dt>There are two conjunction elimination rules, left and right.</dt><dd><ul class="simple">
+<li><p>(<strong>Left and elimination</strong>) given <span class="math notranslate nohighlight">\(h : p \land q\)</span>, we have a proof of <span class="math notranslate nohighlight">\(p\)</span>.</p></li>
+<li><p>(<strong>Right and elimination</strong>) given <span class="math notranslate nohighlight">\(h : p \land q\)</span>, we have a proof of <span class="math notranslate nohighlight">\(q\)</span>.</p></li>
+</ul>
+</dd>
+</dl>
+<p>In a tactic-style proof, we can perform left and right and elimination simultaneously with the
+<code class="docutils literal notranslate"><span class="pre">cases</span></code> tactic. Below, <code class="docutils literal notranslate"><span class="pre">cases</span> <span class="pre">h</span> <span class="pre">with</span> <span class="pre">hp</span> <span class="pre">hq</span></code> introduces hypotheses <code class="docutils literal notranslate"><span class="pre">hp</span> <span class="pre">:</span> <span class="pre">p</span></code> and <code class="docutils literal notranslate"><span class="pre">hq</span> <span class="pre">:</span> <span class="pre">q</span></code> into
+the context.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20p%20q%20%3A%20Prop%0A%0A--%20BEGIN%0Aexample%20(h%20%3A%20p%20%E2%88%A7%20q)%20%3A%20q%20%3A%3D%0Abegin%0A%20%20cases%20h%20with%20hp%20hq%2C%20--%20Equivalent%20to%20both%20left%20and%20right%20and%20elimination.%0A%20%20exact%20hq%2C%20--%20Closes%20the%20goal%20via%20reiteration%20using%20the%20proof%20term%20%60hq%60%0Aend%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_lean_summary/unnamed_110.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h</span> <span class="o">:</span> <span class="n">p</span> <span class="bp">&#8743;</span> <span class="n">q</span><span class="o">)</span> <span class="o">:</span> <span class="n">q</span> <span class="o">:=</span>
+<span class="kd">begin</span>
+  <span class="n">cases</span> <span class="n">h</span> <span class="k">with</span> <span class="n">hp</span> <span class="n">hq</span><span class="o">,</span> <span class="c1">-- Equivalent to both left and right and elimination.</span>
+  <span class="n">exact</span> <span class="n">hq</span><span class="o">,</span> <span class="c1">-- Closes the goal via reiteration using the proof term `hq`</span>
+<span class="kd">end</span>
+</pre></div>
+</div>
+</div><p>Given <code class="docutils literal notranslate"><span class="pre">h</span> <span class="pre">:</span> <span class="pre">p</span> <span class="pre">&#8743;</span> <span class="pre">q</span></code>, a proof term for <code class="docutils literal notranslate"><span class="pre">p</span> <span class="pre">&#8743;</span> <span class="pre">q</span></code>, the terms <code class="docutils literal notranslate"><span class="pre">h.left</span></code> and <code class="docutils literal notranslate"><span class="pre">h.right</span></code> are proof terms
+for <code class="docutils literal notranslate"><span class="pre">p</span></code> and <code class="docutils literal notranslate"><span class="pre">q</span></code>, respectively.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20p%20q%20%3A%20Prop%0A%0A--%20BEGIN%0Aexample%20(h%20%3A%20p%20%E2%88%A7%20q)%20%3A%20q%20%3A%3D%0Ah.right%20--%20Term-style%20right%20and%20elimination.%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_lean_summary/unnamed_125.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h</span> <span class="o">:</span> <span class="n">p</span> <span class="bp">&#8743;</span> <span class="n">q</span><span class="o">)</span> <span class="o">:</span> <span class="n">q</span> <span class="o">:=</span>
+<span class="n">h.right</span> <span class="c1">-- Term-style right and elimination.</span>
+</pre></div>
+</div>
+</div><p>We can use the <code class="docutils literal notranslate"><span class="pre">have</span></code>, &#8230;, <code class="docutils literal notranslate"><span class="pre">from</span></code> notation to insert a term-style proof into a tactic-style
+proof. Below, <code class="docutils literal notranslate"><span class="pre">h.right</span></code> is a proof term for <code class="docutils literal notranslate"><span class="pre">q</span></code>.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20p%20q%20%3A%20Prop%0A%0A--%20BEGIN%0Aexample%20(h%20%3A%20p%20%E2%88%A7%20q)%20%3A%20q%20%3A%3D%0Abegin%0A%20%20have%20hq%20%3A%20q%2C%20from%0A%20%20%20%20h.right%2C%20--%20Term-style%20right%20and%20elimination.%0A%20%20exact%20hq%2C%0Aend%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_lean_summary/unnamed_138.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h</span> <span class="o">:</span> <span class="n">p</span> <span class="bp">&#8743;</span> <span class="n">q</span><span class="o">)</span> <span class="o">:</span> <span class="n">q</span> <span class="o">:=</span>
+<span class="kd">begin</span>
+  <span class="k">have</span> <span class="n">hq</span> <span class="o">:</span> <span class="n">q</span><span class="o">,</span> <span class="k">from</span>
+    <span class="n">h.right</span><span class="o">,</span> <span class="c1">-- Term-style right and elimination.</span>
+  <span class="n">exact</span> <span class="n">hq</span><span class="o">,</span>
+<span class="kd">end</span>
+</pre></div>
+</div>
+</div></div>
+<div class="section" id="conjunction-introduction">
+<h3><span class="section-number">2.3.2. </span>Conjunction introduction<a class="headerlink" href="#conjunction-introduction" title="Permalink to this headline">&#182;</a></h3>
+<p><strong>Forward</strong>: given <span class="math notranslate nohighlight">\(h_1 : p\)</span> and <span class="math notranslate nohighlight">\(h_2 : q\)</span>, we have a proof of <span class="math notranslate nohighlight">\(p\land q\)</span>.</p>
+<p><strong>Backward</strong>: to prove <span class="math notranslate nohighlight">\(p\land q\)</span>, it suffices to prove <span class="math notranslate nohighlight">\(p\)</span> and <span class="math notranslate nohighlight">\(q\)</span>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">split</span></code> tactic applies conjunction introduction backward.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20p%20q%20%3A%20Prop%0A%0A--%20BEGIN%0Aexample%20(h%E2%82%81%20%3A%20p)%20(h%E2%82%82%20%3A%20q)%20%3A%20p%20%E2%88%A7%20q%20%3A%3D%0Abegin%0A%20%20split%2C%20--%20This%20replaces%20the%20goal%20p%20%E2%88%A7%20q%20with%20two%20new%20goals%3A%201.%20p%20and%202.%20q.%0A%20%20%7B%20exact%20h%E2%82%81%2C%20%7D%2C%20--%20This%20closes%20the%20goal%20for%20p.%0A%20%20%7B%20exact%20h%E2%82%82%2C%20%7D%2C%20--%20This%20closes%20the%20goal%20for%20q.%0Aend%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_lean_summary/unnamed_161.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h&#8321;</span> <span class="o">:</span> <span class="n">p</span><span class="o">)</span> <span class="o">(</span><span class="n">h&#8322;</span> <span class="o">:</span> <span class="n">q</span><span class="o">)</span> <span class="o">:</span> <span class="n">p</span> <span class="bp">&#8743;</span> <span class="n">q</span> <span class="o">:=</span>
+<span class="kd">begin</span>
+  <span class="n">split</span><span class="o">,</span> <span class="c1">-- This replaces the goal p &#8743; q with two new goals: 1. p and 2. q.</span>
+  <span class="o">{</span> <span class="n">exact</span> <span class="n">h&#8321;</span><span class="o">,</span> <span class="o">},</span> <span class="c1">-- This closes the goal for p.</span>
+  <span class="o">{</span> <span class="n">exact</span> <span class="n">h&#8322;</span><span class="o">,</span> <span class="o">},</span> <span class="c1">-- This closes the goal for q.</span>
+<span class="kd">end</span>
+</pre></div>
+</div>
+</div><p>The <code class="docutils literal notranslate"><span class="pre">and.intro</span></code> function, applied to <code class="docutils literal notranslate"><span class="pre">h&#8321;</span> <span class="pre">:</span> <span class="pre">p</span></code> and <code class="docutils literal notranslate"><span class="pre">h&#8322;</span> <span class="pre">:</span> <span class="pre">q</span></code>, gives a proof term for <code class="docutils literal notranslate"><span class="pre">p</span> <span class="pre">&#8743;</span> <span class="pre">q</span></code>.
+This is a forward application of conjunction introduction.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20p%20q%20%3A%20Prop%0A%0A--%20BEGIN%0Aexample%20(h%E2%82%81%20%3A%20p)%20(h%E2%82%82%20%3A%20q)%20%3A%20p%20%E2%88%A7%20q%20%3A%3D%0Aand.intro%20h%E2%82%81%20h%E2%82%82%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_lean_summary/unnamed_177.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h&#8321;</span> <span class="o">:</span> <span class="n">p</span><span class="o">)</span> <span class="o">(</span><span class="n">h&#8322;</span> <span class="o">:</span> <span class="n">q</span><span class="o">)</span> <span class="o">:</span> <span class="n">p</span> <span class="bp">&#8743;</span> <span class="n">q</span> <span class="o">:=</span>
+<span class="n">and.intro</span> <span class="n">h&#8321;</span> <span class="n">h&#8322;</span>
+</pre></div>
+</div>
+</div><p>This can also be written using French quotes (a general Lean notation for the so-called constructor
+of an inductive data type).</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20p%20q%20%3A%20Prop%0A%0A--%20BEGIN%0Aexample%20(h%E2%82%81%20%3A%20p)%20(h%E2%82%82%20%3A%20q)%20%3A%20p%20%E2%88%A7%20q%20%3A%3D%0A%E2%9F%A8h%E2%82%81%2C%20h%E2%82%82%E2%9F%A9%20--%20Enter%20these%20'French%20quotes'%20with%20%60%5C%3C%60%20and%20%20%60%5C%3E%60" target="_blank" tryitfile="../examples/prop_logic_lean_summary/unnamed_189.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">variables</span> <span class="n">p</span> <span class="n">q</span> <span class="o">:</span> <span class="kt">Prop</span>
+
+<span class="c1">-- BEGIN</span>
+<span class="kd">example</span> <span class="o">(</span><span class="n">h&#8321;</span> <span class="o">:</span> <span class="n">p</span><span class="o">)</span> <span class="o">(</span><span class="n">h&#8322;</span> <span class="o">:</span> <span class="n">q</span><span class="o">)</span> <span class="o">:</span> <span class="n">p</span> <span class="bp">&#8743;</span> <span class="n">q</span> <span class="o">:=</span>
+<span class="o">&#10216;</span><span class="n">h&#8321;</span><span class="o">,</span> <span class="n">h&#8322;</span><span class="o">&#10217;</span> <span class="c1">-- Enter these &#39;French quotes&#39; with `\&lt;` and  `\&gt;`</span>
+</pre></div>
+</div>
+</div><p>This proof term can be used within a tactic block.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20p%20q%20%3A%20Prop%0A%0A--%20BEGIN%0Aexample%20(h%E2%82%81%20%3A%20p)%20(h%E2%82%82%20%3A%20q)%20%3A%20p%20%E2%88%A7%20q%20%3A%3D%0Abegin%0A%20%20exact%20and.intro%20h%E2%82%81%20h%E2%82%82%20--%20Or%20%60exact%20%E2%9F%A8h%E2%82%81%2C%20h%E2%82%82%E2%9F%A9%60.%0Aend%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_lean_summary/unnamed_199.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h&#8321;</span> <span class="o">:</span> <span class="n">p</span><span class="o">)</span> <span class="o">(</span><span class="n">h&#8322;</span> <span class="o">:</span> <span class="n">q</span><span class="o">)</span> <span class="o">:</span> <span class="n">p</span> <span class="bp">&#8743;</span> <span class="n">q</span> <span class="o">:=</span>
+<span class="kd">begin</span>
+  <span class="n">exact</span> <span class="n">and.intro</span> <span class="n">h&#8321;</span> <span class="n">h&#8322;</span> <span class="c1">-- Or `exact &#10216;h&#8321;, h&#8322;&#10217;`.</span>
+<span class="kd">end</span>
+</pre></div>
+</div>
+</div></div>
+</div>
+<div class="section" id="implication">
+<h2><span class="section-number">2.4. </span>Implication<a class="headerlink" href="#implication" title="Permalink to this headline">&#182;</a></h2>
+<div class="section" id="implication-elimination">
+<h3><span class="section-number">2.4.1. </span>Implication elimination<a class="headerlink" href="#implication-elimination" title="Permalink to this headline">&#182;</a></h3>
+<p><strong>Forward</strong>: given <span class="math notranslate nohighlight">\(h_1 : p \to q\)</span> and <span class="math notranslate nohighlight">\(h_2 : p\)</span>, we have a proof of <span class="math notranslate nohighlight">\(q\)</span>.</p>
+<p><strong>Backward</strong>: given <span class="math notranslate nohighlight">\(h : p \to q\)</span>, to prove <span class="math notranslate nohighlight">\(q\)</span>, it suffices to prove <span class="math notranslate nohighlight">\(p\)</span>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">apply</span></code> tactic uses implication elimination backward.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20p%20q%20%3A%20Prop%0A%0A--%20BEGIN%0Aexample%20(h%20%3A%20p%20%E2%86%92%20q)%20(k%20%3A%20p)%20%3A%20q%20%3A%3D%0Abegin%0A%20%20apply%20h%2C%20--%20This%20is%20a%20backward%20proof%20that%20changes%20the%20goal%20to%20proving%20p.%0A%20%20exact%20k%2C%0Aend%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_lean_summary/unnamed_223.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h</span> <span class="o">:</span> <span class="n">p</span> <span class="bp">&#8594;</span> <span class="n">q</span><span class="o">)</span> <span class="o">(</span><span class="n">k</span> <span class="o">:</span> <span class="n">p</span><span class="o">)</span> <span class="o">:</span> <span class="n">q</span> <span class="o">:=</span>
+<span class="kd">begin</span>
+  <span class="n">apply</span> <span class="n">h</span><span class="o">,</span> <span class="c1">-- This is a backward proof that changes the goal to proving p.</span>
+  <span class="n">exact</span> <span class="n">k</span><span class="o">,</span>
+<span class="kd">end</span>
+</pre></div>
+</div>
+</div><p>Given <code class="docutils literal notranslate"><span class="pre">h&#8321;</span> <span class="pre">:</span> <span class="pre">p</span> <span class="pre">&#8594;</span> <span class="pre">q</span></code> and <code class="docutils literal notranslate"><span class="pre">h&#8322;</span> <span class="pre">:</span> <span class="pre">p</span></code>, the expression <code class="docutils literal notranslate"><span class="pre">h&#8321;</span> <span class="pre">h&#8322;</span></code> is a proof term for <code class="docutils literal notranslate"><span class="pre">q</span></code>. This is
+forward implication elimination.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20p%20q%20%3A%20Prop%0A%0A--%20BEGIN%0Aexample%20(h%E2%82%81%20%3A%20p%20%E2%86%92%20q)%20(h%E2%82%82%20%3A%20p)%20%3A%20q%20%3A%3D%0Ah%E2%82%81%20h%E2%82%82%20--%20h%E2%82%81%20h%E2%82%82%20is%20the%20result%20of%20implication%20elimination%20on%20h%E2%82%81%20and%20h%E2%82%82.%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_lean_summary/unnamed_238.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h&#8321;</span> <span class="o">:</span> <span class="n">p</span> <span class="bp">&#8594;</span> <span class="n">q</span><span class="o">)</span> <span class="o">(</span><span class="n">h&#8322;</span> <span class="o">:</span> <span class="n">p</span><span class="o">)</span> <span class="o">:</span> <span class="n">q</span> <span class="o">:=</span>
+<span class="n">h&#8321;</span> <span class="n">h&#8322;</span> <span class="c1">-- h&#8321; h&#8322; is the result of implication elimination on h&#8321; and h&#8322;.</span>
+</pre></div>
+</div>
+</div><p>As usual, this proof term can be used within a tactic block using the <code class="docutils literal notranslate"><span class="pre">exact</span></code> tactic.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20p%20q%20%3A%20Prop%0A%0A--%20BEGIN%0Aexample%20(h%E2%82%81%20%3A%20p%20%E2%86%92%20q)%20(h%E2%82%82%20%3A%20p)%20%3A%20q%20%3A%3D%0Abegin%0A%20%20exact%20h%E2%82%81%20h%E2%82%82%2C%0Aend%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_lean_summary/unnamed_249.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h&#8321;</span> <span class="o">:</span> <span class="n">p</span> <span class="bp">&#8594;</span> <span class="n">q</span><span class="o">)</span> <span class="o">(</span><span class="n">h&#8322;</span> <span class="o">:</span> <span class="n">p</span><span class="o">)</span> <span class="o">:</span> <span class="n">q</span> <span class="o">:=</span>
+<span class="kd">begin</span>
+  <span class="n">exact</span> <span class="n">h&#8321;</span> <span class="n">h&#8322;</span><span class="o">,</span>
+<span class="kd">end</span>
+</pre></div>
+</div>
+</div></div>
+<div class="section" id="implication-introduction">
+<h3><span class="section-number">2.4.2. </span>Implication introduction<a class="headerlink" href="#implication-introduction" title="Permalink to this headline">&#182;</a></h3>
+<p><strong>Implication introduction</strong>: to prove <span class="math notranslate nohighlight">\(p \to q\)</span>, it suffices to assume <span class="math notranslate nohighlight">\(h : p\)</span> and
+derive <span class="math notranslate nohighlight">\(q\)</span>.</p>
+<p>Tactic-style, if the goal is to prove <code class="docutils literal notranslate"><span class="pre">p</span> <span class="pre">&#8594;</span> <span class="pre">q</span></code>, then <code class="docutils literal notranslate"><span class="pre">intro</span> <span class="pre">h</span></code> introduces an assumption
+<code class="docutils literal notranslate"><span class="pre">h</span> <span class="pre">:</span> <span class="pre">p</span></code> into the context and replaces the goal with one of proving <code class="docutils literal notranslate"><span class="pre">q</span></code>.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20p%20q%20%3A%20Prop%0A%0A--%20BEGIN%0Aexample%20(k%20%3A%20q)%20%3A%20p%20%E2%86%92%20q%20%3A%3D%0Abegin%0A%20%20intro%20h%2C%20--%20This%20is%20equivalent%20to%20'Assume%20h%20%3A%20p'%20in%20mathematics.%0A%20%20exact%20k%2C%20--%20We%20close%20the%20goal%20using%20our%20proof%20of%20q.%0Aend%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_lean_summary/unnamed_269.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">k</span> <span class="o">:</span> <span class="n">q</span><span class="o">)</span> <span class="o">:</span> <span class="n">p</span> <span class="bp">&#8594;</span> <span class="n">q</span> <span class="o">:=</span>
+<span class="kd">begin</span>
+  <span class="n">intro</span> <span class="n">h</span><span class="o">,</span> <span class="c1">-- This is equivalent to &#39;Assume h : p&#39; in mathematics.</span>
+  <span class="n">exact</span> <span class="n">k</span><span class="o">,</span> <span class="c1">-- We close the goal using our proof of q.</span>
+<span class="kd">end</span>
+</pre></div>
+</div>
+</div><p>The term style proof is similar, using <code class="docutils literal notranslate"><span class="pre">assume</span></code> instead of <code class="docutils literal notranslate"><span class="pre">intro</span></code>.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20p%20q%20%3A%20Prop%0A%0A--%20BEGIN%0Aexample%20(k%20%3A%20q)%20%3A%20p%20%E2%86%92%20q%20%3A%3D%0Aassume%20h%2C%0A%20%20k%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_lean_summary/unnamed_283.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">k</span> <span class="o">:</span> <span class="n">q</span><span class="o">)</span> <span class="o">:</span> <span class="n">p</span> <span class="bp">&#8594;</span> <span class="n">q</span> <span class="o">:=</span>
+<span class="k">assume</span> <span class="n">h</span><span class="o">,</span>
+  <span class="n">k</span>
+</pre></div>
+</div>
+</div><p>If desired, you can make the type of <code class="docutils literal notranslate"><span class="pre">h</span></code> explicit, when giving a term-style proof.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20p%20q%20%3A%20Prop%0A%0A--%20BEGIN%0Aexample%20(k%20%3A%20q)%20%3A%20p%20%E2%86%92%20q%20%3A%3D%0Aassume%20h%20%3A%20p%2C%0A%20%20k%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_lean_summary/unnamed_295.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">k</span> <span class="o">:</span> <span class="n">q</span><span class="o">)</span> <span class="o">:</span> <span class="n">p</span> <span class="bp">&#8594;</span> <span class="n">q</span> <span class="o">:=</span>
+<span class="k">assume</span> <span class="n">h</span> <span class="o">:</span> <span class="n">p</span><span class="o">,</span>
+  <span class="n">k</span>
+</pre></div>
+</div>
+</div></div>
+</div>
+<div class="section" id="disjunction-or">
+<h2><span class="section-number">2.5. </span>Disjunction (or)<a class="headerlink" href="#disjunction-or" title="Permalink to this headline">&#182;</a></h2>
+<div class="section" id="disjunction-introduction">
+<h3><span class="section-number">2.5.1. </span>Disjunction introduction<a class="headerlink" href="#disjunction-introduction" title="Permalink to this headline">&#182;</a></h3>
+<p>There are two disjunction introduction rules, left and right.</p>
+<dl class="simple">
+<dt><strong>Forward</strong></dt><dd><ul class="simple">
+<li><p>(<strong>Left or introduction</strong>) given <span class="math notranslate nohighlight">\(h : p\)</span>, we have a proof of <span class="math notranslate nohighlight">\(p \lor q\)</span>.</p></li>
+<li><p>(<strong>Right or introduction</strong>) given <span class="math notranslate nohighlight">\(h : q\)</span>, we have a proof of <span class="math notranslate nohighlight">\(p \lor q\)</span>.</p></li>
+</ul>
+</dd>
+<dt><strong>Backward</strong></dt><dd><ul class="simple">
+<li><p>(<strong>Left or introduction</strong>) to prove <span class="math notranslate nohighlight">\(p\)</span>, it suffices to prove <span class="math notranslate nohighlight">\(p \lor q\)</span>.</p></li>
+<li><p>(<strong>Right or introduction</strong>) to prove <span class="math notranslate nohighlight">\(q\)</span>, it suffices to prove <span class="math notranslate nohighlight">\(p \lor q\)</span>.</p></li>
+</ul>
+</dd>
+</dl>
+<p>The <code class="docutils literal notranslate"><span class="pre">left</span></code> and <code class="docutils literal notranslate"><span class="pre">right</span></code> tactics represent backward left or introduction and right or introduction,
+respectively.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20p%20q%20%3A%20Prop%0A%0A--%20BEGIN%0Aexample%20(h%20%3A%20p)%20%3A%20p%20%E2%88%A8%20q%20%3A%3D%0Abegin%0A%20%20left%2C%20--%20This%20changes%20the%20goal%2C%20by%20left%20or%20introduction%2C%20to%20proving%20p%0A%20%20exact%20h%2C%0Aend%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_lean_summary/unnamed_324.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h</span> <span class="o">:</span> <span class="n">p</span><span class="o">)</span> <span class="o">:</span> <span class="n">p</span> <span class="bp">&#8744;</span> <span class="n">q</span> <span class="o">:=</span>
+<span class="kd">begin</span>
+  <span class="n">left</span><span class="o">,</span> <span class="c1">-- This changes the goal, by left or introduction, to proving p</span>
+  <span class="n">exact</span> <span class="n">h</span><span class="o">,</span>
+<span class="kd">end</span>
+</pre></div>
+</div>
+</div><p>Forward, given <code class="docutils literal notranslate"><span class="pre">h</span> <span class="pre">:</span> <span class="pre">p</span></code>, the expression <code class="docutils literal notranslate"><span class="pre">or.inl</span> <span class="pre">h</span></code> is a proof term for <code class="docutils literal notranslate"><span class="pre">p</span> <span class="pre">&#8744;</span> <span class="pre">q</span></code>. Likewise,
+if <code class="docutils literal notranslate"><span class="pre">h</span> <span class="pre">:</span> <span class="pre">q</span></code>, the expression <code class="docutils literal notranslate"><span class="pre">or.inr</span> <span class="pre">h</span></code> is a proof term for <code class="docutils literal notranslate"><span class="pre">p</span> <span class="pre">&#8744;</span> <span class="pre">q</span></code>.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20p%20q%20%3A%20Prop%0A%0A--%20BEGIN%0Aexample%20(h%20%3A%20p)%20%3A%20p%20%E2%88%A8%20q%20%3A%3D%0Aor.inl%20h%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_lean_summary/unnamed_339.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h</span> <span class="o">:</span> <span class="n">p</span><span class="o">)</span> <span class="o">:</span> <span class="n">p</span> <span class="bp">&#8744;</span> <span class="n">q</span> <span class="o">:=</span>
+<span class="n">or.inl</span> <span class="n">h</span>
+</pre></div>
+</div>
+</div></div>
+<div class="section" id="disjunction-elimination">
+<h3><span class="section-number">2.5.2. </span>Disjunction elimination<a class="headerlink" href="#disjunction-elimination" title="Permalink to this headline">&#182;</a></h3>
+<p><strong>Forward</strong>: given <span class="math notranslate nohighlight">\(h_1 : p \lor q\)</span>, <span class="math notranslate nohighlight">\(h_2 : p \to r\)</span>, and <span class="math notranslate nohighlight">\(h_3 : q \to r\)</span>, we
+have a proof of <span class="math notranslate nohighlight">\(r\)</span>.</p>
+<p><strong>Backward</strong>: given <span class="math notranslate nohighlight">\(h : p \lor q\)</span>, to prove <span class="math notranslate nohighlight">\(r\)</span>, it suffices to (1) assume
+<span class="math notranslate nohighlight">\(hp : p\)</span> and deduce <span class="math notranslate nohighlight">\(r\)</span> and (2) assume <span class="math notranslate nohighlight">\(hq : q\)</span> and deduce <span class="math notranslate nohighlight">\(r\)</span>.</p>
+<p>Given <code class="docutils literal notranslate"><span class="pre">h</span> <span class="pre">:</span> <span class="pre">p</span> <span class="pre">&#8744;</span> <span class="pre">q</span></code>, the <code class="docutils literal notranslate"><span class="pre">cases</span></code> tactic applied as <code class="docutils literal notranslate"><span class="pre">cases</span> <span class="pre">h</span> <span class="pre">with</span> <span class="pre">hp</span> <span class="pre">hq</span></code> replaces the goal
+of proving <code class="docutils literal notranslate"><span class="pre">r</span></code> with two subgoals: (1) to prove <code class="docutils literal notranslate"><span class="pre">r</span></code> with an additional assumption <code class="docutils literal notranslate"><span class="pre">hp</span> <span class="pre">:</span> <span class="pre">p</span></code>
+and (2) to prove <code class="docutils literal notranslate"><span class="pre">r</span></code> with an additional assumption <code class="docutils literal notranslate"><span class="pre">hq</span> <span class="pre">:</span> <span class="pre">q</span></code>.</p>
+<p>In the example code below, we show two different methods of closing the resulting subgoals,
+corresponding, in turn, to term-style and tactic-style implication elimination.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20p%20q%20r%20%3A%20Prop%0A%0A--%20BEGIN%0Aexample%20(h%20%3A%20p%20%E2%88%A8%20q)%20(h%E2%82%82%20%3A%20p%20%E2%86%92%20r)%20(h%E2%82%83%20%3A%20q%20%E2%86%92%20r)%20%3A%20r%20%3A%3D%0Abegin%0A%20%20cases%20h%20with%20hp%20hq%2C%0A%20%20%7B%20exact%20h%E2%82%82%20hp%2C%20%7D%2C%20--%20%60h%E2%82%82%20hp%60%20is%20implication%20elimination%20to%20give%20%60r%60.%0A%20%20%7B%20apply%20h%E2%82%83%2C%20exact%20hq%2C%20%7D%2C%20--%20A%20tactic-style%20implication%20elimination.%0Aend%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_lean_summary/unnamed_364.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h</span> <span class="o">:</span> <span class="n">p</span> <span class="bp">&#8744;</span> <span class="n">q</span><span class="o">)</span> <span class="o">(</span><span class="n">h&#8322;</span> <span class="o">:</span> <span class="n">p</span> <span class="bp">&#8594;</span> <span class="n">r</span><span class="o">)</span> <span class="o">(</span><span class="n">h&#8323;</span> <span class="o">:</span> <span class="n">q</span> <span class="bp">&#8594;</span> <span class="n">r</span><span class="o">)</span> <span class="o">:</span> <span class="n">r</span> <span class="o">:=</span>
+<span class="kd">begin</span>
+  <span class="n">cases</span> <span class="n">h</span> <span class="k">with</span> <span class="n">hp</span> <span class="n">hq</span><span class="o">,</span>
+  <span class="o">{</span> <span class="n">exact</span> <span class="n">h&#8322;</span> <span class="n">hp</span><span class="o">,</span> <span class="o">},</span> <span class="c1">-- `h&#8322; hp` is implication elimination to give `r`.</span>
+  <span class="o">{</span> <span class="n">apply</span> <span class="n">h&#8323;</span><span class="o">,</span> <span class="n">exact</span> <span class="n">hq</span><span class="o">,</span> <span class="o">},</span> <span class="c1">-- A tactic-style implication elimination.</span>
+<span class="kd">end</span>
+</pre></div>
+</div>
+</div><p>Here is a more typical example of disjunction elimination.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20p%20q%20r%20%3A%20Prop%0A%0A--%20BEGIN%0Aexample%20(h%E2%82%81%20%3A%20(p%20%E2%88%A7%20r)%20%E2%88%A8%20(r%20%E2%88%A7%20q))%20%3A%20r%20%3A%3D%0Abegin%0A%20%20cases%20h%E2%82%81%20with%20h%E2%82%82%20h%E2%82%82%2C%0A%20%20%7B%20exact%20h%E2%82%82.right%2C%20%7D%2C%20--%20In%20this%20subproof%2C%20%60h%E2%82%82%20%3A%20p%20%E2%88%A7%20r%60.%20The%20subgoal%20is%20%60r%60.%0A%20%20%7B%20exact%20h%E2%82%82.left%2C%20%7D%2C%20--%20In%20this%20subproof%2C%20%60h%E2%82%82%20%3A%20r%20%E2%88%A7%20q%60.%20The%20subgoal%20is%20%60r%60.%0Aend%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_lean_summary/unnamed_379.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h&#8321;</span> <span class="o">:</span> <span class="o">(</span><span class="n">p</span> <span class="bp">&#8743;</span> <span class="n">r</span><span class="o">)</span> <span class="bp">&#8744;</span> <span class="o">(</span><span class="n">r</span> <span class="bp">&#8743;</span> <span class="n">q</span><span class="o">))</span> <span class="o">:</span> <span class="n">r</span> <span class="o">:=</span>
+<span class="kd">begin</span>
+  <span class="n">cases</span> <span class="n">h&#8321;</span> <span class="k">with</span> <span class="n">h&#8322;</span> <span class="n">h&#8322;</span><span class="o">,</span>
+  <span class="o">{</span> <span class="n">exact</span> <span class="n">h&#8322;.right</span><span class="o">,</span> <span class="o">},</span> <span class="c1">-- In this subproof, `h&#8322; : p &#8743; r`. The subgoal is `r`.</span>
+  <span class="o">{</span> <span class="n">exact</span> <span class="n">h&#8322;.left</span><span class="o">,</span> <span class="o">},</span> <span class="c1">-- In this subproof, `h&#8322; : r &#8743; q`. The subgoal is `r`.</span>
+<span class="kd">end</span>
+</pre></div>
+</div>
+</div><p>Given <code class="docutils literal notranslate"><span class="pre">h&#8321;</span> <span class="pre">:</span> <span class="pre">p</span> <span class="pre">&#8744;</span> <span class="pre">q</span></code>, <code class="docutils literal notranslate"><span class="pre">h&#8322;</span> <span class="pre">:</span> <span class="pre">p</span> <span class="pre">&#8594;</span> <span class="pre">r</span></code>, <code class="docutils literal notranslate"><span class="pre">h&#8323;</span> <span class="pre">:</span> <span class="pre">q</span> <span class="pre">&#8594;</span> <span class="pre">r</span></code>, the function <code class="docutils literal notranslate"><span class="pre">or.elim</span></code> applied to <code class="docutils literal notranslate"><span class="pre">h&#8321;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">h&#8322;</span></code>, and <code class="docutils literal notranslate"><span class="pre">h&#8323;</span></code> gives a proof-term for``r``.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20p%20q%20r%20%3A%20Prop%0A%0A--%20BEGIN%0Aexample%20(h%E2%82%81%20%3A%20p%20%E2%88%A8%20q)%20(h%E2%82%82%20%3A%20p%20%E2%86%92%20r)%20(h%E2%82%83%20%3A%20q%20%E2%86%92%20r)%20%3A%20r%20%3A%3D%0Aor.elim%20h%E2%82%81%20h%E2%82%82%20h%E2%82%83%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_lean_summary/unnamed_396.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h&#8321;</span> <span class="o">:</span> <span class="n">p</span> <span class="bp">&#8744;</span> <span class="n">q</span><span class="o">)</span> <span class="o">(</span><span class="n">h&#8322;</span> <span class="o">:</span> <span class="n">p</span> <span class="bp">&#8594;</span> <span class="n">r</span><span class="o">)</span> <span class="o">(</span><span class="n">h&#8323;</span> <span class="o">:</span> <span class="n">q</span> <span class="bp">&#8594;</span> <span class="n">r</span><span class="o">)</span> <span class="o">:</span> <span class="n">r</span> <span class="o">:=</span>
+<span class="n">or.elim</span> <span class="n">h&#8321;</span> <span class="n">h&#8322;</span> <span class="n">h&#8323;</span>
+</pre></div>
+</div>
+</div><p>Here is a term-style proof of the previous result.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20p%20q%20r%20%3A%20Prop%0A%0A--%20BEGIN%0Aexample%20(h%E2%82%81%20%3A%20(p%20%E2%88%A7%20r)%20%E2%88%A8%20(r%20%E2%88%A7%20q))%20%3A%20r%20%3A%3D%0Aor.elim%20h%E2%82%81%0A%20%20(assume%20h%E2%82%82%20%3A%20p%20%E2%88%A7%20r%2C%20h%E2%82%82.right)%20--%20A%20term-style%20proof%20of%20%60p%20%E2%88%A7%20r%20%E2%86%92%20r%60%0A%20%20(assume%20h%E2%82%82%20%3A%20r%20%E2%88%A7%20q%2C%20h%E2%82%82.left)%20--%20A%20term-style%20proof%20of%20%60r%20%E2%88%A7%20q%20%E2%86%92%20r%60%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_lean_summary/unnamed_407.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h&#8321;</span> <span class="o">:</span> <span class="o">(</span><span class="n">p</span> <span class="bp">&#8743;</span> <span class="n">r</span><span class="o">)</span> <span class="bp">&#8744;</span> <span class="o">(</span><span class="n">r</span> <span class="bp">&#8743;</span> <span class="n">q</span><span class="o">))</span> <span class="o">:</span> <span class="n">r</span> <span class="o">:=</span>
+<span class="n">or.elim</span> <span class="n">h&#8321;</span>
+  <span class="o">(</span><span class="k">assume</span> <span class="n">h&#8322;</span> <span class="o">:</span> <span class="n">p</span> <span class="bp">&#8743;</span> <span class="n">r</span><span class="o">,</span> <span class="n">h&#8322;.right</span><span class="o">)</span> <span class="c1">-- A term-style proof of `p &#8743; r &#8594; r`</span>
+  <span class="o">(</span><span class="k">assume</span> <span class="n">h&#8322;</span> <span class="o">:</span> <span class="n">r</span> <span class="bp">&#8743;</span> <span class="n">q</span><span class="o">,</span> <span class="n">h&#8322;.left</span><span class="o">)</span> <span class="c1">-- A term-style proof of `r &#8743; q &#8594; r`</span>
+</pre></div>
+</div>
+</div></div>
+</div>
+<div class="section" id="if-and-only-if-iff">
+<h2><span class="section-number">2.6. </span>If and only if (iff)<a class="headerlink" href="#if-and-only-if-iff" title="Permalink to this headline">&#182;</a></h2>
+<div class="section" id="iff-elimination">
+<h3><span class="section-number">2.6.1. </span>Iff elimination<a class="headerlink" href="#iff-elimination" title="Permalink to this headline">&#182;</a></h3>
+<dl class="simple">
+<dt>There are two iff elimination rules, left and right.</dt><dd><ul class="simple">
+<li><p>(<strong>Left iff elimination</strong>) given <span class="math notranslate nohighlight">\(h : p \leftrightarrow q\)</span>, we have a proof of <span class="math notranslate nohighlight">\(p \to q\)</span>.</p></li>
+<li><p>(<strong>Right iff elimination</strong>) given <span class="math notranslate nohighlight">\(h : p \leftrightarrow q\)</span>, we have a proof of <span class="math notranslate nohighlight">\(q \to p\)</span>.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Note the similarity with this and conjunction elimination.</p>
+<p>Given <code class="docutils literal notranslate"><span class="pre">h</span> <span class="pre">:</span> <span class="pre">p</span> <span class="pre">&#8596;</span> <span class="pre">q</span></code>, the <code class="docutils literal notranslate"><span class="pre">cases</span></code> tactic, when applied as <code class="docutils literal notranslate"><span class="pre">cases</span> <span class="pre">h</span> <span class="pre">with</span> <span class="pre">h&#8321;</span> <span class="pre">h&#8322;</span></code>, decomposes the
+hypothesis <code class="docutils literal notranslate"><span class="pre">h</span></code> into two hypotheses, <code class="docutils literal notranslate"><span class="pre">h&#8321;</span> <span class="pre">:</span> <span class="pre">p</span> <span class="pre">&#8594;</span> <span class="pre">q</span></code> and <code class="docutils literal notranslate"><span class="pre">h&#8322;</span> <span class="pre">:</span> <span class="pre">q</span> <span class="pre">&#8594;</span> <span class="pre">p</span></code>. This is the same as
+left and right iff elimination simultaneously.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20p%20q%20%3A%20Prop%0A%0A--%20BEGIN%0Aexample%20(h%20%3A%20p%20%E2%86%94%20q)%20%3A%20p%20%E2%86%92%20q%20%3A%3D%0Abegin%0A%20%20cases%20h%20with%20h%E2%82%81%20h%E2%82%82%2C%0A%20%20exact%20h%E2%82%81%2C%0Aend%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_lean_summary/unnamed_433.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h</span> <span class="o">:</span> <span class="n">p</span> <span class="bp">&#8596;</span> <span class="n">q</span><span class="o">)</span> <span class="o">:</span> <span class="n">p</span> <span class="bp">&#8594;</span> <span class="n">q</span> <span class="o">:=</span>
+<span class="kd">begin</span>
+  <span class="n">cases</span> <span class="n">h</span> <span class="k">with</span> <span class="n">h&#8321;</span> <span class="n">h&#8322;</span><span class="o">,</span>
+  <span class="n">exact</span> <span class="n">h&#8321;</span><span class="o">,</span>
+<span class="kd">end</span>
+</pre></div>
+</div>
+</div><p>Likewise, given <code class="docutils literal notranslate"><span class="pre">h</span> <span class="pre">:</span> <span class="pre">p</span> <span class="pre">&#8596;</span> <span class="pre">q</span></code>, <code class="docutils literal notranslate"><span class="pre">iff.elim_left</span> <span class="pre">h</span></code> is a proof term for <code class="docutils literal notranslate"><span class="pre">p</span> <span class="pre">&#8594;</span> <span class="pre">q</span></code> and
+<code class="docutils literal notranslate"><span class="pre">iff.elim_right</span> <span class="pre">h</span></code> is a proof term for <code class="docutils literal notranslate"><span class="pre">q</span> <span class="pre">&#8594;</span> <span class="pre">p</span></code>.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20p%20q%20%3A%20Prop%0A%0A--%20BEGIN%0Aexample%20(h%20%3A%20p%20%E2%86%94%20q)%20%3A%20p%20%E2%86%92%20q%20%3A%3D%0Aiff.elim_left%20h%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_lean_summary/unnamed_448.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h</span> <span class="o">:</span> <span class="n">p</span> <span class="bp">&#8596;</span> <span class="n">q</span><span class="o">)</span> <span class="o">:</span> <span class="n">p</span> <span class="bp">&#8594;</span> <span class="n">q</span> <span class="o">:=</span>
+<span class="n">iff.elim_left</span> <span class="n">h</span>
+</pre></div>
+</div>
+</div></div>
+<div class="section" id="iff-introduction">
+<h3><span class="section-number">2.6.2. </span>Iff introduction<a class="headerlink" href="#iff-introduction" title="Permalink to this headline">&#182;</a></h3>
+<p><strong>Forward</strong>: given <span class="math notranslate nohighlight">\(h_1 : p \to q\)</span> and  <span class="math notranslate nohighlight">\(h_2 : q \to p\)</span>,  we
+have a proof of <span class="math notranslate nohighlight">\(p \leftrightarrow q\)</span>.</p>
+<p><strong>Backward</strong>: to prove <span class="math notranslate nohighlight">\(p \leftrightarrow q\)</span>, it suffices to prove <span class="math notranslate nohighlight">\(p \to q\)</span> and
+<span class="math notranslate nohighlight">\(q \to p\)</span>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">split</span></code> tactic applies iff introduction backward.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20p%20q%20%3A%20Prop%0A%0A--%20BEGIN%0Aexample%20(h%E2%82%81%20%3A%20p%20%E2%86%92%20q)%20(h%E2%82%82%20%3A%20q%20%E2%86%92%20p)%20%3A%20p%20%E2%86%94%20q%20%3A%3D%0Abegin%0A%20%20split%2C%20--%20This%20replaces%20the%20goal%20%60p%20%E2%86%94%20q%60%20with%201.%20p%20%E2%86%92%20q%20and%202.%20q%20%E2%86%92%20p.%0A%20%20%7B%20exact%20h%E2%82%81%2C%20%7D%2C%20--%20Closes%20the%20goal%20%60p%20%E2%86%92%20q%60.%0A%20%20%7B%20exact%20h%E2%82%82%2C%20%7D%2C%20--%20Closes%20the%20goal%20%60q%20%E2%86%92%20p%60.%0Aend%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_lean_summary/unnamed_468.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h&#8321;</span> <span class="o">:</span> <span class="n">p</span> <span class="bp">&#8594;</span> <span class="n">q</span><span class="o">)</span> <span class="o">(</span><span class="n">h&#8322;</span> <span class="o">:</span> <span class="n">q</span> <span class="bp">&#8594;</span> <span class="n">p</span><span class="o">)</span> <span class="o">:</span> <span class="n">p</span> <span class="bp">&#8596;</span> <span class="n">q</span> <span class="o">:=</span>
+<span class="kd">begin</span>
+  <span class="n">split</span><span class="o">,</span> <span class="c1">-- This replaces the goal `p &#8596; q` with 1. p &#8594; q and 2. q &#8594; p.</span>
+  <span class="o">{</span> <span class="n">exact</span> <span class="n">h&#8321;</span><span class="o">,</span> <span class="o">},</span> <span class="c1">-- Closes the goal `p &#8594; q`.</span>
+  <span class="o">{</span> <span class="n">exact</span> <span class="n">h&#8322;</span><span class="o">,</span> <span class="o">},</span> <span class="c1">-- Closes the goal `q &#8594; p`.</span>
+<span class="kd">end</span>
+</pre></div>
+</div>
+</div><p>The <code class="docutils literal notranslate"><span class="pre">iff.intro</span></code> function, applied to <code class="docutils literal notranslate"><span class="pre">h&#8321;</span> <span class="pre">:</span> <span class="pre">p</span> <span class="pre">&#8594;</span> <span class="pre">q</span></code> and <code class="docutils literal notranslate"><span class="pre">h&#8322;</span> <span class="pre">:</span> <span class="pre">q</span> <span class="pre">&#8594;</span> <span class="pre">p</span></code>, gives a proof term for
+<code class="docutils literal notranslate"><span class="pre">p</span> <span class="pre">&#8743;</span> <span class="pre">q</span></code>. This is a forward application of iff introduction.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20p%20q%20%3A%20Prop%0A%0A--%20BEGIN%0Aexample%20(h%E2%82%81%20%3A%20p%20%E2%86%92%20q)%20(h%E2%82%82%20%3A%20q%20%E2%86%92%20p)%20%3A%20p%20%E2%86%94%20q%20%3A%3D%0Aiff.intro%20h%E2%82%81%20h%E2%82%82%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_lean_summary/unnamed_484.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h&#8321;</span> <span class="o">:</span> <span class="n">p</span> <span class="bp">&#8594;</span> <span class="n">q</span><span class="o">)</span> <span class="o">(</span><span class="n">h&#8322;</span> <span class="o">:</span> <span class="n">q</span> <span class="bp">&#8594;</span> <span class="n">p</span><span class="o">)</span> <span class="o">:</span> <span class="n">p</span> <span class="bp">&#8596;</span> <span class="n">q</span> <span class="o">:=</span>
+<span class="n">iff.intro</span> <span class="n">h&#8321;</span> <span class="n">h&#8322;</span>
+</pre></div>
+</div>
+</div></div>
+</div>
+<div class="section" id="false-and-negation">
+<h2><span class="section-number">2.7. </span>False and negation<a class="headerlink" href="#false-and-negation" title="Permalink to this headline">&#182;</a></h2>
+<div class="section" id="false-elimination">
+<h3><span class="section-number">2.7.1. </span>False elimination<a class="headerlink" href="#false-elimination" title="Permalink to this headline">&#182;</a></h3>
+<p>The symbol <span class="math notranslate nohighlight">\(\bot\)</span>, referred to as false or contradiction or arbitrary contradiction, is
+referred to in one fundamental rule of inference, <em>ex falso sequitur quodlibet</em>, also called
+<em>ex falso</em> or false elimination. This rule states that anything follows from false.</p>
+<p><strong>Forward</strong>: given <span class="math notranslate nohighlight">\(h : \bot\)</span>, we have a proof of <span class="math notranslate nohighlight">\(p\)</span>.</p>
+<p><strong>Backward</strong>: to prove <span class="math notranslate nohighlight">\(p\)</span>, it suffices to prove <span class="math notranslate nohighlight">\(\bot\)</span>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">exfalso</span></code> tactic represents backward false elimination.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20p%20q%20%3A%20Prop%0A%0A--%20BEGIN%0Aexample%20(h%20%3A%20false)%20%3A%20p%20%3A%3D%0Abegin%0A%20%20exfalso%2C%20--%20This%20changes%20the%20goal%20from%20%60p%60%20to%20%60false%60.%0A%20%20exact%20h%2C%20--%20We%20close%20the%20goal%20with%20%60h%60.%0Aend%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_lean_summary/unnamed_510.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h</span> <span class="o">:</span> <span class="n">false</span><span class="o">)</span> <span class="o">:</span> <span class="n">p</span> <span class="o">:=</span>
+<span class="kd">begin</span>
+  <span class="n">exfalso</span><span class="o">,</span> <span class="c1">-- This changes the goal from `p` to `false`.</span>
+  <span class="n">exact</span> <span class="n">h</span><span class="o">,</span> <span class="c1">-- We close the goal with `h`.</span>
+<span class="kd">end</span>
+</pre></div>
+</div>
+</div><p>Given <code class="docutils literal notranslate"><span class="pre">h</span> <span class="pre">:</span> <span class="pre">false</span></code>, the expression <code class="docutils literal notranslate"><span class="pre">false.elim</span> <span class="pre">h</span></code> is a proof term for <code class="docutils literal notranslate"><span class="pre">p</span></code>.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20p%20%3A%20Prop%0A%0A--%20BEGIN%0Aexample%20(h%20%3A%20false)%20%3A%20p%20%3A%3D%0Afalse.elim%20h%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_lean_summary/unnamed_524.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h</span> <span class="o">:</span> <span class="n">false</span><span class="o">)</span> <span class="o">:</span> <span class="n">p</span> <span class="o">:=</span>
+<span class="n">false.elim</span> <span class="n">h</span>
+</pre></div>
+</div>
+</div></div>
+<div class="section" id="false-introduction">
+<h3><span class="section-number">2.7.2. </span>False introduction<a class="headerlink" href="#false-introduction" title="Permalink to this headline">&#182;</a></h3>
+<p>The expression <span class="math notranslate nohighlight">\(\neg p\)</span> is a shorthand for <span class="math notranslate nohighlight">\(p \to \bot\)</span>. The rule of false introduction
+is thus merely implication elimination in another guise.</p>
+<p><strong>Forward</strong>: given <span class="math notranslate nohighlight">\(h_1 : \neg p\)</span> and <span class="math notranslate nohighlight">\(h_2 : p\)</span>, we have a proof of <span class="math notranslate nohighlight">\(\bot\)</span>.</p>
+<p><strong>Backward</strong>: given <span class="math notranslate nohighlight">\(h : \neg p\)</span>, to prove <span class="math notranslate nohighlight">\(\bot\)</span>, it suffices to prove <span class="math notranslate nohighlight">\(p\)</span>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">apply</span></code> tactic uses false introduction backward.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20p%20%3A%20Prop%0A%0A--%20BEGIN%0Aexample%20(h%20%3A%20%C2%ACp)%20(k%20%3A%20p)%20%3A%20false%20%3A%3D%0Abegin%0A%20%20apply%20h%2C%20--%20This%20changes%20the%20goal%20to%20proving%20%60p%60.%0A%20%20exact%20k%2C%0Aend%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_lean_summary/unnamed_546.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h</span> <span class="o">:</span> <span class="bp">&#172;</span><span class="n">p</span><span class="o">)</span> <span class="o">(</span><span class="n">k</span> <span class="o">:</span> <span class="n">p</span><span class="o">)</span> <span class="o">:</span> <span class="n">false</span> <span class="o">:=</span>
+<span class="kd">begin</span>
+  <span class="n">apply</span> <span class="n">h</span><span class="o">,</span> <span class="c1">-- This changes the goal to proving `p`.</span>
+  <span class="n">exact</span> <span class="n">k</span><span class="o">,</span>
+<span class="kd">end</span>
+</pre></div>
+</div>
+</div><p>Given <code class="docutils literal notranslate"><span class="pre">h&#8321;</span> <span class="pre">:</span> <span class="pre">&#172;p</span></code> and <code class="docutils literal notranslate"><span class="pre">h&#8322;</span> <span class="pre">:</span> <span class="pre">p</span></code>, the expression <code class="docutils literal notranslate"><span class="pre">h&#8321;</span> <span class="pre">h&#8322;</span></code> is a proof term for <code class="docutils literal notranslate"><span class="pre">false</span></code>. This is
+forward false introduction.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20p%20%3A%20Prop%0A%0A--%20BEGIN%0Aexample%20(h%E2%82%81%20%3A%20%C2%ACp)%20(h%E2%82%82%20%3A%20p)%20%3A%20false%20%3A%3D%0Ah%E2%82%81%20h%E2%82%82%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_lean_summary/unnamed_561.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h&#8321;</span> <span class="o">:</span> <span class="bp">&#172;</span><span class="n">p</span><span class="o">)</span> <span class="o">(</span><span class="n">h&#8322;</span> <span class="o">:</span> <span class="n">p</span><span class="o">)</span> <span class="o">:</span> <span class="n">false</span> <span class="o">:=</span>
+<span class="n">h&#8321;</span> <span class="n">h&#8322;</span>
+</pre></div>
+</div>
+</div></div>
+<div class="section" id="negation-introduction">
+<h3><span class="section-number">2.7.3. </span>Negation introduction<a class="headerlink" href="#negation-introduction" title="Permalink to this headline">&#182;</a></h3>
+<p>As <span class="math notranslate nohighlight">\(\neg p\)</span> is shorthand for <span class="math notranslate nohighlight">\(p \to \bot\)</span>, the rule of negation introduction is really
+just implication introduction.</p>
+<p><strong>Negation introduction</strong>: to prove <span class="math notranslate nohighlight">\(\neg p\)</span>, it suffices to assume <span class="math notranslate nohighlight">\(h : p\)</span> and
+derive <span class="math notranslate nohighlight">\(\bot\)</span>.</p>
+<p>Tactic-style, if the goal is to prove <code class="docutils literal notranslate"><span class="pre">&#172;p</span></code>, then <code class="docutils literal notranslate"><span class="pre">intro</span> <span class="pre">h</span></code> introduces an assumption
+<code class="docutils literal notranslate"><span class="pre">h</span> <span class="pre">:</span> <span class="pre">p</span></code> into the context and replaces the goal with one of proving <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20p%20%3A%20Prop%0A%0A--%20BEGIN%0Aexample%20(k%20%3A%20false)%20%3A%20%C2%ACp%20%3A%3D%0Abegin%0A%20%20intro%20h%2C%20--%20This%20is%20equivalent%20to%20'assume%20h%20%3A%20p'%20in%20mathematics.%0A%20%20exact%20k%2C%20--%20We%20close%20the%20goal%20using%20our%20proof%20of%20%60false%60.%0Aend%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_lean_summary/unnamed_583.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">k</span> <span class="o">:</span> <span class="n">false</span><span class="o">)</span> <span class="o">:</span> <span class="bp">&#172;</span><span class="n">p</span> <span class="o">:=</span>
+<span class="kd">begin</span>
+  <span class="n">intro</span> <span class="n">h</span><span class="o">,</span> <span class="c1">-- This is equivalent to &#39;assume h : p&#39; in mathematics.</span>
+  <span class="n">exact</span> <span class="n">k</span><span class="o">,</span> <span class="c1">-- We close the goal using our proof of `false`.</span>
+<span class="kd">end</span>
+</pre></div>
+</div>
+</div><p>The term-style proof is similar.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20p%20%3A%20Prop%0A%0A--%20BEGIN%0Aexample%20(k%20%3A%20false)%20%3A%20%C2%ACp%20%3A%3D%0Aassume%20h%20%3A%20p%2C%0A%20%20k%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_lean_summary/unnamed_597.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">k</span> <span class="o">:</span> <span class="n">false</span><span class="o">)</span> <span class="o">:</span> <span class="bp">&#172;</span><span class="n">p</span> <span class="o">:=</span>
+<span class="k">assume</span> <span class="n">h</span> <span class="o">:</span> <span class="n">p</span><span class="o">,</span>
+  <span class="n">k</span>
+</pre></div>
+</div>
+</div></div>
+</div>
+<div class="section" id="summary">
+<h2><span class="section-number">2.8. </span>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">&#182;</a></h2>
+<div class="section" id="tactic-style">
+<h3><span class="section-number">2.8.1. </span>Tactic-style<a class="headerlink" href="#tactic-style" title="Permalink to this headline">&#182;</a></h3>
+<p><a class="reference internal" href="#tactic-style-prop"><span class="std std-numref">Table 2.2</span></a> summaries the Lean tactics that represent rules of propositional logic.</p>
+<span id="tactic-style-prop"></span><table class="colwidths-given docutils align-default" id="id2">
+<caption><span class="caption-number">Table 2.2 </span><span class="caption-text">Tactic-Style</span><a class="headerlink" href="#id2" title="Permalink to this table">&#182;</a></caption>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Connective</p></th>
+<th class="head"><p>Introduction</p></th>
+<th class="head"><p>Elimination</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&#8743;</span></code>, conjunction</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">split</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cases</span> <span class="pre">h</span> <span class="pre">with</span> <span class="pre">h&#8321;</span> <span class="pre">h&#8322;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&#8744;</span></code>, disjunction</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">left</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">right</span></code></p>
+</td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cases</span> <span class="pre">h</span> <span class="pre">with</span> <span class="pre">k&#8321;</span> <span class="pre">k&#8322;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&#8594;</span></code>, implication</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">intro</span> <span class="pre">h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">h</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&#8596;</span></code>, iff</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">split</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cases</span> <span class="pre">h</span> <span class="pre">with</span> <span class="pre">h&#8321;</span> <span class="pre">h&#8322;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">false</span></code>, false</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">exfalso</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">h</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&#172;</span></code>, negation</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">intro</span> <span class="pre">h</span></code></p></td>
+<td><p>N/A</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="term-style">
+<h3><span class="section-number">2.8.2. </span>Term-style<a class="headerlink" href="#term-style" title="Permalink to this headline">&#182;</a></h3>
+<p><a class="reference internal" href="#term-style-prop"><span class="std std-numref">Table 2.3</span></a> summaries the Lean functions that represent rules of propositional logic
+and produce proof terms.</p>
+<span id="term-style-prop"></span><table class="colwidths-given docutils align-default" id="id3">
+<caption><span class="caption-number">Table 2.3 </span><span class="caption-text">Term-Style</span><a class="headerlink" href="#id3" title="Permalink to this table">&#182;</a></caption>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Connective</p></th>
+<th class="head"><p>Introduction</p></th>
+<th class="head"><p>Elimination</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&#8743;</span></code>, conjunction</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">and.intro</span> <span class="pre">h&#8321;</span> <span class="pre">h&#8322;</span></code> or <code class="docutils literal notranslate"><span class="pre">&#10216;h&#8321;,</span> <span class="pre">h&#8322;&#10217;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">h.left</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">h.right</span></code></p>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&#8744;</span></code>, disjunction</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">or.inl</span> <span class="pre">h</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">or.inr</span> <span class="pre">h</span></code></p>
+</td>
+<td><p><code class="docutils literal notranslate"><span class="pre">or.elim</span> <span class="pre">h&#8321;</span> <span class="pre">h&#8322;</span> <span class="pre">h&#8323;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&#8594;</span></code>, implication</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">assume</span> <span class="pre">h</span> <span class="pre">:</span> <span class="pre">P,</span></code> <em>followed by a proof term for</em> <code class="docutils literal notranslate"><span class="pre">Q</span></code>.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">h&#8321;</span> <span class="pre">h&#8322;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&#8596;</span></code>, iff</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">iff.intro</span> <span class="pre">h&#8321;</span> <span class="pre">h&#8322;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">iff.elim_left</span> <span class="pre">h</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">iff.elim_right</span> <span class="pre">h</span></code></p>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">false</span></code>, false</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">h&#8321;</span> <span class="pre">h&#8322;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false.elim</span> <span class="pre">h</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&#172;</span></code>, negation</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">assume</span> <span class="pre">h</span> <span class="pre">:</span> <span class="pre">P,</span></code> <em>followed by proof of</em> <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></td>
+<td><p>N/A</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">MTH1001 in Lean</a></h1>
+
+
+
+
+
+
+
+
+<!-- <h3>Navigation</h3> -->
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="prop_logic_theory.html">1. The Theory of Propositional Logic</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. Propositional Logic Lean Summary</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#propositional-variables-and-special-symbols">2.1. Propositional variables and special symbols</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reiteration">2.2. Reiteration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#conjunction-and">2.3. Conjunction (and)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#implication">2.4. Implication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#disjunction-or">2.5. Disjunction (or)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#if-and-only-if-iff">2.6. If and only if (iff)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#false-and-negation">2.7. False and negation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#summary">2.8. Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pred_logic.html">3. Predicate Logic</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="mth1001_in_lean.pdf">PDF version</a></li>
+    
+    <li class="toctree-l1"><a href="https://leanprover.github.io/">Lean Home</a></li>
+    
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Gihan Marasingha.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/prop_logic_lean_summary.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

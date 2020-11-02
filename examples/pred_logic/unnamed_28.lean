@@ -1,0 +1,1 @@
+variable U : Type* -- This declares `U` to be a type.

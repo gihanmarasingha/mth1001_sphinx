@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="ascii" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MTH1001 in Lean &#8212; MTH1001 in Lean 1.00 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/proof.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="1. The Theory of Propositional Logic" href="prop_logic_theory.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="mth1001-in-lean">
+<h1>MTH1001 in Lean<a class="headerlink" href="#mth1001-in-lean" title="Permalink to this headline">&#182;</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="prop_logic_theory.html">1. The Theory of Propositional Logic</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="prop_logic_theory.html#propositions-and-propositional-variables">1.1. Propositions and propositional variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prop_logic_theory.html#derivations-and-rules-of-inference">1.2. Derivations and rules of inference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prop_logic_theory.html#conjunction">1.3. Conjunction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prop_logic_theory.html#reiteration">1.4. Reiteration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prop_logic_theory.html#implication">1.5. Implication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prop_logic_theory.html#theorems">1.6. Theorems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prop_logic_theory.html#if-and-only-if">1.7. If and only if</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prop_logic_theory.html#rewriting">1.8. Rewriting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prop_logic_theory.html#propositional-extensionality-and-rewriting">1.9. Propositional extensionality and rewriting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prop_logic_theory.html#disjunction">1.10. Disjunction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prop_logic_theory.html#false-and-negation">1.11. False and negation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prop_logic_theory.html#classical-reasoning">1.12. Classical reasoning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="prop_logic_lean_summary.html">2. Propositional Logic Lean Summary</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="prop_logic_lean_summary.html#propositional-variables-and-special-symbols">2.1. Propositional variables and special symbols</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prop_logic_lean_summary.html#reiteration">2.2. Reiteration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prop_logic_lean_summary.html#conjunction-and">2.3. Conjunction (and)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prop_logic_lean_summary.html#implication">2.4. Implication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prop_logic_lean_summary.html#disjunction-or">2.5. Disjunction (or)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prop_logic_lean_summary.html#if-and-only-if-iff">2.6. If and only if (iff)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prop_logic_lean_summary.html#false-and-negation">2.7. False and negation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prop_logic_lean_summary.html#summary">2.8. Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pred_logic.html">3. Predicate Logic</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pred_logic.html#types">3.1. Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pred_logic.html#functions-and-definitions">3.2. Functions and definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pred_logic.html#currying-functions">3.3. Currying functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pred_logic.html#predicates">3.4. Predicates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pred_logic.html#universal-quantification">3.5. Universal quantification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pred_logic.html#existential-quantification">3.6. Existential quantification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pred_logic.html#negating-quantifiers">3.7. Negating quantifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pred_logic.html#mixing-quantifiers">3.8. Mixing quantifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pred_logic.html#functions-and-equality">3.9. Functions and equality</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">MTH1001 in Lean</a></h1>
+
+
+
+
+
+
+
+
+<!-- <h3>Navigation</h3> -->
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="prop_logic_theory.html">1. The Theory of Propositional Logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="prop_logic_lean_summary.html">2. Propositional Logic Lean Summary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pred_logic.html">3. Predicate Logic</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="mth1001_in_lean.pdf">PDF version</a></li>
+    
+    <li class="toctree-l1"><a href="https://leanprover.github.io/">Lean Home</a></li>
+    
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Gihan Marasingha.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
