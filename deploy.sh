@@ -22,7 +22,7 @@ git push
 git checkout gh-pages
 rm -rf * .gitignore .buildinfo .nojekyll
 cp -r ../build/html/./ .
-cp ../build/latex/mathematics_in_lean.pdf .
+cp ../build/latex/mth1001_in_lean.pdf .
 git add .
 git commit -m "Update `date`"
 git push
