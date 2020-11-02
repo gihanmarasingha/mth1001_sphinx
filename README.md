@@ -1,6 +1,9 @@
-# Mathematics in Lean
+# MTH1001 in Lean
 
-This tutorial depends on Lean, VS Code, and mathlib.
+These are Lean-based lecture notes for the University of Exeter module MTH1001
+(Mathematical Structures).
+
+These notes depend on Lean, VS Code, and mathlib.
 You can install them following the instructions
 in the mathlib repository,
 <https://github.com/leanprover-community/mathlib>.
@@ -8,17 +11,17 @@ in the mathlib repository,
 To use this tutorial, you need to set up a project folder.
 Open a terminal and type:
 ```
-leanproject get mathematics_in_lean
+leanproject get https://github.com/gihanmarasingha/mth1001_sphinx
 ```
 Then open the project in VS Code:
 ```
-code mathematics_in_lean
+code mth1001_sphinx
 ```
 Once VS Code starts, open the file `welcome.lean`.
-That will load the tutorial in a
+That will load the notes in a
 separate window, and you are good to go.
 
-## Contributing
+## Acknowledgements
 
-PRs and issues should be opened at the upstream
-[source repository](https://github.com/avigad/mathematics_in_lean_source).
+This document is based on [Mathematics in Lean](https://github.com/leanprover-community/mathematics_in_lean),
+by Jeremy Avigad et al.
