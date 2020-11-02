@@ -1,0 +1,628 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="ascii" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3. Predicate Logic &#8212; MTH1001 in Lean 1.00 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/proof.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="2. Propositional Logic Lean Summary" href="prop_logic_lean_summary.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="predicate-logic">
+<span id="sec-pred-logic"></span><h1><span class="section-number">3. </span>Predicate Logic<a class="headerlink" href="#predicate-logic" title="Permalink to this headline">&#182;</a></h1>
+<div class="section" id="types">
+<span id="sec-types"></span><h2><span class="section-number">3.1. </span>Types<a class="headerlink" href="#types" title="Permalink to this headline">&#182;</a></h2>
+<p>Every term in mathematics has a type. For instance, <span class="math notranslate nohighlight">\(\mathbb{Z}\)</span> is the type of integers.
+A statement such as <span class="math notranslate nohighlight">\(5 : \mathbb Z\)</span> is called a (typing) judgment. This statement can be read
+&#8216;5 has type <span class="math notranslate nohighlight">\(\mathbb Z\)</span>&#8217; or &#8216;5 is an integer&#8217;.</p>
+<p>We can work with arbitrary terms and types. The judgment <span class="math notranslate nohighlight">\(x : U\)</span> is read &#8216;<span class="math notranslate nohighlight">\(x\)</span> has type
+<span class="math notranslate nohighlight">\(U\)</span>&#8217;.</p>
+<p>Propositional variables, as discussed in <a class="reference internal" href="prop_logic_lean_summary.html#prop-variables"><span class="std std-numref">Section 2.1</span></a>, are terms of type
+<code class="docutils literal notranslate"><span class="pre">Prop</span></code>.</p>
+<p>Suppose we have <code class="docutils literal notranslate"><span class="pre">P</span> <span class="pre">:</span> <span class="pre">Prop</span></code> and <code class="docutils literal notranslate"><span class="pre">Q</span> <span class="pre">:</span> <span class="pre">Prop</span></code>. What is meant by <code class="docutils literal notranslate"><span class="pre">h</span> <span class="pre">:</span> <span class="pre">P</span> <span class="pre">&#8743;</span> <span class="pre">Q</span></code>? When a proposition,
+such as <code class="docutils literal notranslate"><span class="pre">P</span> <span class="pre">&#8743;</span> <span class="pre">Q</span></code> is viewed as a type, it is the type of proofs of that proposition. Thus the
+judgment <code class="docutils literal notranslate"><span class="pre">h</span> <span class="pre">:</span> <span class="pre">P</span> <span class="pre">&#8743;</span> <span class="pre">Q</span></code> should be interpreted as &#8216;<code class="docutils literal notranslate"><span class="pre">h</span></code> is a proof of <code class="docutils literal notranslate"><span class="pre">P</span> <span class="pre">&#8743;</span> <span class="pre">Q</span></code>&#8217;.</p>
+<p>A new type can be introduced into Lean using the following syntax.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variable%20U%20%3A%20Type*%20--%20This%20declares%20%60U%60%20to%20be%20a%20type." target="_blank">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">variable</span> <span class="n">U</span> <span class="o">:</span> <span class="kt">Type</span><span class="bp">*</span> <span class="c1">-- This declares `U` to be a type.</span>
+</pre></div>
+</div>
+</div></div>
+<div class="section" id="functions-and-definitions">
+<h2><span class="section-number">3.2. </span>Functions and definitions<a class="headerlink" href="#functions-and-definitions" title="Permalink to this headline">&#182;</a></h2>
+<p>A function (also called a definition) is a mathematical object with a name,
+zero or more inputs, a body, and a body type.</p>
+<p>Below, we define three functions in Lean. The last function has name <code class="docutils literal notranslate"><span class="pre">avg</span></code>. It
+takes two inputs, <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>, both of type <code class="docutils literal notranslate"><span class="pre">&#8484;</span></code>, and has a body <code class="docutils literal notranslate"><span class="pre">(x</span> <span class="pre">+</span> <span class="pre">y)/2</span></code>,
+also of type <code class="docutils literal notranslate"><span class="pre">&#8484;</span></code> (note that integer division automatically rounds in Lean).</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=def%20double%20(x%20%3A%20%E2%84%A4)%20%3A%20%E2%84%A4%20%3A%3D%202%20*%20x%0Adef%20square%20(y%20%3A%20%E2%84%A4)%20%3A%20%E2%84%A4%20%3A%3D%20y%20*%20y%0Adef%20avg%20(x%20y%20%3A%20%E2%84%A4)%20%3A%20%E2%84%A4%20%3A%3D%20(x%20%2B%20y)%2F2" target="_blank">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">def</span> <span class="n">double</span> <span class="o">(</span><span class="n">x</span> <span class="o">:</span> <span class="n">&#8484;</span><span class="o">)</span> <span class="o">:</span> <span class="n">&#8484;</span> <span class="o">:=</span> <span class="mi">2</span> <span class="bp">*</span> <span class="n">x</span>
+<span class="kd">def</span> <span class="n">square</span> <span class="o">(</span><span class="n">y</span> <span class="o">:</span> <span class="n">&#8484;</span><span class="o">)</span> <span class="o">:</span> <span class="n">&#8484;</span> <span class="o">:=</span> <span class="n">y</span> <span class="bp">*</span> <span class="n">y</span>
+<span class="kd">def</span> <span class="n">avg</span> <span class="o">(</span><span class="n">x</span> <span class="n">y</span> <span class="o">:</span> <span class="n">&#8484;</span><span class="o">)</span> <span class="o">:</span> <span class="n">&#8484;</span> <span class="o">:=</span> <span class="o">(</span><span class="n">x</span> <span class="bp">+</span> <span class="n">y</span><span class="o">)</span><span class="bp">/</span><span class="mi">2</span>
+</pre></div>
+</div>
+</div><p>Some functions can be evaluated. For example, with the above definitions, you
+could find the average of 10 and 6 as follows.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=def%20avg%20(x%20y%20%3A%20%E2%84%A4)%20%3A%20%E2%84%A4%20%3A%3D%20(x%20%2B%20y)%2F2%0A--%20BEGIN%0A%23eval%20avg%2010%206%0A--%20END" target="_blank">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="k">#eval</span> <span class="n">avg</span> <span class="mi">10</span> <span class="mi">6</span>
+</pre></div>
+</div>
+</div><p>Here, <code class="docutils literal notranslate"><span class="pre">avg</span> <span class="pre">10</span> <span class="pre">6</span></code> represents the result of replacing <code class="docutils literal notranslate"><span class="pre">x</span></code> with <code class="docutils literal notranslate"><span class="pre">10</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>
+with <code class="docutils literal notranslate"><span class="pre">6</span></code> in the body of the defintion of <code class="docutils literal notranslate"><span class="pre">avg</span></code>.</p>
+<p>One may check the type of any Lean object using the <code class="docutils literal notranslate"><span class="pre">#check</span></code> directive. On entering the following
+commands, Lean will respond with <code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">:</span> <span class="pre">&#8484;</span> <span class="pre">&#8594;</span> <span class="pre">&#8484;</span></code> and <code class="docutils literal notranslate"><span class="pre">avg</span> <span class="pre">:</span> <span class="pre">&#8484;</span> <span class="pre">&#8594;</span> <span class="pre">&#8484;</span> <span class="pre">&#8594;</span> <span class="pre">&#8484;</span></code>.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=def%20double%20(x%20%3A%20%E2%84%A4)%20%3A%20%E2%84%A4%20%3A%3D%202%20*%20x%0Adef%20square%20(y%20%3A%20%E2%84%A4)%20%3A%20%E2%84%A4%20%3A%3D%20y%20*%20y%0Adef%20avg%20(x%20y%20%3A%20%E2%84%A4)%20%3A%20%E2%84%A4%20%3A%3D%20(x%20%2B%20y)%2F2%0A--%20BEGIN%0A%23check%20double%0A%23check%20avg%0A--%20END" target="_blank">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="k">#check</span> <span class="n">double</span>
+<span class="k">#check</span> <span class="n">avg</span>
+</pre></div>
+</div>
+</div><p>Here, <code class="docutils literal notranslate"><span class="pre">&#8484;</span> <span class="pre">&#8594;</span> <span class="pre">&#8484;</span></code> is the type of functions that take one integer input and produce one integer output,
+while <code class="docutils literal notranslate"><span class="pre">&#8484;</span> <span class="pre">&#8594;</span> <span class="pre">&#8484;</span> <span class="pre">&#8594;</span> <span class="pre">&#8484;</span></code> is the type of functions that take two integer inputs and produce one integer
+output. Can you guess the type of <code class="docutils literal notranslate"><span class="pre">square</span></code>?</p>
+<p>More generally, if <code class="docutils literal notranslate"><span class="pre">U</span></code> and <code class="docutils literal notranslate"><span class="pre">V</span></code> are types, we can declare, without defining them, functions from
+<code class="docutils literal notranslate"><span class="pre">U</span></code> to <code class="docutils literal notranslate"><span class="pre">V</span></code>. The following declares a function <code class="docutils literal notranslate"><span class="pre">f</span></code> of type <code class="docutils literal notranslate"><span class="pre">U</span> <span class="pre">&#8594;</span> <span class="pre">V</span></code>. That is, <code class="docutils literal notranslate"><span class="pre">f</span></code> is a
+function from <code class="docutils literal notranslate"><span class="pre">U</span></code> to <code class="docutils literal notranslate"><span class="pre">V</span></code>.</p>
+<p>Here, <code class="docutils literal notranslate"><span class="pre">f</span> <span class="pre">x</span></code> denotes the result of applying <code class="docutils literal notranslate"><span class="pre">f</span></code> to <code class="docutils literal notranslate"><span class="pre">x</span></code>. Naturally, the type of the result is <code class="docutils literal notranslate"><span class="pre">V</span></code>.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20U%20V%20%3A%20Type*%0Avariable%20x%20%3A%20U%0Avariable%20f%20%3A%20U%20%E2%86%92%20V%0A%23check%20f%0A%23check%20f%20x" target="_blank">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">variables</span> <span class="n">U</span> <span class="n">V</span> <span class="o">:</span> <span class="kt">Type</span><span class="bp">*</span>
+<span class="kd">variable</span> <span class="n">x</span> <span class="o">:</span> <span class="n">U</span>
+<span class="kd">variable</span> <span class="n">f</span> <span class="o">:</span> <span class="n">U</span> <span class="bp">&#8594;</span> <span class="n">V</span>
+<span class="k">#check</span> <span class="n">f</span>
+<span class="k">#check</span> <span class="n">f</span> <span class="n">x</span>
+</pre></div>
+</div>
+</div></div>
+<div class="section" id="currying-functions">
+<span id="sec-currying"></span><h2><span class="section-number">3.3. </span>Currying functions<a class="headerlink" href="#currying-functions" title="Permalink to this headline">&#182;</a></h2>
+<p>This section is optional reading.</p>
+<p>I lied earlier when I wrote that <code class="docutils literal notranslate"><span class="pre">&#8484;</span> <span class="pre">&#8594;</span> <span class="pre">&#8484;</span> <span class="pre">&#8594;</span> <span class="pre">&#8484;</span></code> is the type of functions that take two integer
+inputs and produce one integer output. To begin, we should clarify whether <code class="docutils literal notranslate"><span class="pre">&#8484;</span> <span class="pre">&#8594;</span> <span class="pre">&#8484;</span> <span class="pre">&#8594;</span> <span class="pre">&#8484;</span></code> means
+<code class="docutils literal notranslate"><span class="pre">&#8484;</span> <span class="pre">&#8594;</span> <span class="pre">(&#8484;</span> <span class="pre">&#8594;</span> <span class="pre">&#8484;)</span></code> or <code class="docutils literal notranslate"><span class="pre">(&#8484;</span> <span class="pre">&#8594;</span> <span class="pre">&#8484;)</span> <span class="pre">&#8594;</span> <span class="pre">&#8484;</span></code>. By convention, the former meaning, <code class="docutils literal notranslate"><span class="pre">&#8484;</span> <span class="pre">&#8594;</span> <span class="pre">(&#8484;</span> <span class="pre">&#8594;</span> <span class="pre">&#8484;)</span></code> is used.
+This is chosen to harmonise with the notion of function application, as we&#8217;ll see at the end of
+this section.</p>
+<p>In truth, <code class="docutils literal notranslate"><span class="pre">&#8484;</span> <span class="pre">&#8594;</span> <span class="pre">(&#8484;</span> <span class="pre">&#8594;</span> <span class="pre">&#8484;)</span></code> is therefore the type of functions that take one integer argument and
+returns <em>a function</em> of type <code class="docutils literal notranslate"><span class="pre">&#8484;</span> <span class="pre">&#8594;</span> <span class="pre">&#8484;</span></code></p>
+<p>Thus <code class="docutils literal notranslate"><span class="pre">avg</span> <span class="pre">5</span></code> is a function that takes takes an input, say <code class="docutils literal notranslate"><span class="pre">y</span></code>, and returns <code class="docutils literal notranslate"><span class="pre">(5</span> <span class="pre">+</span> <span class="pre">y)/2</span></code>.
+This is called <em>partial application</em> of <code class="docutils literal notranslate"><span class="pre">avg</span></code>. To make this more transparent, we define a new
+function <code class="docutils literal notranslate"><span class="pre">avg'</span></code> to be the partial application of <code class="docutils literal notranslate"><span class="pre">avg</span></code> at 5.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=def%20avg%20(x%20y%20%3A%20%E2%84%A4)%20%3A%20%E2%84%A4%20%3A%3D%20(x%20%2B%20y)%2F2%0A--BEGIN%0Adef%20avg'%20%3A%3D%20avg%205%0A%0A%23eval%20avg'%2017%20--%20This%20outputs%2011.%0A--END" target="_blank">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">def</span> <span class="n">avg&#39;</span> <span class="o">:=</span> <span class="n">avg</span> <span class="mi">5</span>
+
+<span class="k">#eval</span> <span class="n">avg&#39;</span> <span class="mi">17</span> <span class="c1">-- This outputs 11.</span>
+</pre></div>
+</div>
+</div><p>It transpires that this is the most natural way to think of functions of several variables when
+proving theorems.</p>
+<p>Alternatively, the function <code class="docutils literal notranslate"><span class="pre">avgu</span></code> defined below is actually a function that takes a pair of
+variables (as indicated by the input type <code class="docutils literal notranslate"><span class="pre">&#8484;</span> <span class="pre">&#215;</span> <span class="pre">&#8484;</span></code>) and returns an integer.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=def%20avgu%20%3A%20%E2%84%A4%20%C3%97%20%E2%84%A4%20%E2%86%92%20%E2%84%A4%0A%7C%20(x%2C%20y)%20%3A%3D%20(x%20%2B%20y)%2F2%0A%0A%23eval%20avgu%20(10%2C6)%20%20--%20This%20displays%208." target="_blank">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">def</span> <span class="n">avgu</span> <span class="o">:</span> <span class="n">&#8484;</span> <span class="bp">&#215;</span> <span class="n">&#8484;</span> <span class="bp">&#8594;</span> <span class="n">&#8484;</span>
+<span class="bp">|</span> <span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">)</span> <span class="o">:=</span> <span class="o">(</span><span class="n">x</span> <span class="bp">+</span> <span class="n">y</span><span class="o">)</span><span class="bp">/</span><span class="mi">2</span>
+
+<span class="k">#eval</span> <span class="n">avgu</span> <span class="o">(</span><span class="mi">10</span><span class="o">,</span><span class="mi">6</span><span class="o">)</span>  <span class="c1">-- This displays 8.</span>
+</pre></div>
+</div>
+</div><p>Producing <code class="docutils literal notranslate"><span class="pre">avg</span></code>, a function that produces a function, from <code class="docutils literal notranslate"><span class="pre">avgu</span></code>, a function of many variabes,
+is called <em>currying</em>, after American mathematician Haskell Curry.
+The reverse process is called <em>uncurrying</em>.</p>
+<p>One may consider functions of more than two variables.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=def%20avg_three_u%20%3A%20(%E2%84%A4%20%C3%97%20%E2%84%A4%20%C3%97%20%E2%84%A4)%20%E2%86%92%20%E2%84%A4%0A%7C%20(x%2C%20y%2C%20z)%20%3A%3D%20(x%20%2B%20y%20%2B%20z)%2F3%0A%23check%20avg_three_u%20--%20%60avg_three_u%60%20has%20type%20%60%E2%84%A4%20%C3%97%20%E2%84%A4%20%C3%97%20%E2%84%A4%20%E2%86%92%20%E2%84%A4%60%0A%23eval%20avg_three_u%20(10%2C%205%2C%206)%20--%20This%20is%207." target="_blank">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">def</span> <span class="n">avg_three_u</span> <span class="o">:</span> <span class="o">(</span><span class="n">&#8484;</span> <span class="bp">&#215;</span> <span class="n">&#8484;</span> <span class="bp">&#215;</span> <span class="n">&#8484;</span><span class="o">)</span> <span class="bp">&#8594;</span> <span class="n">&#8484;</span>
+<span class="bp">|</span> <span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">,</span> <span class="n">z</span><span class="o">)</span> <span class="o">:=</span> <span class="o">(</span><span class="n">x</span> <span class="bp">+</span> <span class="n">y</span> <span class="bp">+</span> <span class="n">z</span><span class="o">)</span><span class="bp">/</span><span class="mi">3</span>
+<span class="k">#check</span> <span class="n">avg_three_u</span> <span class="c1">-- `avg_three_u` has type `&#8484; &#215; &#8484; &#215; &#8484; &#8594; &#8484;`</span>
+<span class="k">#eval</span> <span class="n">avg_three_u</span> <span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="mi">6</span><span class="o">)</span> <span class="c1">-- This is 7.</span>
+</pre></div>
+</div>
+</div><p>Consider the curried version of this function, which we call <code class="docutils literal notranslate"><span class="pre">avg_three</span></code>.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=def%20avg_three%20(x%20y%20z%20%3A%20%E2%84%A4)%20%3A%20%E2%84%A4%20%3A%3D%20(x%20%2B%20y%20%2B%20z)%2F2%0A%0A%23check%20avg_three%20%20--%20%60avg_three%60%20has%20type%20%60%E2%84%A4%20%E2%86%92%20%E2%84%A4%20%E2%86%92%20%E2%84%A4%20%E2%86%92%20%E2%84%A4%60%2C%20i.e.%2C%20%60%E2%84%A4%20%E2%86%92%20(%E2%84%A4%20%E2%86%92%20(%E2%84%A4%20%E2%86%92%20%E2%84%A4))%60%0A%23check%20(avg_three%2010)%20%20%20%20%20%20--%20%60avg_three%2010%60%20has%20type%20%60%E2%84%A4%20%E2%86%92%20(%E2%84%A4%20%E2%86%92%20%E2%84%A4)%60.%0A%23check%20(avg_three%2010%205)%20%20%20%20--%20%60avg_three%2010%205%60%20has%20type%20%60%E2%84%A4%20%E2%86%92%20%E2%84%A4%60.%0A%23check%20(avg_three%2010%205%206)%20%20--%20%60avg_three%2010%205%206%60%20has%20type%20%60%E2%84%A4%60%2C%20i.e.%20is%20an%20integer." target="_blank">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">def</span> <span class="n">avg_three</span> <span class="o">(</span><span class="n">x</span> <span class="n">y</span> <span class="n">z</span> <span class="o">:</span> <span class="n">&#8484;</span><span class="o">)</span> <span class="o">:</span> <span class="n">&#8484;</span> <span class="o">:=</span> <span class="o">(</span><span class="n">x</span> <span class="bp">+</span> <span class="n">y</span> <span class="bp">+</span> <span class="n">z</span><span class="o">)</span><span class="bp">/</span><span class="mi">2</span>
+
+<span class="k">#check</span> <span class="n">avg_three</span>  <span class="c1">-- `avg_three` has type `&#8484; &#8594; &#8484; &#8594; &#8484; &#8594; &#8484;`, i.e., `&#8484; &#8594; (&#8484; &#8594; (&#8484; &#8594; &#8484;))`</span>
+<span class="k">#check</span> <span class="o">(</span><span class="n">avg_three</span> <span class="mi">10</span><span class="o">)</span>      <span class="c1">-- `avg_three 10` has type `&#8484; &#8594; (&#8484; &#8594; &#8484;)`.</span>
+<span class="k">#check</span> <span class="o">(</span><span class="n">avg_three</span> <span class="mi">10</span> <span class="mi">5</span><span class="o">)</span>    <span class="c1">-- `avg_three 10 5` has type `&#8484; &#8594; &#8484;`.</span>
+<span class="k">#check</span> <span class="o">(</span><span class="n">avg_three</span> <span class="mi">10</span> <span class="mi">5</span> <span class="mi">6</span><span class="o">)</span>  <span class="c1">-- `avg_three 10 5 6` has type `&#8484;`, i.e. is an integer.</span>
+</pre></div>
+</div>
+</div><p><code class="docutils literal notranslate"><span class="pre">avg_three</span></code> has type <code class="docutils literal notranslate"><span class="pre">&#8484;</span> <span class="pre">&#8594;</span> <span class="pre">(&#8484;</span> <span class="pre">&#8594;</span> <span class="pre">(&#8484;</span> <span class="pre">&#8594;</span> <span class="pre">&#8484;))</span></code>. That is, it takes an integer input and
+outputs a term of type <code class="docutils literal notranslate"><span class="pre">&#8484;</span> <span class="pre">&#8594;</span> <span class="pre">(&#8484;</span> <span class="pre">&#8594;</span> <span class="pre">&#8484;)</span></code>. But a term of this type <em>is</em> a function that takes
+an integer input and outputs a term of type <code class="docutils literal notranslate"><span class="pre">&#8484;</span> <span class="pre">&#8594;</span> <span class="pre">&#8484;</span></code>. In its turn this is a function that takes
+an integer input and outputs a term of type <code class="docutils literal notranslate"><span class="pre">&#8484;</span></code>.</p>
+<p>We see this through successive partial applications of <code class="docutils literal notranslate"><span class="pre">avg_three</span></code>.</p>
+<p>Indeed, when we write something like <code class="docutils literal notranslate"><span class="pre">avg</span> <span class="pre">10</span> <span class="pre">6</span></code>, we really mean <code class="docutils literal notranslate"><span class="pre">(avg</span> <span class="pre">10)</span> <span class="pre">6</span></code>.
+That is we take the function <code class="docutils literal notranslate"><span class="pre">avg</span> <span class="pre">10</span></code> and apply it to <code class="docutils literal notranslate"><span class="pre">6</span></code>.</p>
+<p>Likeiwse, <code class="docutils literal notranslate"><span class="pre">avg_three</span> <span class="pre">10</span> <span class="pre">5</span> <span class="pre">6</span></code> really means <code class="docutils literal notranslate"><span class="pre">(((avg_three</span> <span class="pre">10)</span> <span class="pre">5)</span> <span class="pre">6</span></code>. Note how the bracketing
+convention for function application is the opposite of the convention for function types.</p>
+</div>
+<div class="section" id="predicates">
+<h2><span class="section-number">3.4. </span>Predicates<a class="headerlink" href="#predicates" title="Permalink to this headline">&#182;</a></h2>
+<p>A predicate is a function whose body type is <code class="docutils literal notranslate"><span class="pre">Prop</span></code>. Below, we define the predicate <code class="docutils literal notranslate"><span class="pre">even</span></code>
+so that <code class="docutils literal notranslate"><span class="pre">even</span> <span class="pre">x</span></code> is the proposition <code class="docutils literal notranslate"><span class="pre">&#8707;</span> <span class="pre">m</span> <span class="pre">:</span> <span class="pre">&#8484;,</span> <span class="pre">x</span> <span class="pre">=</span> <span class="pre">2</span> <span class="pre">*m</span></code>. The symbol <code class="docutils literal notranslate"><span class="pre">&#8707;</span></code> is read
+&#8216;there exists&#8217;. So this proposition can be interpreted as, &#8216;there exists an integer <span class="math notranslate nohighlight">\(m\)</span> such
+that <span class="math notranslate nohighlight">\(x = 2m\)</span>&#8217;.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=def%20even%20(x%20%3A%20%E2%84%A4)%20%3A%20Prop%20%3A%3D%20%E2%88%83%20m%20%3A%20%E2%84%A4%2C%20x%20%3D%202%20*m%0A%23check%20even%0A%23check%20even%205" target="_blank">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">def</span> <span class="n">even</span> <span class="o">(</span><span class="n">x</span> <span class="o">:</span> <span class="n">&#8484;</span><span class="o">)</span> <span class="o">:</span> <span class="kt">Prop</span> <span class="o">:=</span> <span class="bp">&#8707;</span> <span class="n">m</span> <span class="o">:</span> <span class="n">&#8484;</span><span class="o">,</span> <span class="n">x</span> <span class="bp">=</span> <span class="mi">2</span> <span class="bp">*</span><span class="n">m</span>
+<span class="k">#check</span> <span class="n">even</span>
+<span class="k">#check</span> <span class="n">even</span> <span class="mi">5</span>
+</pre></div>
+</div>
+</div><p>The result of <code class="docutils literal notranslate"><span class="pre">#check</span></code> assures us that <code class="docutils literal notranslate"><span class="pre">even</span></code> has type <code class="docutils literal notranslate"><span class="pre">&#8484;</span> <span class="pre">&#8594;</span> <span class="pre">Prop</span></code>. It is a function that takes
+one input of type <code class="docutils literal notranslate"><span class="pre">&#8484;</span></code> and has a body of type <code class="docutils literal notranslate"><span class="pre">Prop</span></code>. Moreover <code class="docutils literal notranslate"><span class="pre">even</span> <span class="pre">5</span></code> has type <code class="docutils literal notranslate"><span class="pre">Prop</span></code>.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=def%20even%20(x%20%3A%20%E2%84%A4)%20%3A%20Prop%20%3A%3D%20%E2%88%83%20m%20%3A%20%E2%84%A4%2C%20x%20%3D%202%20*m%0A--%20BEGIN%0A%23check%20even%0A%23check%20even%205%0A--%20END" target="_blank">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="k">#check</span> <span class="n">even</span>
+<span class="k">#check</span> <span class="n">even</span> <span class="mi">5</span>
+</pre></div>
+</div>
+</div><p>Predicates can take more than one input. The following predicate takes two integer inputs <code class="docutils literal notranslate"><span class="pre">a</span></code> and
+<code class="docutils literal notranslate"><span class="pre">b</span></code> and has body <code class="docutils literal notranslate"><span class="pre">&#8707;</span> <span class="pre">m</span> <span class="pre">:</span> <span class="pre">&#8484;,</span> <span class="pre">b</span> <span class="pre">=</span> <span class="pre">a</span> <span class="pre">*</span> <span class="pre">m</span></code>. In familiar language, it represents the notion that <code class="docutils literal notranslate"><span class="pre">a</span></code>
+divides (i.e. is a factor of) <code class="docutils literal notranslate"><span class="pre">b</span></code>.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=def%20divides%20(a%20b%20%3A%20%E2%84%A4)%20%3A%20Prop%20%3A%3D%20%E2%88%83%20m%20%3A%20%E2%84%A4%2C%20b%20%3D%20a%20*%20m" target="_blank">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">def</span> <span class="n">divides</span> <span class="o">(</span><span class="n">a</span> <span class="n">b</span> <span class="o">:</span> <span class="n">&#8484;</span><span class="o">)</span> <span class="o">:</span> <span class="kt">Prop</span> <span class="o">:=</span> <span class="bp">&#8707;</span> <span class="n">m</span> <span class="o">:</span> <span class="n">&#8484;</span><span class="o">,</span> <span class="n">b</span> <span class="bp">=</span> <span class="n">a</span> <span class="bp">*</span> <span class="n">m</span>
+</pre></div>
+</div>
+</div><p>When working abstractly, we can declare, without definining it, a predicate on an arbitrary type.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variable%20U%20%3A%20Type*%20%20%20%20%20%20%20--%20Declare%20a%20type%2C%20%60U%60.%0Avariable%20x%20%3A%20U%20%20%20%20%20%20%20%20%20%20%20--%20Declare%20a%20term%20%60x%60%2C%20of%20type%20%60U%60.%0Avariable%20P%20%3A%20U%20%E2%86%92%20Prop%20%20%20%20--%20Declare%20a%20predicate%20%60P%60%20on%20%60U%60.%0A%0A%23check%20P%20x%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20--%20%60P%20x%60%20has%20type%20%60Prop%60%0A%23check%20P%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20--%20%60P%60%20has%20type%20%60U%20%E2%86%92%20Prop%60" target="_blank">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">variable</span> <span class="n">U</span> <span class="o">:</span> <span class="kt">Type</span><span class="bp">*</span>       <span class="c1">-- Declare a type, `U`.</span>
+<span class="kd">variable</span> <span class="n">x</span> <span class="o">:</span> <span class="n">U</span>           <span class="c1">-- Declare a term `x`, of type `U`.</span>
+<span class="kd">variable</span> <span class="n">P</span> <span class="o">:</span> <span class="n">U</span> <span class="bp">&#8594;</span> <span class="kt">Prop</span>    <span class="c1">-- Declare a predicate `P` on `U`.</span>
+
+<span class="k">#check</span> <span class="n">P</span> <span class="n">x</span>               <span class="c1">-- `P x` has type `Prop`</span>
+<span class="k">#check</span> <span class="n">P</span>                 <span class="c1">-- `P` has type `U &#8594; Prop`</span>
+</pre></div>
+</div>
+</div><p>Here, <code class="docutils literal notranslate"><span class="pre">P</span> <span class="pre">x</span></code> is the result of applying <code class="docutils literal notranslate"><span class="pre">P</span></code> to <code class="docutils literal notranslate"><span class="pre">x</span></code>. It has type <code class="docutils literal notranslate"><span class="pre">Prop</span></code>, while <code class="docutils literal notranslate"><span class="pre">P</span></code> itself
+has type <code class="docutils literal notranslate"><span class="pre">U</span> <span class="pre">&#8594;</span> <span class="pre">Prop</span></code>.</p>
+<p>We may define abstract predicates on more than one type.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20(U%20%3A%20Type*)%20(V%20%3A%20Type*)%20--%20Declare%20types%20%60U%60%20and%20%60V%60.%0Avariables%20(x%20%3A%20U)%20(y%20%3A%20V)%20%20%20%20%20%20%20%20%20--%20Declare%20terms%20%60x%60%20of%20type%20%60U%60%20and%20%60y%60%20of%20type%20%60V%60.%0A%0Avariable%20Q%20%3A%20U%20%E2%86%92%20V%20%E2%86%92%20Prop%20%20%20%20--%20Declare%20a%20predicate%20%60Q%60%20on%20%60U%60%20and%20%60V%60.%0A%0A%23check%20Q%20%20%20%20%20--%20%60Q%60%20is%20a%20predicate%20with%20type%20%60U%20%E2%86%92%20V%20%E2%86%92%20Prop%60.%0A%23check%20Q%20x%20%20%20--%20%60Q%20x%60%20is%20a%20predicate%20with%20type%20%60V%20%E2%86%92%20Prop%60.%0A%23check%20Q%20x%20y%20--%20%60Q%20x%20y%60%20has%20type%20%60Prop%60%2C%20i.e.%20is%20a%20proposition." target="_blank">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">variables</span> <span class="o">(</span><span class="n">U</span> <span class="o">:</span> <span class="kt">Type</span><span class="bp">*</span><span class="o">)</span> <span class="o">(</span><span class="n">V</span> <span class="o">:</span> <span class="kt">Type</span><span class="bp">*</span><span class="o">)</span> <span class="c1">-- Declare types `U` and `V`.</span>
+<span class="kd">variables</span> <span class="o">(</span><span class="n">x</span> <span class="o">:</span> <span class="n">U</span><span class="o">)</span> <span class="o">(</span><span class="n">y</span> <span class="o">:</span> <span class="n">V</span><span class="o">)</span>         <span class="c1">-- Declare terms `x` of type `U` and `y` of type `V`.</span>
+
+<span class="kd">variable</span> <span class="n">Q</span> <span class="o">:</span> <span class="n">U</span> <span class="bp">&#8594;</span> <span class="n">V</span> <span class="bp">&#8594;</span> <span class="kt">Prop</span>    <span class="c1">-- Declare a predicate `Q` on `U` and `V`.</span>
+
+<span class="k">#check</span> <span class="n">Q</span>     <span class="c1">-- `Q` is a predicate with type `U &#8594; V &#8594; Prop`.</span>
+<span class="k">#check</span> <span class="n">Q</span> <span class="n">x</span>   <span class="c1">-- `Q x` is a predicate with type `V &#8594; Prop`.</span>
+<span class="k">#check</span> <span class="n">Q</span> <span class="n">x</span> <span class="n">y</span> <span class="c1">-- `Q x y` has type `Prop`, i.e. is a proposition.</span>
+</pre></div>
+</div>
+</div><p>The next two paragraphs are technical and may be omitted if you have not read
+<a class="reference internal" href="#sec-currying"><span class="std std-numref">Section 3.3</span></a>.</p>
+<p>When viewed through the lens of currying functions, the predicate <code class="docutils literal notranslate"><span class="pre">Q</span></code> can be thought of as a
+function that takes an input of type <code class="docutils literal notranslate"><span class="pre">U</span></code> and outputs a function of type <code class="docutils literal notranslate"><span class="pre">V</span> <span class="pre">&#8594;</span> <span class="pre">Prop</span></code>.</p>
+<p>The observant reader will note that this contradicts by previous definition that a predicate is a
+function with body type <code class="docutils literal notranslate"><span class="pre">Prop</span></code>. That&#8217;s because I lied to keep things simple.
+Really, I mean that for a function to be a predicate, its <em>uncurried</em> version should have body type
+<code class="docutils literal notranslate"><span class="pre">Prop</span></code>. The uncurried version of <code class="docutils literal notranslate"><span class="pre">Q</span></code> has type <code class="docutils literal notranslate"><span class="pre">U</span> <span class="pre">&#215;</span> <span class="pre">V</span> <span class="pre">&#8594;</span> <span class="pre">Prop</span></code>, so indeed its body type is
+<code class="docutils literal notranslate"><span class="pre">Prop</span></code>.</p>
+</div>
+<div class="section" id="universal-quantification">
+<h2><span class="section-number">3.5. </span>Universal quantification<a class="headerlink" href="#universal-quantification" title="Permalink to this headline">&#182;</a></h2>
+<p>The universal quantifier, written <span class="math notranslate nohighlight">\(\forall\)</span> is one of the two operators of predicate logic.
+It is read &#8216;for all&#8217;, &#8216;for every&#8217;, or &#8216;for each&#8217;. Informally, <span class="math notranslate nohighlight">\(\forall x, P(x)\)</span> is the
+assertion that <span class="math notranslate nohighlight">\(P(x)\)</span> holds for every <span class="math notranslate nohighlight">\(x\)</span>.</p>
+<p>Usually, the type of <span class="math notranslate nohighlight">\(x\)</span> in the above expression can be inferred from the type of <span class="math notranslate nohighlight">\(P\)</span>.
+To be explicit, we can use a type ascription <span class="math notranslate nohighlight">\(x : U\)</span> as in the expression
+<span class="math notranslate nohighlight">\(\forall (x : U), P(x)\)</span>.</p>
+<p>Formally, the meaning of the universal quantifier is defined by two rules of inference.</p>
+<div class="section" id="for-all-elimination">
+<h3><span class="section-number">3.5.1. </span>For all elimination<a class="headerlink" href="#for-all-elimination" title="Permalink to this headline">&#182;</a></h3>
+<div class="proof proof-type-mathsrule" id="id1">
+
+    <div class="proof-title">
+        <span class="proof-type">Rule 3.1</span>
+        
+            <span class="proof-title-name">(For all elimination, forward)</span>
+        
+    </div><div class="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(U\)</span> be a type and let <span class="math notranslate nohighlight">\(P\)</span> be a predicate on <span class="math notranslate nohighlight">\(U\)</span>. Given
+<span class="math notranslate nohighlight">\(h : \forall x, P(x)\)</span> and given <span class="math notranslate nohighlight">\(u : U\)</span>, we have <span class="math notranslate nohighlight">\(P(u)\)</span>.</p>
+</div></div><p>In Lean, if <code class="docutils literal notranslate"><span class="pre">P</span> <span class="pre">:</span> <span class="pre">U</span> <span class="pre">&#8594;</span> <span class="pre">Prop</span></code> is a predicate, given <code class="docutils literal notranslate"><span class="pre">h</span> <span class="pre">:</span> <span class="pre">&#8704;</span> <span class="pre">x,</span> <span class="pre">P</span> <span class="pre">x</span></code> and given <code class="docutils literal notranslate"><span class="pre">u</span> <span class="pre">:</span> <span class="pre">U</span></code>, the
+expression <code class="docutils literal notranslate"><span class="pre">h</span> <span class="pre">u</span></code> is a proof term for <code class="docutils literal notranslate"><span class="pre">P</span> <span class="pre">u</span></code>. Note the similarity between this and the Lean
+notation for implication elimination.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20(U%20%3A%20Type*)%20(P%20%3A%20U%20%E2%86%92%20Prop)%20(u%20%3A%20U)%0A%0Aexample%20(h%20%3A%20%E2%88%80%20x%2C%20P%20x)%20%3A%20P%20u%20%3A%3D%0Aby%20exact%20h%20u" target="_blank">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">variables</span> <span class="o">(</span><span class="n">U</span> <span class="o">:</span> <span class="kt">Type</span><span class="bp">*</span><span class="o">)</span> <span class="o">(</span><span class="n">P</span> <span class="o">:</span> <span class="n">U</span> <span class="bp">&#8594;</span> <span class="kt">Prop</span><span class="o">)</span> <span class="o">(</span><span class="n">u</span> <span class="o">:</span> <span class="n">U</span><span class="o">)</span>
+
+<span class="kd">example</span> <span class="o">(</span><span class="n">h</span> <span class="o">:</span> <span class="bp">&#8704;</span> <span class="n">x</span><span class="o">,</span> <span class="n">P</span> <span class="n">x</span><span class="o">)</span> <span class="o">:</span> <span class="n">P</span> <span class="n">u</span> <span class="o">:=</span>
+<span class="kd">by</span> <span class="n">exact</span> <span class="n">h</span> <span class="n">u</span>
+</pre></div>
+</div>
+</div><p>Alternatively, the <code class="docutils literal notranslate"><span class="pre">specialize</span></code> tactic applies to a universally quantified statement
+<code class="docutils literal notranslate"><span class="pre">h</span> <span class="pre">:</span> <span class="pre">&#8704;</span> <span class="pre">x,</span> <span class="pre">P</span> <span class="pre">x</span></code>. Writing <code class="docutils literal notranslate"><span class="pre">specialize</span> <span class="pre">h</span> <span class="pre">u</span></code> replaces <code class="docutils literal notranslate"><span class="pre">h</span></code> with <code class="docutils literal notranslate"><span class="pre">h</span> <span class="pre">:</span> <span class="pre">P</span> <span class="pre">u</span></code>.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20(U%20%3A%20Type*)%20(P%20%3A%20U%20%E2%86%92%20Prop)%20(u%20%3A%20U)%0A--%20BEGIN%0Aexample%20(h%20%3A%20%E2%88%80%20x%2C%20P%20x)%20%3A%20P%20u%20%3A%3D%0Abegin%0A%20%20specialize%20h%20u%2C%20%20%20%20--%20By%20for%20all%20elimination%20on%20%60h%60%20and%20%60u%60%2C%20we%20have%20%60h%20%3A%20P%20u%60%0A%20%20show%20P%20u%2C%20from%20h%2C%20%20--%20We%20show%20%60P%20u%60%20by%20reiteration%20on%20%60h%60.%0Aend%0A--%20END" target="_blank">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h</span> <span class="o">:</span> <span class="bp">&#8704;</span> <span class="n">x</span><span class="o">,</span> <span class="n">P</span> <span class="n">x</span><span class="o">)</span> <span class="o">:</span> <span class="n">P</span> <span class="n">u</span> <span class="o">:=</span>
+<span class="kd">begin</span>
+  <span class="n">specialize</span> <span class="n">h</span> <span class="n">u</span><span class="o">,</span>    <span class="c1">-- By for all elimination on `h` and `u`, we have `h : P u`</span>
+  <span class="k">show</span> <span class="n">P</span> <span class="n">u</span><span class="o">,</span> <span class="k">from</span> <span class="n">h</span><span class="o">,</span>  <span class="c1">-- We show `P u` by reiteration on `h`.</span>
+<span class="kd">end</span>
+</pre></div>
+</div>
+</div><div class="proof proof-type-mathsrule" id="id2">
+
+    <div class="proof-title">
+        <span class="proof-type">Rule 3.2</span>
+        
+            <span class="proof-title-name">(For all elimination, backward)</span>
+        
+    </div><div class="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(U\)</span> be a type and let <span class="math notranslate nohighlight">\(P\)</span> be a predicate on <span class="math notranslate nohighlight">\(U\)</span>. To prove <span class="math notranslate nohighlight">\(P(u)\)</span>,
+<span class="math notranslate nohighlight">\(h : \forall x, P(x)\)</span> and given <span class="math notranslate nohighlight">\(u : U\)</span>, we have <span class="math notranslate nohighlight">\(P(u)\)</span>.</p>
+</div></div><p>In Lean, we invoke backward for all elimination using the <code class="docutils literal notranslate"><span class="pre">apply</span></code> tactic, just as we did for
+backward implication elimination. Below, Lean is clever enough to close the goal immediately after
+<code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">h</span></code> as <code class="docutils literal notranslate"><span class="pre">u</span> <span class="pre">:</span> <span class="pre">U</span></code> is in the context.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20(U%20%3A%20Type*)%20(P%20%3A%20U%20%E2%86%92%20Prop)%20(u%20%3A%20U)%0A--%20BEGIN%0Aexample%20(h%20%3A%20%E2%88%80%20x%2C%20P%20x)%20%3A%20P%20u%20%3A%3D%0Aby%20apply%20h%0A--%20END" target="_blank">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h</span> <span class="o">:</span> <span class="bp">&#8704;</span> <span class="n">x</span><span class="o">,</span> <span class="n">P</span> <span class="n">x</span><span class="o">)</span> <span class="o">:</span> <span class="n">P</span> <span class="n">u</span> <span class="o">:=</span>
+<span class="kd">by</span> <span class="n">apply</span> <span class="n">h</span>
+</pre></div>
+</div>
+</div><p>Let&#8217;s do something a little more interesting.</p>
+<div class="proof proof-type-example" id="id3">
+
+    <div class="proof-title">
+        <span class="proof-type">Example 3.3</span>
+        
+    </div><div class="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(S\)</span> and <span class="math notranslate nohighlight">\(T\)</span> be prediates on a type <span class="math notranslate nohighlight">\(U\)</span>. Given <span class="math notranslate nohighlight">\(h_1 : \forall x, S(x)\)</span>,
+<span class="math notranslate nohighlight">\(h_2 : \forall y, S(y)\to T(y)\)</span> and <span class="math notranslate nohighlight">\(u : U\)</span>, we have <span class="math notranslate nohighlight">\(T(u)\)</span>.</p>
+</div></div><p>We give first a forward proof.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20(U%20%3A%20Type*)%20(S%20T%20%3A%20U%20%E2%86%92%20Prop)%20(u%20%3A%20U)%0A%0Aexample%20(h%E2%82%81%20%3A%20%E2%88%80%20x%2C%20S%20x)%20(h%E2%82%82%20%3A%20%E2%88%80%20y%2C%20S%20y%20%E2%86%92%20T%20y)%20(u%20%3A%20U)%20%3A%20T%20u%20%3A%3D%0Abegin%0A%20%20have%20h%E2%82%83%20%3A%20S%20u%2C%20from%20h%E2%82%81%20u%2C%20%20--%20We%20have%20%60h%E2%82%83%20%3A%20S%20u%60%20by%20for%20all%20elim.%20on%20%60h%E2%82%81%60%20and%20%60u%60.%0A%20%20have%20h%E2%82%84%20%3A%20S%20u%20%E2%86%92%20T%20u%2C%20from%20h%E2%82%82%20u%2C%20--%20We%20have%20%60h%E2%82%84%20%3A%20S%20u%20%E2%86%92%20T%20u%60%20by%20for%20all%20elim.%20on%20%60h%E2%82%82%60%20and%20%60u%60%0A%20%20show%20T%20u%2C%20from%20h%E2%82%84%20h%E2%82%83%2C%20--%20We%20show%20%60T%20u%60%20by%20implication%20elimination%20on%20%60h%E2%82%84%60%20and%20%60h%E2%82%83%60.%0Aend" target="_blank">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">variables</span> <span class="o">(</span><span class="n">U</span> <span class="o">:</span> <span class="kt">Type</span><span class="bp">*</span><span class="o">)</span> <span class="o">(</span><span class="n">S</span> <span class="n">T</span> <span class="o">:</span> <span class="n">U</span> <span class="bp">&#8594;</span> <span class="kt">Prop</span><span class="o">)</span> <span class="o">(</span><span class="n">u</span> <span class="o">:</span> <span class="n">U</span><span class="o">)</span>
+
+<span class="kd">example</span> <span class="o">(</span><span class="n">h&#8321;</span> <span class="o">:</span> <span class="bp">&#8704;</span> <span class="n">x</span><span class="o">,</span> <span class="n">S</span> <span class="n">x</span><span class="o">)</span> <span class="o">(</span><span class="n">h&#8322;</span> <span class="o">:</span> <span class="bp">&#8704;</span> <span class="n">y</span><span class="o">,</span> <span class="n">S</span> <span class="n">y</span> <span class="bp">&#8594;</span> <span class="n">T</span> <span class="n">y</span><span class="o">)</span> <span class="o">(</span><span class="n">u</span> <span class="o">:</span> <span class="n">U</span><span class="o">)</span> <span class="o">:</span> <span class="n">T</span> <span class="n">u</span> <span class="o">:=</span>
+<span class="kd">begin</span>
+  <span class="k">have</span> <span class="n">h&#8323;</span> <span class="o">:</span> <span class="n">S</span> <span class="n">u</span><span class="o">,</span> <span class="k">from</span> <span class="n">h&#8321;</span> <span class="n">u</span><span class="o">,</span>  <span class="c1">-- We have `h&#8323; : S u` by for all elim. on `h&#8321;` and `u`.</span>
+  <span class="k">have</span> <span class="n">h&#8324;</span> <span class="o">:</span> <span class="n">S</span> <span class="n">u</span> <span class="bp">&#8594;</span> <span class="n">T</span> <span class="n">u</span><span class="o">,</span> <span class="k">from</span> <span class="n">h&#8322;</span> <span class="n">u</span><span class="o">,</span> <span class="c1">-- We have `h&#8324; : S u &#8594; T u` by for all elim. on `h&#8322;` and `u`</span>
+  <span class="k">show</span> <span class="n">T</span> <span class="n">u</span><span class="o">,</span> <span class="k">from</span> <span class="n">h&#8324;</span> <span class="n">h&#8323;</span><span class="o">,</span> <span class="c1">-- We show `T u` by implication elimination on `h&#8324;` and `h&#8323;`.</span>
+<span class="kd">end</span>
+</pre></div>
+</div>
+</div><p>The same proof can be written more concisely using <code class="docutils literal notranslate"><span class="pre">specialize</span></code>.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20(U%20%3A%20Type*)%20(S%20T%20%3A%20U%20%E2%86%92%20Prop)%20(u%20%3A%20U)%0A--%20BEGIN%0Aexample%20(h%E2%82%81%20%3A%20%E2%88%80%20x%2C%20S%20x)%20(h%E2%82%82%20%3A%20%E2%88%80%20y%2C%20S%20y%20%E2%86%92%20T%20y)%20(u%20%3A%20U)%20%3A%20T%20u%20%3A%3D%0Abegin%0A%20%20specialize%20h%E2%82%81%20u%2C%20%20--%20We%20have%20%60h%E2%82%81%20%3A%20S%20u%60%20by%20for%20all%20elim.%20on%20%60h%E2%82%81%60%20and%20%60u%60.%0A%20%20specialize%20h%E2%82%82%20u%2C%20--%20We%20have%20%60h%E2%82%82%20%3A%20S%20u%20%E2%86%92%20T%20u%60%20by%20for%20all%20elim.%20on%20%60h%E2%82%82%60%20and%20%60u%60%0A%20%20show%20T%20u%2C%20from%20h%E2%82%82%20h%E2%82%81%2C%20--%20We%20show%20%60T%20u%60%20by%20implication%20elimination%20on%20%60h%E2%82%82%60%20and%20%60h%E2%82%81%60.%0Aend%0A--%20END" target="_blank">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h&#8321;</span> <span class="o">:</span> <span class="bp">&#8704;</span> <span class="n">x</span><span class="o">,</span> <span class="n">S</span> <span class="n">x</span><span class="o">)</span> <span class="o">(</span><span class="n">h&#8322;</span> <span class="o">:</span> <span class="bp">&#8704;</span> <span class="n">y</span><span class="o">,</span> <span class="n">S</span> <span class="n">y</span> <span class="bp">&#8594;</span> <span class="n">T</span> <span class="n">y</span><span class="o">)</span> <span class="o">(</span><span class="n">u</span> <span class="o">:</span> <span class="n">U</span><span class="o">)</span> <span class="o">:</span> <span class="n">T</span> <span class="n">u</span> <span class="o">:=</span>
+<span class="kd">begin</span>
+  <span class="n">specialize</span> <span class="n">h&#8321;</span> <span class="n">u</span><span class="o">,</span>  <span class="c1">-- We have `h&#8321; : S u` by for all elim. on `h&#8321;` and `u`.</span>
+  <span class="n">specialize</span> <span class="n">h&#8322;</span> <span class="n">u</span><span class="o">,</span> <span class="c1">-- We have `h&#8322; : S u &#8594; T u` by for all elim. on `h&#8322;` and `u`</span>
+  <span class="k">show</span> <span class="n">T</span> <span class="n">u</span><span class="o">,</span> <span class="k">from</span> <span class="n">h&#8322;</span> <span class="n">h&#8321;</span><span class="o">,</span> <span class="c1">-- We show `T u` by implication elimination on `h&#8322;` and `h&#8321;`.</span>
+<span class="kd">end</span>
+</pre></div>
+</div>
+</div><p>In the following backward Lean proof, <code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">h&#8322;</span></code> invokes for all elimination followed by
+implication elimination on the hypothesis <code class="docutils literal notranslate"><span class="pre">h&#8322;</span></code>.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20(U%20%3A%20Type*)%20(S%20T%20%3A%20U%20%E2%86%92%20Prop)%20(u%20%3A%20U)%0A--%20BEGIN%0Aexample%20(h%E2%82%81%20%3A%20%E2%88%80%20x%2C%20S%20x)%20(h%E2%82%82%20%3A%20%E2%88%80%20y%2C%20S%20y%20%E2%86%92%20T%20y)%20(u%20%3A%20U)%20%3A%20T%20u%20%3A%3D%0Abegin%0A%20%20apply%20h%E2%82%82%2C%20--%20By%20for%20all%20elim.%20on%20%60h%E2%82%82%60%20and%20%60u%60%2C%20followed%20by%20imp.%20elim.%2C%20it%20suffices%20to%20prove%20%60S%20u%60.%0A%20%20apply%20h%E2%82%81%2C%20--%20The%20result%20follows%20by%20for%20all%20elim.%20on%20%60h%E2%82%81%60%20and%20%60u%60.%0Aend%0A--%20END" target="_blank">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h&#8321;</span> <span class="o">:</span> <span class="bp">&#8704;</span> <span class="n">x</span><span class="o">,</span> <span class="n">S</span> <span class="n">x</span><span class="o">)</span> <span class="o">(</span><span class="n">h&#8322;</span> <span class="o">:</span> <span class="bp">&#8704;</span> <span class="n">y</span><span class="o">,</span> <span class="n">S</span> <span class="n">y</span> <span class="bp">&#8594;</span> <span class="n">T</span> <span class="n">y</span><span class="o">)</span> <span class="o">(</span><span class="n">u</span> <span class="o">:</span> <span class="n">U</span><span class="o">)</span> <span class="o">:</span> <span class="n">T</span> <span class="n">u</span> <span class="o">:=</span>
+<span class="kd">begin</span>
+  <span class="n">apply</span> <span class="n">h&#8322;</span><span class="o">,</span> <span class="c1">-- By for all elim. on `h&#8322;` and `u`, followed by imp. elim., it suffices to prove `S u`.</span>
+  <span class="n">apply</span> <span class="n">h&#8321;</span><span class="o">,</span> <span class="c1">-- The result follows by for all elim. on `h&#8321;` and `u`.</span>
+<span class="kd">end</span>
+</pre></div>
+</div>
+</div><p>In the next example, we construct a predicate using two others.</p>
+<p>Below, we have predicates <code class="docutils literal notranslate"><span class="pre">S</span></code> and <code class="docutils literal notranslate"><span class="pre">T</span></code> on a type <code class="docutils literal notranslate"><span class="pre">U</span></code>. The function that takes <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">:</span> <span class="pre">U</span></code> to
+<code class="docutils literal notranslate"><span class="pre">(S</span> <span class="pre">x)</span> <span class="pre">&#8743;</span> <span class="pre">(T</span> <span class="pre">x)</span></code> is also a predicate. We assume the universally quantified statement
+<code class="docutils literal notranslate"><span class="pre">h</span> <span class="pre">:</span> <span class="pre">&#8704;</span> <span class="pre">x,</span> <span class="pre">(S</span> <span class="pre">x)</span> <span class="pre">&#8743;</span> <span class="pre">(T</span> <span class="pre">x)</span></code>. By for all elimination applied to <code class="docutils literal notranslate"><span class="pre">h</span></code> and <code class="docutils literal notranslate"><span class="pre">u</span> <span class="pre">:</span> <span class="pre">U</span></code>, we have
+<code class="docutils literal notranslate"><span class="pre">(S</span> <span class="pre">u)</span> <span class="pre">&#8743;</span> <span class="pre">(T</span> <span class="pre">u)</span></code>. We can extract <code class="docutils literal notranslate"><span class="pre">S</span> <span class="pre">u</span></code> from this by left conjunction elimination.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20(U%20%3A%20Type*)%20(S%20T%20%3A%20U%20%E2%86%92%20Prop)%20(u%20%3A%20U)%0A--%20BEGIN%0Aexample%20(h%20%3A%20%E2%88%80%20x%2C%20(S%20x)%20%E2%88%A7%20(T%20x))%20%3A%20S%20u%20%3A%3D%0Abegin%0A%20%20have%20h%E2%82%82%20%3A%20(S%20u)%20%E2%88%A7%20(T%20u)%2C%20from%20h%20u%2C%20--%20We%20have%20%60h%E2%82%82%20%3A%20(S%20u)%20%E2%88%A7%20(T%20u)%60%20by%20for%20all%20elimination%20on%20%60h%60%20and%20%60u%60.%0A%20%20show%20(S%20u)%2C%20from%20h%E2%82%82.left%2C%20--%20We%20show%20%60S%20u%60%20by%20left%20conjunction%20elimination%20on%20%60h%E2%82%82%60.%0Aend%0A--%20END" target="_blank">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h</span> <span class="o">:</span> <span class="bp">&#8704;</span> <span class="n">x</span><span class="o">,</span> <span class="o">(</span><span class="n">S</span> <span class="n">x</span><span class="o">)</span> <span class="bp">&#8743;</span> <span class="o">(</span><span class="n">T</span> <span class="n">x</span><span class="o">))</span> <span class="o">:</span> <span class="n">S</span> <span class="n">u</span> <span class="o">:=</span>
+<span class="kd">begin</span>
+  <span class="k">have</span> <span class="n">h&#8322;</span> <span class="o">:</span> <span class="o">(</span><span class="n">S</span> <span class="n">u</span><span class="o">)</span> <span class="bp">&#8743;</span> <span class="o">(</span><span class="n">T</span> <span class="n">u</span><span class="o">),</span> <span class="k">from</span> <span class="n">h</span> <span class="n">u</span><span class="o">,</span> <span class="c1">-- We have `h&#8322; : (S u) &#8743; (T u)` by for all elimination on `h` and `u`.</span>
+  <span class="k">show</span> <span class="o">(</span><span class="n">S</span> <span class="n">u</span><span class="o">),</span> <span class="k">from</span> <span class="n">h&#8322;.left</span><span class="o">,</span> <span class="c1">-- We show `S u` by left conjunction elimination on `h&#8322;`.</span>
+<span class="kd">end</span>
+</pre></div>
+</div>
+</div><p>For a more familiar example, we&#8217;ll show <span class="math notranslate nohighlight">\((\forall x : \mathbb Z, x^2 \ge 0) \to (-4)^2 \ge 0\)</span>.</p>
+<div class="proof proof-type-proof">
+
+    <div class="proof-title">
+        <span class="proof-type">Proof </span>
+        
+    </div><div class="proof-content">
+<p>Assume <span class="math notranslate nohighlight">\(h : \forall x : \mathbb Z, x^2 \ge 0\)</span>. It suffices to prove <span class="math notranslate nohighlight">\((-4)^2\ge0\)</span>.
+But <span class="math notranslate nohighlight">\(-4 : \mathbb Z\)</span>. The result follows by for all elimination on <span class="math notranslate nohighlight">\(h\)</span> and <span class="math notranslate nohighlight">\(-4\)</span>.</p>
+</div></div><p>In the Lean code below, we need to use the type ascription <code class="docutils literal notranslate"><span class="pre">4</span> <span class="pre">:</span> <span class="pre">&#8484;</span></code>. The reason is that Lean, by
+default, interprets numerals as terms of type <code class="docutils literal notranslate"><span class="pre">&#8469;</span></code>. It then balks at <code class="docutils literal notranslate"><span class="pre">-4</span></code>.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=import%20data.int.basic%0A--%20BEGIN%0Aexample%20%3A%20(%E2%88%80%20x%20%3A%20%E2%84%A4%2C%20x%5E2%20%E2%89%A5%200)%20%E2%86%92%20((-(4%20%3A%20%E2%84%A4))%5E2%20%E2%89%A5%200)%20%3A%3D%0Abegin%0A%20%20intro%20h%2C%0A%20%20exact%20h%20(-4)%2C%0Aend%0A--%20END" target="_blank">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">:</span> <span class="o">(</span><span class="bp">&#8704;</span> <span class="n">x</span> <span class="o">:</span> <span class="n">&#8484;</span><span class="o">,</span> <span class="n">x</span><span class="bp">^</span><span class="mi">2</span> <span class="bp">&#8805;</span> <span class="mi">0</span><span class="o">)</span> <span class="bp">&#8594;</span> <span class="o">((</span><span class="bp">-</span><span class="o">(</span><span class="mi">4</span> <span class="o">:</span> <span class="n">&#8484;</span><span class="o">))</span><span class="bp">^</span><span class="mi">2</span> <span class="bp">&#8805;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">:=</span>
+<span class="kd">begin</span>
+  <span class="n">intro</span> <span class="n">h</span><span class="o">,</span>
+  <span class="n">exact</span> <span class="n">h</span> <span class="o">(</span><span class="bp">-</span><span class="mi">4</span><span class="o">),</span>
+<span class="kd">end</span>
+</pre></div>
+</div>
+</div></div>
+<div class="section" id="for-all-introduction">
+<h3><span class="section-number">3.5.2. </span>For all introduction<a class="headerlink" href="#for-all-introduction" title="Permalink to this headline">&#182;</a></h3>
+<div class="proof proof-type-mathsrule" id="id4">
+
+    <div class="proof-title">
+        <span class="proof-type">Rule 3.4</span>
+        
+            <span class="proof-title-name">(For all introduction)</span>
+        
+    </div><div class="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(P\)</span> be a predicate on a type <span class="math notranslate nohighlight">\(U\)</span>. To prove <span class="math notranslate nohighlight">\(\forall x, P(x)\)</span> is to assume
+<span class="math notranslate nohighlight">\(u : U\)</span> and derive <span class="math notranslate nohighlight">\(P(u)\)</span>.</p>
+</div></div><p>Again, note the similarity between this rule and implication introduction.</p>
+<p>All the results we&#8217;ve seen so far that begin with, &#8216;Let <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> be propositions&#8217;
+can be replaced with universally quantified statements that don&#8217;t specify the names of the
+propositions.</p>
+<div class="proof proof-type-theorem" id="id5">
+
+    <div class="proof-title">
+        <span class="proof-type">Theorem 3.5</span>
+        
+            <span class="proof-title-name">(Commutativity of conjunction (IV))</span>
+        
+    </div><div class="proof-content">
+<p>We have <span class="math notranslate nohighlight">\(\forall P : \mathrm{Prop}, \forall Q : \mathrm{Prop}, P \land Q \leftrightarrow Q\land P\)</span>.</p>
+</div></div><div class="proof proof-type-proof">
+
+    <div class="proof-title">
+        <span class="proof-type">Proof </span>
+        
+    </div><div class="proof-content">
+<p>Assume <span class="math notranslate nohighlight">\(R\)</span> and <span class="math notranslate nohighlight">\(S\)</span> are propositions. It suffices to show
+<span class="math notranslate nohighlight">\(R\land S \leftrightarrow S\land R\)</span>. But this follows by
+<a class="reference internal" href="prop_logic_theory.html#thm-and-comm3"><span class="std std-numref">Theorem 1.25</span></a>.</p>
+</div></div><p>In Lean, we use <code class="docutils literal notranslate"><span class="pre">intro</span></code> to denote for all introduction (as we do for implication introduction).</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=example%20%3A%20%E2%88%80%20p%20q%20%3A%20Prop%2C%20p%20%E2%88%A7%20q%20%E2%86%94%20q%20%E2%88%A7%20p%20%3A%3Dbegin%0A%20%20intros%20r%20s%2C%20--%20Assume%20%60r%20%3A%20Prop%60%20and%20%60s%20%3A%20Prop%60.%20It%20suffices%20to%20prove%20%60r%20%E2%88%A7%20s%20%E2%86%94%20s%20%E2%88%A7%20r%60.%0A%20%20split%3B%20--%20By%20iff%20intro.%2C%20it%20suffices%20to%20prove%201.%20%60r%20%E2%88%A7%20s%20%E2%86%92%20s%20%E2%88%A7%20r%60%20and%202.%20%60s%20%E2%88%A7%20r%20%E2%86%92%20r%20%E2%88%A7%20s%60.%20We'll%20use%20the%20same%20proof%20in%20each%20case.%0A%20%20%7B%20intro%20h%2C%20exact%20%E2%9F%A8h.2%2C%20h.1%E2%9F%A9%2C%20%7D%2C%20--%20Assume%20the%20antecedent%2C%20%60h%60.%20The%20goal%20is%20closed%20by%20and%20intro.%20on%20%60h.1%60%20and%20%60h.2%60%0Aend" target="_blank">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">:</span> <span class="bp">&#8704;</span> <span class="n">p</span> <span class="n">q</span> <span class="o">:</span> <span class="kt">Prop</span><span class="o">,</span> <span class="n">p</span> <span class="bp">&#8743;</span> <span class="n">q</span> <span class="bp">&#8596;</span> <span class="n">q</span> <span class="bp">&#8743;</span> <span class="n">p</span> <span class="o">:=</span><span class="kd">begin</span>
+  <span class="n">intros</span> <span class="n">r</span> <span class="n">s</span><span class="o">,</span> <span class="c1">-- Assume `r : Prop` and `s : Prop`. It suffices to prove `r &#8743; s &#8596; s &#8743; r`.</span>
+  <span class="n">split</span><span class="bp">;</span> <span class="c1">-- By iff intro., it suffices to prove 1. `r &#8743; s &#8594; s &#8743; r` and 2. `s &#8743; r &#8594; r &#8743; s`. We&#39;ll use the same proof in each case.</span>
+  <span class="o">{</span> <span class="n">intro</span> <span class="n">h</span><span class="o">,</span> <span class="n">exact</span> <span class="o">&#10216;</span><span class="n">h.2</span><span class="o">,</span> <span class="n">h.1</span><span class="o">&#10217;,</span> <span class="o">},</span> <span class="c1">-- Assume the antecedent, `h`. The goal is closed by and intro. on `h.1` and `h.2`</span>
+<span class="kd">end</span>
+</pre></div>
+</div>
+</div><p>Our final example uses both for all introduction and for all elimination.</p>
+<div class="proof proof-type-example" id="id6">
+
+    <div class="proof-title">
+        <span class="proof-type">Example 3.6</span>
+        
+    </div><div class="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> be predicates on a type <span class="math notranslate nohighlight">\(U\)</span>. We have</p>
+<div class="math notranslate nohighlight">
+\[(\forall x, P(x)\land Q(x))\to(\forall y, Q(y)\land P(y)).\]</div>
+</div></div><p>Here is the Lean proof, with the matheatical proof given in the comments.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20(U%20%3A%20Type*)%20(P%20Q%20%3A%20U%20%E2%86%92%20Prop)%0A%0Aexample%20%3A%20(%E2%88%80%20x%2C%20P%20x%20%E2%88%A7%20Q%20x)%20%E2%86%92%20(%E2%88%80%20y%2C%20Q%20y%20%E2%88%A7%20P%20y)%20%3A%3D%0Abegin%0A%20%20intro%20h%2C%20--%20Assume%20%60h%20%3A%20%E2%88%80%20x%2C%20P%20x%20%E2%88%A7%20Q%20x%60.%20By%20%60%E2%86%92%60%20intro.%2C%20it%20suffices%20to%20prove%20%60%E2%88%80%20y%2C%20Q%20y%20%E2%88%A7%20P%20y%60.%0A%20%20intro%20u%2C%20--%20Assume%20%60u%20%3A%20U%60.%20By%20%60%E2%88%80%60%20intro%2C%20it%20suffices%20to%20prove%20%60Q%20u%20%E2%88%A7%20P%20u%60.%0A%20%20rw%20and_comm%2C%20%20--%20By%20commutativity%20of%20conjunction%2C%20it%20suffices%20to%20prove%20%60P%20u%20%E2%88%A7%20Q%20u%60.%0A%20%20exact%20h%20u%2C%20--%20This%20follows%20by%20%60%E2%88%80%60%20elim.%20on%20%60h%60%20and%20%60u%60.%0Aend" target="_blank">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">variables</span> <span class="o">(</span><span class="n">U</span> <span class="o">:</span> <span class="kt">Type</span><span class="bp">*</span><span class="o">)</span> <span class="o">(</span><span class="n">P</span> <span class="n">Q</span> <span class="o">:</span> <span class="n">U</span> <span class="bp">&#8594;</span> <span class="kt">Prop</span><span class="o">)</span>
+
+<span class="kd">example</span> <span class="o">:</span> <span class="o">(</span><span class="bp">&#8704;</span> <span class="n">x</span><span class="o">,</span> <span class="n">P</span> <span class="n">x</span> <span class="bp">&#8743;</span> <span class="n">Q</span> <span class="n">x</span><span class="o">)</span> <span class="bp">&#8594;</span> <span class="o">(</span><span class="bp">&#8704;</span> <span class="n">y</span><span class="o">,</span> <span class="n">Q</span> <span class="n">y</span> <span class="bp">&#8743;</span> <span class="n">P</span> <span class="n">y</span><span class="o">)</span> <span class="o">:=</span>
+<span class="kd">begin</span>
+  <span class="n">intro</span> <span class="n">h</span><span class="o">,</span> <span class="c1">-- Assume `h : &#8704; x, P x &#8743; Q x`. By `&#8594;` intro., it suffices to prove `&#8704; y, Q y &#8743; P y`.</span>
+  <span class="n">intro</span> <span class="n">u</span><span class="o">,</span> <span class="c1">-- Assume `u : U`. By `&#8704;` intro, it suffices to prove `Q u &#8743; P u`.</span>
+  <span class="n">rw</span> <span class="n">and_comm</span><span class="o">,</span>  <span class="c1">-- By commutativity of conjunction, it suffices to prove `P u &#8743; Q u`.</span>
+  <span class="n">exact</span> <span class="n">h</span> <span class="n">u</span><span class="o">,</span> <span class="c1">-- This follows by `&#8704;` elim. on `h` and `u`.</span>
+<span class="kd">end</span>
+</pre></div>
+</div>
+</div></div>
+</div>
+<div class="section" id="existential-quantification">
+<h2><span class="section-number">3.6. </span>Existential quantification<a class="headerlink" href="#existential-quantification" title="Permalink to this headline">&#182;</a></h2>
+<p>The existential quantifier, written <span class="math notranslate nohighlight">\(\exists\)</span> is read &#8216;there exists&#8217;, &#8216;there is&#8217;, or
+&#8216;for some&#8217;. Informally, <span class="math notranslate nohighlight">\(\exists x, P(x)\)</span> is the assertion that there is some <span class="math notranslate nohighlight">\(u\)</span> for
+which <span class="math notranslate nohighlight">\(P(u)\)</span> holds.</p>
+<p>As with the universal quantifier, we can make the types explicit via a type ascription,
+writing <span class="math notranslate nohighlight">\(\exists (x : U), P(x)\)</span>, for example.</p>
+<p>Formally, the meaning of the universal quantifier is defined by two rules of inference.</p>
+<div class="section" id="exists-introduction">
+<h3><span class="section-number">3.6.1. </span>Exists introduction<a class="headerlink" href="#exists-introduction" title="Permalink to this headline">&#182;</a></h3>
+<div class="proof proof-type-mathsrule" id="id7">
+
+    <div class="proof-title">
+        <span class="proof-type">Rule 3.7</span>
+        
+            <span class="proof-title-name">(Exists introduction, forward)</span>
+        
+    </div><div class="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(P\)</span> be a predicate on a type <span class="math notranslate nohighlight">\(U\)</span>. Given <span class="math notranslate nohighlight">\(u : U\)</span> and <span class="math notranslate nohighlight">\(h : P(u)\)</span>,
+we have a proof of <span class="math notranslate nohighlight">\(\exists x, P(x)\)</span>.</p>
+</div></div><div class="proof proof-type-example" id="id8">
+
+    <div class="proof-title">
+        <span class="proof-type">Example 3.8</span>
+        
+    </div><div class="proof-content">
+<p>Given <span class="math notranslate nohighlight">\(5 : \mathbb N\)</span> and <span class="math notranslate nohighlight">\(h : 5 \ge 3\)</span>, we have <span class="math notranslate nohighlight">\(\exists x, x \ge 3\)</span>.</p>
+</div></div><p>The proof is simply an application of exists introduction to <span class="math notranslate nohighlight">\(5 : \mathbb N\)</span> and <span class="math notranslate nohighlight">\(h\)</span>.</p>
+<p>In Lean, if <code class="docutils literal notranslate"><span class="pre">u</span> <span class="pre">:</span> <span class="pre">U</span></code> and <code class="docutils literal notranslate"><span class="pre">h</span> <span class="pre">:</span> <span class="pre">P</span> <span class="pre">u</span></code>, then <code class="docutils literal notranslate"><span class="pre">exists.intro</span> <span class="pre">u</span> <span class="pre">h</span></code> is a proof of <code class="docutils literal notranslate"><span class="pre">&#8707;</span> <span class="pre">x,</span> <span class="pre">P</span> <span class="pre">x</span></code></p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=example%20(h%20%3A%205%20%E2%89%A5%203)%20%3A%20%E2%88%83%20x%2C%20x%20%E2%89%A5%203%20%3A%3D%0Aby%20exact%20exists.intro%205%20h" target="_blank">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h</span> <span class="o">:</span> <span class="mi">5</span> <span class="bp">&#8805;</span> <span class="mi">3</span><span class="o">)</span> <span class="o">:</span> <span class="bp">&#8707;</span> <span class="n">x</span><span class="o">,</span> <span class="n">x</span> <span class="bp">&#8805;</span> <span class="mi">3</span> <span class="o">:=</span>
+<span class="kd">by</span> <span class="n">exact</span> <span class="n">exists.intro</span> <span class="mi">5</span> <span class="n">h</span>
+</pre></div>
+</div>
+</div><p>To be more concise, we can use the anonymous constructor notation.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=example%20(h%20%3A%205%20%E2%89%A5%203)%20%3A%20%E2%88%83%20x%2C%20x%20%E2%89%A5%203%20%3A%3D%0Aby%20exact%20%E2%9F%A85%2C%20h%E2%9F%A9" target="_blank">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h</span> <span class="o">:</span> <span class="mi">5</span> <span class="bp">&#8805;</span> <span class="mi">3</span><span class="o">)</span> <span class="o">:</span> <span class="bp">&#8707;</span> <span class="n">x</span><span class="o">,</span> <span class="n">x</span> <span class="bp">&#8805;</span> <span class="mi">3</span> <span class="o">:=</span>
+<span class="kd">by</span> <span class="n">exact</span> <span class="o">&#10216;</span><span class="mi">5</span><span class="o">,</span> <span class="n">h</span><span class="o">&#10217;</span>
+</pre></div>
+</div>
+</div><div class="proof proof-type-mathsrule" id="id9">
+
+    <div class="proof-title">
+        <span class="proof-type">Rule 3.9</span>
+        
+            <span class="proof-title-name">(Exists introduction, backward)</span>
+        
+    </div><div class="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(P\)</span> be a predicate on a type <span class="math notranslate nohighlight">\(U\)</span>. Given <span class="math notranslate nohighlight">\(u : U\)</span>, to prove
+<span class="math notranslate nohighlight">\(\exists x, P(x)\)</span>, it suffices to prove <span class="math notranslate nohighlight">\(P(u)\)</span>.</p>
+</div></div><div class="proof proof-type-example" id="id10">
+
+    <div class="proof-title">
+        <span class="proof-type">Example 3.10</span>
+        
+    </div><div class="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> be predictes on a type <span class="math notranslate nohighlight">\(U\)</span>. Given <span class="math notranslate nohighlight">\(u : U\)</span>,
+<span class="math notranslate nohighlight">\(h_1 : P(u)\to Q(u)\)</span> and <span class="math notranslate nohighlight">\(h_2 : P(u)\)</span>, we have a proof of <span class="math notranslate nohighlight">\(\exists x, Q(x)\)</span>.</p>
+</div></div><div class="proof proof-type-proof">
+
+    <div class="proof-title">
+        <span class="proof-type">Proof </span>
+        
+    </div><div class="proof-content">
+<p>By exists introduction on <span class="math notranslate nohighlight">\(u\)</span>, it suffices to prove <span class="math notranslate nohighlight">\(Q(u)\)</span>.
+But this follows by implication elimination on <span class="math notranslate nohighlight">\(h_1\)</span> and <span class="math notranslate nohighlight">\(h_2\)</span>.</p>
+</div></div><p>In Lean, the <code class="docutils literal notranslate"><span class="pre">use</span></code> tactic indicates backward exists introduction. We use this to give a Lean
+proof of the example above.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=import%20tactic.interactive%0Avariables%20(U%20%3A%20Type*)%20(P%20Q%20%3A%20U%20%E2%86%92%20Prop)%0A--%20BEGIN%0Aexample%20(u%20%3A%20U)%20(h%E2%82%81%20%3A%20P%20u%20%E2%86%92%20Q%20u)%20(h%E2%82%82%20%3A%20P%20u)%20%3A%20%E2%88%83%20x%2C%20Q%20x%20%3A%3D%0Abegin%0A%20%20use%20u%2C%20%20%20%20%20%20%20--%20By%20%60%E2%88%83%60%20intro.%20on%20%60u%60%2C%20it%20suffices%20to%20prove%20%60Q%20u%60%0A%20%20exact%20h%E2%82%81%20h%E2%82%82%2C%20--%20This%20follows%20by%20%60%E2%86%92%60%20elim.%20on%20%60h%E2%82%81%60%20and%20%60h%E2%82%82%60.%0Aend%0A--%20END" target="_blank">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">u</span> <span class="o">:</span> <span class="n">U</span><span class="o">)</span> <span class="o">(</span><span class="n">h&#8321;</span> <span class="o">:</span> <span class="n">P</span> <span class="n">u</span> <span class="bp">&#8594;</span> <span class="n">Q</span> <span class="n">u</span><span class="o">)</span> <span class="o">(</span><span class="n">h&#8322;</span> <span class="o">:</span> <span class="n">P</span> <span class="n">u</span><span class="o">)</span> <span class="o">:</span> <span class="bp">&#8707;</span> <span class="n">x</span><span class="o">,</span> <span class="n">Q</span> <span class="n">x</span> <span class="o">:=</span>
+<span class="kd">begin</span>
+  <span class="n">use</span> <span class="n">u</span><span class="o">,</span>       <span class="c1">-- By `&#8707;` intro. on `u`, it suffices to prove `Q u`</span>
+  <span class="n">exact</span> <span class="n">h&#8321;</span> <span class="n">h&#8322;</span><span class="o">,</span> <span class="c1">-- This follows by `&#8594;` elim. on `h&#8321;` and `h&#8322;`.</span>
+<span class="kd">end</span>
+</pre></div>
+</div>
+</div><p>Here is a forward Lean proof of the same result.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20(U%20%3A%20Type*)%20(P%20Q%20%3A%20U%20%E2%86%92%20Prop)%0A--%20BEGIN%0Aexample%20(u%20%3A%20U)%20(h%E2%82%81%20%3A%20P%20u%20%E2%86%92%20Q%20u)%20(h%E2%82%82%20%3A%20P%20u)%20%3A%20%E2%88%83%20x%2C%20Q%20x%20%3A%3D%0Abegin%0A%20%20have%20h%E2%82%83%20%3A%20Q%20u%2C%20from%20h%E2%82%81%20h%E2%82%82%2C%20--%20We%20have%20%60Q%20u%60%20from%20%60%E2%86%92%60%20elim.%20on%20%60h%E2%82%81%60%20and%20%60h%E2%82%82%60.%0A%20%20exact%20exists.intro%20u%20h%E2%82%83%2C%20%20%20--%20The%20result%20follows%20from%20exists%20intro.%20on%20%60u%60%20and%20%60h%E2%82%83%60.%0Aend%0A--%20END" target="_blank">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">u</span> <span class="o">:</span> <span class="n">U</span><span class="o">)</span> <span class="o">(</span><span class="n">h&#8321;</span> <span class="o">:</span> <span class="n">P</span> <span class="n">u</span> <span class="bp">&#8594;</span> <span class="n">Q</span> <span class="n">u</span><span class="o">)</span> <span class="o">(</span><span class="n">h&#8322;</span> <span class="o">:</span> <span class="n">P</span> <span class="n">u</span><span class="o">)</span> <span class="o">:</span> <span class="bp">&#8707;</span> <span class="n">x</span><span class="o">,</span> <span class="n">Q</span> <span class="n">x</span> <span class="o">:=</span>
+<span class="kd">begin</span>
+  <span class="k">have</span> <span class="n">h&#8323;</span> <span class="o">:</span> <span class="n">Q</span> <span class="n">u</span><span class="o">,</span> <span class="k">from</span> <span class="n">h&#8321;</span> <span class="n">h&#8322;</span><span class="o">,</span> <span class="c1">-- We have `Q u` from `&#8594;` elim. on `h&#8321;` and `h&#8322;`.</span>
+  <span class="n">exact</span> <span class="n">exists.intro</span> <span class="n">u</span> <span class="n">h&#8323;</span><span class="o">,</span>   <span class="c1">-- The result follows from exists intro. on `u` and `h&#8323;`.</span>
+<span class="kd">end</span>
+</pre></div>
+</div>
+</div></div>
+<div class="section" id="exists-elimination">
+<h3><span class="section-number">3.6.2. </span>Exists elimination<a class="headerlink" href="#exists-elimination" title="Permalink to this headline">&#182;</a></h3>
+</div>
+</div>
+<div class="section" id="negating-quantifiers">
+<h2><span class="section-number">3.7. </span>Negating quantifiers<a class="headerlink" href="#negating-quantifiers" title="Permalink to this headline">&#182;</a></h2>
+</div>
+<div class="section" id="mixing-quantifiers">
+<h2><span class="section-number">3.8. </span>Mixing quantifiers<a class="headerlink" href="#mixing-quantifiers" title="Permalink to this headline">&#182;</a></h2>
+</div>
+<div class="section" id="functions-and-equality">
+<h2><span class="section-number">3.9. </span>Functions and equality<a class="headerlink" href="#functions-and-equality" title="Permalink to this headline">&#182;</a></h2>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">MTH1001 in Lean</a></h1>
+
+
+
+
+
+
+
+
+<!-- <h3>Navigation</h3> -->
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="prop_logic_theory.html">1. The Theory of Propositional Logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="prop_logic_lean_summary.html">2. Propositional Logic Lean Summary</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">3. Predicate Logic</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#types">3.1. Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#functions-and-definitions">3.2. Functions and definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#currying-functions">3.3. Currying functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#predicates">3.4. Predicates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#universal-quantification">3.5. Universal quantification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#existential-quantification">3.6. Existential quantification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#negating-quantifiers">3.7. Negating quantifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mixing-quantifiers">3.8. Mixing quantifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#functions-and-equality">3.9. Functions and equality</a></li>
+</ul>
+</li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="mth1001_in_lean.pdf">PDF version</a></li>
+    
+    <li class="toctree-l1"><a href="https://leanprover.github.io/">Lean Home</a></li>
+    
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Gihan Marasingha.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/pred_logic.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
