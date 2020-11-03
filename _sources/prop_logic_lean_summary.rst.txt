@@ -1,8 +1,8 @@
 .. _sec_prop_logic_summary:
 
-********************************
-Propositional Logic Lean Summary
-********************************
+***********************************
+Propositional logic in lean summary
+***********************************
 
 .. _prop_variables:
 

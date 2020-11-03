@@ -9,8 +9,4 @@ MTH1001 in Lean
     prop_logic_lean_summary
     pred_logic
 
-.. Indices and tables
-   ==================
-   * :ref:`genindex`
-   * :ref:`modindex`
-   * :ref:`search`
+

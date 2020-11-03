@@ -1,8 +1,8 @@
 .. _sec_prop_logic_tutorial:
 
-*********************************
-The Theory of Propositional Logic
-*********************************
+*******************
+Propositional logic
+*******************
 
 
 Propositions and propositional variables
@@ -61,7 +61,7 @@ are propositions, then :math:`((\alpha\oplus\beta)\otimes\gamma)` can be replace
 :math:`\alpha\oplus\beta\otimes\gamma`. Likewise, :math:`(\alpha\otimes(\beta\oplus\gamma))` can
 be replaced with :math:`\alpha\otimes\beta\oplus\gamma`. This rule can be applied recursively.
 
-Thus :math:`((P\land Q)\to(P\lor(Q\land(\neg R))))` can be more simply written as
+Thus, :math:`((P\land Q)\to(P\lor(Q\land(\neg R))))` can be more simply written as
 :math:`P\land Q \to P \lor Q \land \neg R`.
 
 The proposition, :math:`((P\land Q)\lor R)` can be written as :math:`(P\land Q)\lor R`, but we
@@ -103,7 +103,7 @@ As an example application of this rule of inference, suppose we have a premise
 proof of :math:`P\to Q`.
 
 Rules of inference can be applied in sequence. Suppose we have a premise
-:math:`k_1 : (Q \land P) \land R`. Applling left conjunction elimination to :math:`k_1` gives a proof
+:math:`k_1 : (Q \land P) \land R`. Applying left conjunction elimination to :math:`k_1` gives a proof
 of :math:`Q\land P`. Let us denote by :math:`k_2` the proof of :math:`Q\land P` that results from
 the application of left conjunction elimination to :math:`k_1`. By applying left conjunction
 elimination to the hypothesis :math:`k_2`, we have a proof of :math:`Q`.
@@ -111,9 +111,9 @@ elimination to the hypothesis :math:`k_2`, we have a proof of :math:`Q`.
 We use the word *hypothesis* to denote either a premise or a result derived by a rule of inference
 during the course of a proof. At any stage in a proof, the entire set of hypotheses developed or
 introduced up to that point, together with any variables, is called the *context*. In the above
-proof, the context initially consists of thepremise :math:`k_1` and the varialbles :math:`P`,
+proof, the context initially consists of the premise :math:`k_1` and the variables :math:`P`,
 :math:`Q`, and :math:`R`. After the first application of left conjunction elimination, the context
-will also include the hypotheses :math:`k_2`.
+will also include the hypothesis :math:`k_2`.
 
 Conjunction 
 ===========
@@ -132,8 +132,8 @@ There are two conjunction elimination rules, left and right.
   * (*Left and elimination*) given :math:`h : P \land Q`, we have a proof of :math:`P`.
   * (*Right and elimination*) given :math:`h : P \land Q`, we have a proof of :math:`Q`.
 
-As an example, given that :math:`P` and :math:`Q` are propositions, we will deduce :math:`Q` from
-the premise :math:`h : (P \land Q)\land R`.
+As an example, given that :math:`P` and :math:`Q` are propositions, we can deduce :math:`Q` from
+the premise :math:`h : (P \land Q)\land R`. Here is a proof.
 
   We have :math:`h_2 : P\land Q` by left conjunction elimination on :math:`h`. The result follows
   by right conjunction elimination on :math:`h_2`.
@@ -170,7 +170,7 @@ At each point in the proof, Lean displays the *goal* (that which you are trying 
 in a separate pane of your window.
 
 At the start of the proof above, Lean will display the following, indicating that the context
-consists of three propositional variables, ``p`, ``q``, and ``r``, together with the premise
+consists of three propositional variables, ``p``, ``q``, and ``r``, together with the premise
 ``h : (p ∧ q) ∧ r``. The goal (indicated with the *turnstile* symbol ``⊢``) is that of proving ``q``.
 
 .. code-block:: lean
@@ -250,8 +250,6 @@ simultaneously.
     exact h₂.right      -- The result follows by right conjunction elimination on `h₂`.
   end
   -- END
-
-A mathematical statement of this proof would be:
 
 This can be written mathematically as follows.
 
