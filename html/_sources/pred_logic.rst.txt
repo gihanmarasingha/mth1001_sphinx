@@ -1,7 +1,7 @@
 .. _sec_pred_logic:
 
 ***************
-Predicate Logic
+Predicate logic
 ***************
 
 .. _sec_types:
@@ -12,6 +12,7 @@ Types
 Every term in mathematics has a type. For instance, :math:`\mathbb{Z}` is the type of integers.
 A statement such as :math:`5 : \mathbb Z` is called a (typing) judgment. This statement can be read
 '5 has type :math:`\mathbb Z`' or '5 is an integer'.
+
 
 We can work with arbitrary terms and types. The judgment :math:`x : U` is read ':math:`x` has type
 :math:`U`'.
@@ -71,6 +72,8 @@ commands, Lean will respond with ``double : ℤ → ℤ`` and ``avg : ℤ → �
   #check double
   #check avg
   -- END
+
+.. index:: type, type; function type
 
 Here, ``ℤ → ℤ`` is the type of functions that take one integer input and produce one integer output,
 while ``ℤ → ℤ → ℤ`` is the type of functions that take two integer inputs and produce one integer
@@ -132,6 +135,8 @@ variables (as indicated by the input type ``ℤ × ℤ``) and returns an integer
 
   #eval avgu (10,6)  -- This displays 8.
 
+.. index:: currying, uncurrying
+
 Producing ``avg``, a function that produces a function, from ``avgu``, a function of many variabes,
 is called *currying*, after American mathematician Haskell Curry.
 The reverse process is called *uncurrying*.
@@ -169,6 +174,7 @@ That is we take the function ``avg 10`` and apply it to ``6``.
 Likeiwse, ``avg_three 10 5 6`` really means ``(((avg_three 10) 5) 6``. Note how the bracketing
 convention for function application is the opposite of the convention for function types.
 
+.. index:: predicate
 
 Predicates
 ==========
@@ -616,6 +622,8 @@ is a proof term for ``C``.
     exact exists.elim h₁ h₂, -- The result follows by exists elim. on `h₁` and `h₂`.
   end
   -- END
+
+.. index:: quantifiers; negating, negating 
 
 Negating quantifiers
 ====================
