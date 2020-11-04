@@ -5,7 +5,7 @@
   <head>
     <meta charset="ascii" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3. Propositional logic in lean summary &#8212; MTH1001 in Lean 1.00 documentation</title>
+    <title>2. Propositional logic in lean summary &#8212; MTH1001 in Lean 1.00 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/proof.css" />
@@ -19,8 +19,8 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="4. Predicate logic" href="pred_logic.html" />
-    <link rel="prev" title="2. Propositional logic" href="prop_logic_theory.html" />
+    <link rel="next" title="3. Predicate logic" href="pred_logic.html" />
+    <link rel="prev" title="1. Propositional logic" href="prop_logic_theory.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -38,9 +38,9 @@
           <div class="body" role="main">
             
   <div class="section" id="propositional-logic-in-lean-summary">
-<span id="sec-prop-logic-summary"></span><h1><span class="section-number">3. </span>Propositional logic in lean summary<a class="headerlink" href="#propositional-logic-in-lean-summary" title="Permalink to this headline">&#182;</a></h1>
+<span id="sec-prop-logic-summary"></span><h1><span class="section-number">2. </span>Propositional logic in lean summary<a class="headerlink" href="#propositional-logic-in-lean-summary" title="Permalink to this headline">&#182;</a></h1>
 <div class="section" id="propositional-variables-and-special-symbols">
-<span id="prop-variables"></span><h2><span class="section-number">3.1. </span>Propositional variables and special symbols<a class="headerlink" href="#propositional-variables-and-special-symbols" title="Permalink to this headline">&#182;</a></h2>
+<span id="prop-variables"></span><h2><span class="section-number">2.1. </span>Propositional variables and special symbols<a class="headerlink" href="#propositional-variables-and-special-symbols" title="Permalink to this headline">&#182;</a></h2>
 <p>Before working with propositions in Lean, you must introduce their names as variables.
 For example, the following statement introduces propositional variables <code class="docutils literal notranslate"><span class="pre">p</span></code>, <code class="docutils literal notranslate"><span class="pre">q</span></code>, and <code class="docutils literal notranslate"><span class="pre">r</span></code>.</p>
 <p>If you&#8217;re reading this online, click <em>try it</em> below and a Lean window will open in which you can
@@ -54,10 +54,10 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 <span class="c1">-- This is a one-line comment. In has no effect in Lean.</span>
 </pre></div>
 </div>
-</div><p>In <a class="reference internal" href="#lean-symbols"><span class="std std-numref">Table 3.1</span></a>, we indicate how to type common symbols in Lean. After typing each
+</div><p>In <a class="reference internal" href="#lean-symbols"><span class="std std-numref">Table 2.1</span></a>, we indicate how to type common symbols in Lean. After typing each
 sequence of characters, press space to ask Lean to convert the sequence into a symbol.</p>
 <span id="lean-symbols"></span><table class="colwidths-given docutils align-default" id="id1">
-<caption><span class="caption-number">Table 3.1 </span><span class="caption-text">Lean Symbols</span><a class="headerlink" href="#id1" title="Permalink to this table">&#182;</a></caption>
+<caption><span class="caption-number">Table 2.1 </span><span class="caption-text">Lean Symbols</span><a class="headerlink" href="#id1" title="Permalink to this table">&#182;</a></caption>
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 50%" />
@@ -110,7 +110,7 @@ sequence of characters, press space to ask Lean to convert the sequence into a s
 </table>
 </div>
 <div class="section" id="reiteration">
-<h2><span class="section-number">3.2. </span>Reiteration<a class="headerlink" href="#reiteration" title="Permalink to this headline">&#182;</a></h2>
+<h2><span class="section-number">2.2. </span>Reiteration<a class="headerlink" href="#reiteration" title="Permalink to this headline">&#182;</a></h2>
 <p>The reiteration rule states that <span class="math notranslate nohighlight">\(p\)</span> follows from <span class="math notranslate nohighlight">\(h : p\)</span>.</p>
 <p>This is represented very simply in a term-style Lean proof. The first line of the proof below can be
 read as &#8216;Given <code class="docutils literal notranslate"><span class="pre">h</span> <span class="pre">:</span> <span class="pre">p</span></code>, here follows a proof of <code class="docutils literal notranslate"><span class="pre">p</span></code>&#8217;.</p>
@@ -131,9 +131,9 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div>
 </div></div>
 <div class="section" id="conjunction-and">
-<h2><span class="section-number">3.3. </span>Conjunction (and)<a class="headerlink" href="#conjunction-and" title="Permalink to this headline">&#182;</a></h2>
+<h2><span class="section-number">2.3. </span>Conjunction (and)<a class="headerlink" href="#conjunction-and" title="Permalink to this headline">&#182;</a></h2>
 <div class="section" id="conjunction-elimination">
-<h3><span class="section-number">3.3.1. </span>Conjunction elimination<a class="headerlink" href="#conjunction-elimination" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">2.3.1. </span>Conjunction elimination<a class="headerlink" href="#conjunction-elimination" title="Permalink to this headline">&#182;</a></h3>
 <dl class="simple">
 <dt>There are two conjunction elimination rules, left and right.</dt><dd><ul class="simple">
 <li><p>(<strong>Left and elimination</strong>) given <span class="math notranslate nohighlight">\(h : p \land q\)</span>, we have a proof of <span class="math notranslate nohighlight">\(p\)</span>.</p></li>
@@ -175,7 +175,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div>
 </div></div>
 <div class="section" id="conjunction-introduction">
-<h3><span class="section-number">3.3.2. </span>Conjunction introduction<a class="headerlink" href="#conjunction-introduction" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">2.3.2. </span>Conjunction introduction<a class="headerlink" href="#conjunction-introduction" title="Permalink to this headline">&#182;</a></h3>
 <p><strong>Forward</strong>: given <span class="math notranslate nohighlight">\(h_1 : p\)</span> and <span class="math notranslate nohighlight">\(h_2 : q\)</span>, we have a proof of <span class="math notranslate nohighlight">\(p\land q\)</span>.</p>
 <p><strong>Backward</strong>: to prove <span class="math notranslate nohighlight">\(p\land q\)</span>, it suffices to prove <span class="math notranslate nohighlight">\(p\)</span> and <span class="math notranslate nohighlight">\(q\)</span>.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">split</span></code> tactic applies conjunction introduction backward.</p>
@@ -220,9 +220,9 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div></div>
 </div>
 <div class="section" id="implication">
-<h2><span class="section-number">3.4. </span>Implication<a class="headerlink" href="#implication" title="Permalink to this headline">&#182;</a></h2>
+<h2><span class="section-number">2.4. </span>Implication<a class="headerlink" href="#implication" title="Permalink to this headline">&#182;</a></h2>
 <div class="section" id="implication-elimination">
-<h3><span class="section-number">3.4.1. </span>Implication elimination<a class="headerlink" href="#implication-elimination" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">2.4.1. </span>Implication elimination<a class="headerlink" href="#implication-elimination" title="Permalink to this headline">&#182;</a></h3>
 <p><strong>Forward</strong>: given <span class="math notranslate nohighlight">\(h_1 : p \to q\)</span> and <span class="math notranslate nohighlight">\(h_2 : p\)</span>, we have a proof of <span class="math notranslate nohighlight">\(q\)</span>.</p>
 <p><strong>Backward</strong>: given <span class="math notranslate nohighlight">\(h : p \to q\)</span>, to prove <span class="math notranslate nohighlight">\(q\)</span>, it suffices to prove <span class="math notranslate nohighlight">\(p\)</span>.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">apply</span></code> tactic uses implication elimination backward.</p>
@@ -254,7 +254,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div>
 </div></div>
 <div class="section" id="implication-introduction">
-<h3><span class="section-number">3.4.2. </span>Implication introduction<a class="headerlink" href="#implication-introduction" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">2.4.2. </span>Implication introduction<a class="headerlink" href="#implication-introduction" title="Permalink to this headline">&#182;</a></h3>
 <p><strong>Implication introduction</strong>: to prove <span class="math notranslate nohighlight">\(p \to q\)</span>, it suffices to assume <span class="math notranslate nohighlight">\(h : p\)</span> and
 derive <span class="math notranslate nohighlight">\(q\)</span>.</p>
 <p>Tactic-style, if the goal is to prove <code class="docutils literal notranslate"><span class="pre">p</span> <span class="pre">&#8594;</span> <span class="pre">q</span></code>, then <code class="docutils literal notranslate"><span class="pre">intro</span> <span class="pre">h</span></code> introduces an assumption
@@ -287,9 +287,9 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div></div>
 </div>
 <div class="section" id="disjunction-or">
-<h2><span class="section-number">3.5. </span>Disjunction (or)<a class="headerlink" href="#disjunction-or" title="Permalink to this headline">&#182;</a></h2>
+<h2><span class="section-number">2.5. </span>Disjunction (or)<a class="headerlink" href="#disjunction-or" title="Permalink to this headline">&#182;</a></h2>
 <div class="section" id="disjunction-introduction">
-<h3><span class="section-number">3.5.1. </span>Disjunction introduction<a class="headerlink" href="#disjunction-introduction" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">2.5.1. </span>Disjunction introduction<a class="headerlink" href="#disjunction-introduction" title="Permalink to this headline">&#182;</a></h3>
 <p>There are two disjunction introduction rules, left and right.</p>
 <dl class="simple">
 <dt><strong>Forward</strong></dt><dd><ul class="simple">
@@ -324,7 +324,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div>
 </div></div>
 <div class="section" id="disjunction-elimination">
-<h3><span class="section-number">3.5.2. </span>Disjunction elimination<a class="headerlink" href="#disjunction-elimination" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">2.5.2. </span>Disjunction elimination<a class="headerlink" href="#disjunction-elimination" title="Permalink to this headline">&#182;</a></h3>
 <p><strong>Forward</strong>: given <span class="math notranslate nohighlight">\(h_1 : p \lor q\)</span>, <span class="math notranslate nohighlight">\(h_2 : p \to r\)</span>, and <span class="math notranslate nohighlight">\(h_3 : q \to r\)</span>, we
 have a proof of <span class="math notranslate nohighlight">\(r\)</span>.</p>
 <p><strong>Backward</strong>: given <span class="math notranslate nohighlight">\(h : p \lor q\)</span>, to prove <span class="math notranslate nohighlight">\(r\)</span>, it suffices to (1) assume
@@ -375,9 +375,9 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div></div>
 </div>
 <div class="section" id="if-and-only-if-iff">
-<h2><span class="section-number">3.6. </span>If and only if (iff)<a class="headerlink" href="#if-and-only-if-iff" title="Permalink to this headline">&#182;</a></h2>
+<h2><span class="section-number">2.6. </span>If and only if (iff)<a class="headerlink" href="#if-and-only-if-iff" title="Permalink to this headline">&#182;</a></h2>
 <div class="section" id="iff-elimination">
-<h3><span class="section-number">3.6.1. </span>Iff elimination<a class="headerlink" href="#iff-elimination" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">2.6.1. </span>Iff elimination<a class="headerlink" href="#iff-elimination" title="Permalink to this headline">&#182;</a></h3>
 <dl class="simple">
 <dt>There are two iff elimination rules, left and right.</dt><dd><ul class="simple">
 <li><p>(<strong>Left iff elimination</strong>) given <span class="math notranslate nohighlight">\(h : p \leftrightarrow q\)</span>, we have a proof of <span class="math notranslate nohighlight">\(p \to q\)</span>.</p></li>
@@ -408,7 +408,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div>
 </div></div>
 <div class="section" id="iff-introduction">
-<h3><span class="section-number">3.6.2. </span>Iff introduction<a class="headerlink" href="#iff-introduction" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">2.6.2. </span>Iff introduction<a class="headerlink" href="#iff-introduction" title="Permalink to this headline">&#182;</a></h3>
 <p><strong>Forward</strong>: given <span class="math notranslate nohighlight">\(h_1 : p \to q\)</span> and  <span class="math notranslate nohighlight">\(h_2 : q \to p\)</span>,  we
 have a proof of <span class="math notranslate nohighlight">\(p \leftrightarrow q\)</span>.</p>
 <p><strong>Backward</strong>: to prove <span class="math notranslate nohighlight">\(p \leftrightarrow q\)</span>, it suffices to prove <span class="math notranslate nohighlight">\(p \to q\)</span> and
@@ -435,9 +435,9 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div></div>
 </div>
 <div class="section" id="false-and-negation">
-<h2><span class="section-number">3.7. </span>False and negation<a class="headerlink" href="#false-and-negation" title="Permalink to this headline">&#182;</a></h2>
+<h2><span class="section-number">2.7. </span>False and negation<a class="headerlink" href="#false-and-negation" title="Permalink to this headline">&#182;</a></h2>
 <div class="section" id="false-elimination">
-<h3><span class="section-number">3.7.1. </span>False elimination<a class="headerlink" href="#false-elimination" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">2.7.1. </span>False elimination<a class="headerlink" href="#false-elimination" title="Permalink to this headline">&#182;</a></h3>
 <p>The symbol <span class="math notranslate nohighlight">\(\bot\)</span>, referred to as false or contradiction or arbitrary contradiction, is
 referred to in one fundamental rule of inference, <em>ex falso sequitur quodlibet</em>, also called
 <em>ex falso</em> or false elimination. This rule states that anything follows from false.</p>
@@ -462,7 +462,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div>
 </div></div>
 <div class="section" id="false-introduction">
-<h3><span class="section-number">3.7.2. </span>False introduction<a class="headerlink" href="#false-introduction" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">2.7.2. </span>False introduction<a class="headerlink" href="#false-introduction" title="Permalink to this headline">&#182;</a></h3>
 <p>The expression <span class="math notranslate nohighlight">\(\neg p\)</span> is a shorthand for <span class="math notranslate nohighlight">\(p \to \bot\)</span>. The rule of false introduction
 is thus merely implication elimination in another guise.</p>
 <p><strong>Forward</strong>: given <span class="math notranslate nohighlight">\(h_1 : \neg p\)</span> and <span class="math notranslate nohighlight">\(h_2 : p\)</span>, we have a proof of <span class="math notranslate nohighlight">\(\bot\)</span>.</p>
@@ -487,7 +487,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div>
 </div></div>
 <div class="section" id="negation-introduction">
-<h3><span class="section-number">3.7.3. </span>Negation introduction<a class="headerlink" href="#negation-introduction" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">2.7.3. </span>Negation introduction<a class="headerlink" href="#negation-introduction" title="Permalink to this headline">&#182;</a></h3>
 <p>As <span class="math notranslate nohighlight">\(\neg p\)</span> is shorthand for <span class="math notranslate nohighlight">\(p \to \bot\)</span>, the rule of negation introduction is really
 just implication introduction.</p>
 <p><strong>Negation introduction</strong>: to prove <span class="math notranslate nohighlight">\(\neg p\)</span>, it suffices to assume <span class="math notranslate nohighlight">\(h : p\)</span> and
@@ -514,12 +514,12 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div></div>
 </div>
 <div class="section" id="summary">
-<h2><span class="section-number">3.8. </span>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">&#182;</a></h2>
+<h2><span class="section-number">2.8. </span>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">&#182;</a></h2>
 <div class="section" id="tactic-style">
-<h3><span class="section-number">3.8.1. </span>Tactic-style<a class="headerlink" href="#tactic-style" title="Permalink to this headline">&#182;</a></h3>
-<p><a class="reference internal" href="#tactic-style-prop"><span class="std std-numref">Table 3.2</span></a> summaries the Lean tactics that represent rules of propositional logic.</p>
+<h3><span class="section-number">2.8.1. </span>Tactic-style<a class="headerlink" href="#tactic-style" title="Permalink to this headline">&#182;</a></h3>
+<p><a class="reference internal" href="#tactic-style-prop"><span class="std std-numref">Table 2.2</span></a> summaries the Lean tactics that represent rules of propositional logic.</p>
 <span id="tactic-style-prop"></span><table class="colwidths-given docutils align-default" id="id2">
-<caption><span class="caption-number">Table 3.2 </span><span class="caption-text">Tactic-Style</span><a class="headerlink" href="#id2" title="Permalink to this table">&#182;</a></caption>
+<caption><span class="caption-number">Table 2.2 </span><span class="caption-text">Tactic-Style</span><a class="headerlink" href="#id2" title="Permalink to this table">&#182;</a></caption>
 <colgroup>
 <col style="width: 33%" />
 <col style="width: 33%" />
@@ -562,11 +562,11 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </table>
 </div>
 <div class="section" id="term-style">
-<h3><span class="section-number">3.8.2. </span>Term-style<a class="headerlink" href="#term-style" title="Permalink to this headline">&#182;</a></h3>
-<p><a class="reference internal" href="#term-style-prop"><span class="std std-numref">Table 3.3</span></a> summaries the Lean functions that represent rules of propositional logic
+<h3><span class="section-number">2.8.2. </span>Term-style<a class="headerlink" href="#term-style" title="Permalink to this headline">&#182;</a></h3>
+<p><a class="reference internal" href="#term-style-prop"><span class="std std-numref">Table 2.3</span></a> summaries the Lean functions that represent rules of propositional logic
 and produce proof terms.</p>
 <span id="term-style-prop"></span><table class="colwidths-given docutils align-default" id="id3">
-<caption><span class="caption-number">Table 3.3 </span><span class="caption-text">Term-Style</span><a class="headerlink" href="#id3" title="Permalink to this table">&#182;</a></caption>
+<caption><span class="caption-number">Table 2.3 </span><span class="caption-text">Term-Style</span><a class="headerlink" href="#id3" title="Permalink to this table">&#182;</a></caption>
 <colgroup>
 <col style="width: 33%" />
 <col style="width: 33%" />
@@ -633,20 +633,19 @@ and produce proof terms.</p>
 
 <!-- <h3>Navigation</h3> -->
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. Introduction to reasoning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="prop_logic_theory.html">2. Propositional logic</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">3. Propositional logic in lean summary</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#propositional-variables-and-special-symbols">3.1. Propositional variables and special symbols</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#reiteration">3.2. Reiteration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#conjunction-and">3.3. Conjunction (and)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#implication">3.4. Implication</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#disjunction-or">3.5. Disjunction (or)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#if-and-only-if-iff">3.6. If and only if (iff)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#false-and-negation">3.7. False and negation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#summary">3.8. Summary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="prop_logic_theory.html">1. Propositional logic</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. Propositional logic in lean summary</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#propositional-variables-and-special-symbols">2.1. Propositional variables and special symbols</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reiteration">2.2. Reiteration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#conjunction-and">2.3. Conjunction (and)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#implication">2.4. Implication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#disjunction-or">2.5. Disjunction (or)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#if-and-only-if-iff">2.6. If and only if (iff)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#false-and-negation">2.7. False and negation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#summary">2.8. Summary</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="pred_logic.html">4. Predicate logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pred_logic.html">3. Predicate logic</a></li>
 </ul>
 
 
