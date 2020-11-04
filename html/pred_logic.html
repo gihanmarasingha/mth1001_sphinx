@@ -690,11 +690,112 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </pre></div>
 </div>
 </div></div>
+<div class="section" id="even-and-odd-numbers">
+<h2><span class="section-number">3.8. </span>Even and odd numbers<a class="headerlink" href="#even-and-odd-numbers" title="Permalink to this headline">&#182;</a></h2>
+<div class="section" id="even-numbers">
+<h3><span class="section-number">3.8.1. </span>Even numbers<a class="headerlink" href="#even-numbers" title="Permalink to this headline">&#182;</a></h3>
+<p>As a practical example, we consider the definition of even numbers.</p>
+<div class="proof proof-type-definition" id="id16">
+
+    <div class="proof-title">
+        <span class="proof-type">Definition 3.16</span>
+        
+    </div><div class="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(a\)</span> be an natural number. <span class="math notranslate nohighlight">\(a\)</span> is even means <span class="math notranslate nohighlight">\(\exists (b : \mathbb N), a = 2b\)</span>.</p>
+</div></div><p>Note that for a given term <span class="math notranslate nohighlight">\(a\)</span>, <span class="math notranslate nohighlight">\(\exists b, a = 2b\)</span> is a proposition.
+Thus <span class="math notranslate nohighlight">\(\mathrm{even}\)</span> is a predicate. To harmonise this definition with the language of
+predicate logic, we may write <span class="math notranslate nohighlight">\(\mathrm{even}\ a\)</span> to denote the proposition
+<span class="math notranslate nohighlight">\(\exists b, a = 2b\)</span>.</p>
+<p>For example, <span class="math notranslate nohighlight">\(\mathrm{even}\ 10\)</span> is the proposition <span class="math notranslate nohighlight">\(\exists b, 10 = 2b\)</span>. Just as
+<span class="math notranslate nohighlight">\(\mathrm{even}\ 7\)</span> is the proposition <span class="math notranslate nohighlight">\(\exists b, 7 = 2b\)</span>.</p>
+<p>Suppose we already know <span class="math notranslate nohighlight">\(h : 10 = 2\times5\)</span>. We can use this fact to prove
+<span class="math notranslate nohighlight">\(\mathrm{even}\ 10\)</span>.</p>
+<div class="proof proof-type-example" id="id17">
+
+    <div class="proof-title">
+        <span class="proof-type">Example 3.17</span>
+        
+    </div><div class="proof-content">
+<p>Given <span class="math notranslate nohighlight">\(h : 10 = 2\times5\)</span>, we have <span class="math notranslate nohighlight">\(\mathrm{even}\ 10\)</span>.</p>
+</div></div><p>The proof is merely an application of exists introduction to <span class="math notranslate nohighlight">\(5 : \mathbb N\)</span> and <span class="math notranslate nohighlight">\(h\)</span>.</p>
+<p>Let&#8217;s see this in Lean. The first line below is the definition of <code class="docutils literal notranslate"><span class="pre">even</span></code>. The expression
+<code class="docutils literal notranslate"><span class="pre">exists.intro</span> <span class="pre">5</span> <span class="pre">h</span></code> is a proof term for <code class="docutils literal notranslate"><span class="pre">even</span> <span class="pre">10</span></code>. This is a forward proof.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=def%20even%20(a%20%3A%20%E2%84%95)%20%3A%3D%20%E2%88%83%20b%2C%20a%20%3D%202%20*%20b%0A%0Aexample%20(h%20%3A%2010%20%3D%202%20*%205)%20%3A%20even%2010%20%3A%3D%0Abegin%0A%20%20exact%20exists.intro%205%20h%0Aend" target="_blank" tryitfile="../examples/pred_logic/unnamed_744.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">def</span> <span class="n">even</span> <span class="o">(</span><span class="n">a</span> <span class="o">:</span> <span class="n">&#8469;</span><span class="o">)</span> <span class="o">:=</span> <span class="bp">&#8707;</span> <span class="n">b</span><span class="o">,</span> <span class="n">a</span> <span class="bp">=</span> <span class="mi">2</span> <span class="bp">*</span> <span class="n">b</span>
+
+<span class="kd">example</span> <span class="o">(</span><span class="n">h</span> <span class="o">:</span> <span class="mi">10</span> <span class="bp">=</span> <span class="mi">2</span> <span class="bp">*</span> <span class="mi">5</span><span class="o">)</span> <span class="o">:</span> <span class="n">even</span> <span class="mi">10</span> <span class="o">:=</span>
+<span class="kd">begin</span>
+  <span class="n">exact</span> <span class="n">exists.intro</span> <span class="mi">5</span> <span class="n">h</span>
+<span class="kd">end</span>
+</pre></div>
+</div>
+</div><p>Alternatively, we can give a backward proof. This proof employs the <code class="docutils literal notranslate"><span class="pre">use</span></code> tactic.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=import%20tactic%0Anamespace%20hidden%0Adef%20even%20(a%20%3A%20%E2%84%95)%20%3A%3D%20%E2%88%83%20b%2C%20a%20%3D%202%20*%20b%0A--%20BEGIN%0Aexample%20(h%20%3A%2010%20%3D%202%20*%205)%20%3A%20even%2010%20%3A%3D%0Abegin%0A%20%20use%205%2C%20%20%20--%20By%20exists%20introduction%20on%20%605%60%2C%20it%20suffices%20to%20prove%20%6010%20%3D%202%20*%205%60.%0A%20%20exact%20h%20%20--%20This%20follows%20by%20reiteration%20on%20%60h%60.%0Aend%0A--%20END%0Aend%20hidden" target="_blank" tryitfile="../examples/pred_logic/unnamed_755.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h</span> <span class="o">:</span> <span class="mi">10</span> <span class="bp">=</span> <span class="mi">2</span> <span class="bp">*</span> <span class="mi">5</span><span class="o">)</span> <span class="o">:</span> <span class="n">even</span> <span class="mi">10</span> <span class="o">:=</span>
+<span class="kd">begin</span>
+  <span class="n">use</span> <span class="mi">5</span><span class="o">,</span>   <span class="c1">-- By exists introduction on `5`, it suffices to prove `10 = 2 * 5`.</span>
+  <span class="n">exact</span> <span class="n">h</span>  <span class="c1">-- This follows by reiteration on `h`.</span>
+<span class="kd">end</span>
+</pre></div>
+</div>
+</div><p>The proof of the next example involves both exists introduction and exists elimination.
+We make use of some properties of natural numbers that we have not yet proved.</p>
+<div class="proof proof-type-example" id="id18">
+
+    <div class="proof-title">
+        <span class="proof-type">Example 3.18</span>
+        
+    </div><div class="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(n : \mathbb N\)</span>. Given <span class="math notranslate nohighlight">\(h : \mathrm{even}\ n\)</span>, we have
+<span class="math notranslate nohighlight">\(\mathrm{even}\ 5n\)</span>.</p>
+</div></div><div class="proof proof-type-proof">
+
+    <div class="proof-title">
+        <span class="proof-type">Proof </span>
+        
+    </div><div class="proof-content">
+<p>Using the definition of even, we have <span class="math notranslate nohighlight">\(h : \exists b, n = 2b\)</span>.
+The goal is to prove <span class="math notranslate nohighlight">\(\exists b, 5n = 2b\)</span> (note this is not necessarily the same <span class="math notranslate nohighlight">\(b\)</span>
+that appears in <span class="math notranslate nohighlight">\(h\)</span>).</p>
+<p>By exists elimination on <span class="math notranslate nohighlight">\(h\)</span>, it suffices prove this goal under the assumptions
+<span class="math notranslate nohighlight">\(c : \mathbb N\)</span> and <span class="math notranslate nohighlight">\(k : n = 2c\)</span>.</p>
+<p>By exists introduction on <span class="math notranslate nohighlight">\(5c\)</span>, it suffices to prove <span class="math notranslate nohighlight">\(5n=2(5c)\)</span> (essentially, this is
+taking <span class="math notranslate nohighlight">\(b\)</span> in the goal to be <span class="math notranslate nohighlight">\(5c\)</span>).</p>
+<p>Rewriting using <span class="math notranslate nohighlight">\(k\)</span>, the goal is to prove <span class="math notranslate nohighlight">\(5(2c)=2(5c)\)</span>. This follows by standard
+properties of the natural numbers.</p>
+</div></div><div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=import%20tactic%0Anamespace%20hidden%0Adef%20even%20(a%20%3A%20%E2%84%95)%20%3A%3D%20%E2%88%83%20b%2C%20a%20%3D%202%20*%20b%0A--%20BEGIN%0Aexample%20(n%20%3A%20%E2%84%95)%20(h%20%3A%20even%20n)%20%3A%20even%20(5*n)%20%3A%3D%0Abegin%0A%20%20unfold%20even%20at%20h%2C%20--%20Using%20the%20definition%20of%20even%2C%20%60h%20%3A%20%E2%88%83%20b%2C%20n%20%3D%202%20*%20b%60%0A%20%20unfold%20even%2C%20--%20Using%20the%20definition%20of%20even%2C%20the%20goal%20is%20%60%E2%88%83%20b%2C%205n%20%3D%202b%60%0A%20%20cases%20h%20with%20c%20k%2C%20--%20By%20exists%20elimination%20on%20%60h%60%2C%20it%20suffices%20to%20prove%20the%20goal%20assuming%20%60c%20%3A%20%E2%84%95%60%20and%20%60k%20%3A%20n%20%3D%202c%60.%0A%20%20use%20(5*c)%2C%20--%20*%20By%20exists%20introduction%20on%20%605*c%60%2C%20it%20suffices%20to%20prove%20%605*n%20%3D%202*(5*c)%60.%0A%20%20rw%20k%2C%20--%20Rewriting%20using%20%60k%60%2C%20the%20goal%20is%20to%20prove%20%605%20*%20(2%20*%20c)%20%3D%202%20*%20(5%20*%20c)%60.%0A%20%20ring%2C%20--%20This%20holds%20by%20standard%20properties%20of%20the%20natural%20numbers%20(note%20the%20%60ring%60%20tactic%20simplifies%20many%20'algebraic'%20expressions).%0Aend%0A--%20END%0Aend%20hidden" target="_blank" tryitfile="../examples/pred_logic/unnamed_792.lean">
+try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">&#8469;</span><span class="o">)</span> <span class="o">(</span><span class="n">h</span> <span class="o">:</span> <span class="n">even</span> <span class="n">n</span><span class="o">)</span> <span class="o">:</span> <span class="n">even</span> <span class="o">(</span><span class="mi">5</span><span class="bp">*</span><span class="n">n</span><span class="o">)</span> <span class="o">:=</span>
+<span class="kd">begin</span>
+  <span class="n">unfold</span> <span class="n">even</span> <span class="n">at</span> <span class="n">h</span><span class="o">,</span> <span class="c1">-- Using the definition of even, `h : &#8707; b, n = 2 * b`</span>
+  <span class="n">unfold</span> <span class="n">even</span><span class="o">,</span> <span class="c1">-- Using the definition of even, the goal is `&#8707; b, 5n = 2b`</span>
+  <span class="n">cases</span> <span class="n">h</span> <span class="k">with</span> <span class="n">c</span> <span class="n">k</span><span class="o">,</span> <span class="c1">-- By exists elimination on `h`, it suffices to prove the goal assuming `c : &#8469;` and `k : n = 2c`.</span>
+  <span class="n">use</span> <span class="o">(</span><span class="mi">5</span><span class="bp">*</span><span class="n">c</span><span class="o">),</span> <span class="c1">-- * By exists introduction on `5*c`, it suffices to prove `5*n = 2*(5*c)`.</span>
+  <span class="n">rw</span> <span class="n">k</span><span class="o">,</span> <span class="c1">-- Rewriting using `k`, the goal is to prove `5 * (2 * c) = 2 * (5 * c)`.</span>
+  <span class="n">ring</span><span class="o">,</span> <span class="c1">-- This holds by standard properties of the natural numbers (note the `ring` tactic simplifies many &#39;algebraic&#39; expressions).</span>
+<span class="kd">end</span>
+</pre></div>
+</div>
+</div></div>
+<div class="section" id="odd-numbers">
+<h3><span class="section-number">3.8.2. </span>Odd numbers<a class="headerlink" href="#odd-numbers" title="Permalink to this headline">&#182;</a></h3>
+<div class="proof proof-type-definition" id="id19">
+
+    <div class="proof-title">
+        <span class="proof-type">Definition 3.19</span>
+        
+    </div><div class="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(a : \mathbb N\)</span> be an integer. Then <span class="math notranslate nohighlight">\(\mathrm{odd}\ a\)</span> means
+<span class="math notranslate nohighlight">\(\exists (b : \mathbb N), a = 2b + 1\)</span>.</p>
+</div></div></div>
+</div>
 <div class="section" id="mixing-quantifiers">
-<h2><span class="section-number">3.8. </span>Mixing quantifiers<a class="headerlink" href="#mixing-quantifiers" title="Permalink to this headline">&#182;</a></h2>
+<h2><span class="section-number">3.9. </span>Mixing quantifiers<a class="headerlink" href="#mixing-quantifiers" title="Permalink to this headline">&#182;</a></h2>
 </div>
 <div class="section" id="functions-and-equality">
-<h2><span class="section-number">3.9. </span>Functions and equality<a class="headerlink" href="#functions-and-equality" title="Permalink to this headline">&#182;</a></h2>
+<h2><span class="section-number">3.10. </span>Functions and equality<a class="headerlink" href="#functions-and-equality" title="Permalink to this headline">&#182;</a></h2>
 </div>
 </div>
 
@@ -726,8 +827,9 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 <li class="toctree-l2"><a class="reference internal" href="#universal-quantification">3.5. Universal quantification</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#existential-quantification">3.6. Existential quantification</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#negating-quantifiers">3.7. Negating quantifiers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#mixing-quantifiers">3.8. Mixing quantifiers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#functions-and-equality">3.9. Functions and equality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#even-and-odd-numbers">3.8. Even and odd numbers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mixing-quantifiers">3.9. Mixing quantifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#functions-and-equality">3.10. Functions and equality</a></li>
 </ul>
 </li>
 </ul>
