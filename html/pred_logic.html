@@ -5,7 +5,7 @@
   <head>
     <meta charset="ascii" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>4. Predicate logic &#8212; MTH1001 in Lean 1.00 documentation</title>
+    <title>3. Predicate logic &#8212; MTH1001 in Lean 1.00 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/proof.css" />
@@ -19,7 +19,7 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="3. Propositional logic in lean summary" href="prop_logic_lean_summary.html" />
+    <link rel="prev" title="2. Propositional logic in lean summary" href="prop_logic_lean_summary.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -37,15 +37,15 @@
           <div class="body" role="main">
             
   <div class="section" id="predicate-logic">
-<span id="sec-pred-logic"></span><h1><span class="section-number">4. </span>Predicate logic<a class="headerlink" href="#predicate-logic" title="Permalink to this headline">&#182;</a></h1>
+<span id="sec-pred-logic"></span><h1><span class="section-number">3. </span>Predicate logic<a class="headerlink" href="#predicate-logic" title="Permalink to this headline">&#182;</a></h1>
 <div class="section" id="types">
-<span id="sec-types"></span><h2><span class="section-number">4.1. </span>Types<a class="headerlink" href="#types" title="Permalink to this headline">&#182;</a></h2>
+<span id="sec-types"></span><h2><span class="section-number">3.1. </span>Types<a class="headerlink" href="#types" title="Permalink to this headline">&#182;</a></h2>
 <p>Every term in mathematics has a type. For instance, <span class="math notranslate nohighlight">\(\mathbb{Z}\)</span> is the type of integers.
 A statement such as <span class="math notranslate nohighlight">\(5 : \mathbb Z\)</span> is called a (typing) judgment. This statement can be read
 &#8216;5 has type <span class="math notranslate nohighlight">\(\mathbb Z\)</span>&#8217; or &#8216;5 is an integer&#8217;.</p>
 <p>We can work with arbitrary terms and types. The judgment <span class="math notranslate nohighlight">\(x : U\)</span> is read &#8216;<span class="math notranslate nohighlight">\(x\)</span> has type
 <span class="math notranslate nohighlight">\(U\)</span>&#8217;.</p>
-<p>Propositional variables, as discussed in <a class="reference internal" href="prop_logic_lean_summary.html#prop-variables"><span class="std std-numref">Section 3.1</span></a>, are terms of type
+<p>Propositional variables, as discussed in <a class="reference internal" href="prop_logic_lean_summary.html#prop-variables"><span class="std std-numref">Section 2.1</span></a>, are terms of type
 <code class="docutils literal notranslate"><span class="pre">Prop</span></code>.</p>
 <p>Suppose we have <code class="docutils literal notranslate"><span class="pre">P</span> <span class="pre">:</span> <span class="pre">Prop</span></code> and <code class="docutils literal notranslate"><span class="pre">Q</span> <span class="pre">:</span> <span class="pre">Prop</span></code>. What is meant by <code class="docutils literal notranslate"><span class="pre">h</span> <span class="pre">:</span> <span class="pre">P</span> <span class="pre">&#8743;</span> <span class="pre">Q</span></code>? When a proposition,
 such as <code class="docutils literal notranslate"><span class="pre">P</span> <span class="pre">&#8743;</span> <span class="pre">Q</span></code> is viewed as a type, it is the type of proofs of that proposition. Thus the
@@ -58,7 +58,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div>
 </div></div>
 <div class="section" id="functions-and-definitions">
-<h2><span class="section-number">4.2. </span>Functions and definitions<a class="headerlink" href="#functions-and-definitions" title="Permalink to this headline">&#182;</a></h2>
+<h2><span class="section-number">3.2. </span>Functions and definitions<a class="headerlink" href="#functions-and-definitions" title="Permalink to this headline">&#182;</a></h2>
 <p>A function (also called a definition) is a mathematical object with a name,
 zero or more inputs, a body, and a body type.</p>
 <p>Below, we define three functions in Lean. The last function has name <code class="docutils literal notranslate"><span class="pre">avg</span></code>. It
@@ -106,7 +106,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div>
 </div></div>
 <div class="section" id="currying-functions">
-<span id="sec-currying"></span><h2><span class="section-number">4.3. </span>Currying functions<a class="headerlink" href="#currying-functions" title="Permalink to this headline">&#182;</a></h2>
+<span id="sec-currying"></span><h2><span class="section-number">3.3. </span>Currying functions<a class="headerlink" href="#currying-functions" title="Permalink to this headline">&#182;</a></h2>
 <p>This section is optional reading.</p>
 <p>I lied earlier when I wrote that <code class="docutils literal notranslate"><span class="pre">&#8484;</span> <span class="pre">&#8594;</span> <span class="pre">&#8484;</span> <span class="pre">&#8594;</span> <span class="pre">&#8484;</span></code> is the type of functions that take two integer
 inputs and produce one integer output. To begin, we should clarify whether <code class="docutils literal notranslate"><span class="pre">&#8484;</span> <span class="pre">&#8594;</span> <span class="pre">&#8484;</span> <span class="pre">&#8594;</span> <span class="pre">&#8484;</span></code> means
@@ -171,7 +171,7 @@ That is we take the function <code class="docutils literal notranslate"><span cl
 convention for function application is the opposite of the convention for function types.</p>
 </div>
 <div class="section" id="predicates">
-<span id="index-2"></span><h2><span class="section-number">4.4. </span>Predicates<a class="headerlink" href="#predicates" title="Permalink to this headline">&#182;</a></h2>
+<span id="index-2"></span><h2><span class="section-number">3.4. </span>Predicates<a class="headerlink" href="#predicates" title="Permalink to this headline">&#182;</a></h2>
 <p>A predicate is a function whose body type is <code class="docutils literal notranslate"><span class="pre">Prop</span></code>. Below, we define the predicate <code class="docutils literal notranslate"><span class="pre">even</span></code>
 so that <code class="docutils literal notranslate"><span class="pre">even</span> <span class="pre">x</span></code> is the proposition <code class="docutils literal notranslate"><span class="pre">&#8707;</span> <span class="pre">m</span> <span class="pre">:</span> <span class="pre">&#8484;,</span> <span class="pre">x</span> <span class="pre">=</span> <span class="pre">2</span> <span class="pre">*m</span></code>. The symbol <code class="docutils literal notranslate"><span class="pre">&#8707;</span></code> is read
 &#8216;there exists&#8217;. So this proposition can be interpreted as, &#8216;there exists an integer <span class="math notranslate nohighlight">\(m\)</span> such
@@ -226,7 +226,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </pre></div>
 </div>
 </div><p>The next two paragraphs are technical and may be omitted if you have not read
-<a class="reference internal" href="#sec-currying"><span class="std std-numref">Section 4.3</span></a>.</p>
+<a class="reference internal" href="#sec-currying"><span class="std std-numref">Section 3.3</span></a>.</p>
 <p>When viewed through the lens of currying functions, the predicate <code class="docutils literal notranslate"><span class="pre">Q</span></code> can be thought of as a
 function that takes an input of type <code class="docutils literal notranslate"><span class="pre">U</span></code> and outputs a function of type <code class="docutils literal notranslate"><span class="pre">V</span> <span class="pre">&#8594;</span> <span class="pre">Prop</span></code>.</p>
 <p>The observant reader will note that this contradicts by previous definition that a predicate is a
@@ -236,7 +236,7 @@ Really, I mean that for a function to be a predicate, its <em>uncurried</em> ver
 <code class="docutils literal notranslate"><span class="pre">Prop</span></code>.</p>
 </div>
 <div class="section" id="universal-quantification">
-<h2><span class="section-number">4.5. </span>Universal quantification<a class="headerlink" href="#universal-quantification" title="Permalink to this headline">&#182;</a></h2>
+<h2><span class="section-number">3.5. </span>Universal quantification<a class="headerlink" href="#universal-quantification" title="Permalink to this headline">&#182;</a></h2>
 <p>The universal quantifier, written <span class="math notranslate nohighlight">\(\forall\)</span> is one of the two operators of predicate logic.
 It is read &#8216;for all&#8217;, &#8216;for every&#8217;, or &#8216;for each&#8217;. Informally, <span class="math notranslate nohighlight">\(\forall x, P(x)\)</span> is the
 assertion that <span class="math notranslate nohighlight">\(P(x)\)</span> holds for every <span class="math notranslate nohighlight">\(x\)</span>.</p>
@@ -245,11 +245,11 @@ To be explicit, we can use a type ascription <span class="math notranslate nohig
 <span class="math notranslate nohighlight">\(\forall (x : U), P(x)\)</span>.</p>
 <p>Formally, the meaning of the universal quantifier is defined by two rules of inference.</p>
 <div class="section" id="for-all-elimination">
-<h3><span class="section-number">4.5.1. </span>For all elimination<a class="headerlink" href="#for-all-elimination" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">3.5.1. </span>For all elimination<a class="headerlink" href="#for-all-elimination" title="Permalink to this headline">&#182;</a></h3>
 <div class="proof proof-type-mathsrule" id="id1">
 
     <div class="proof-title">
-        <span class="proof-type">Rule 4.1</span>
+        <span class="proof-type">Rule 3.1</span>
         
             <span class="proof-title-name">(For all elimination, forward)</span>
         
@@ -281,7 +281,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div><div class="proof proof-type-mathsrule" id="id2">
 
     <div class="proof-title">
-        <span class="proof-type">Rule 4.2</span>
+        <span class="proof-type">Rule 3.2</span>
         
             <span class="proof-title-name">(For all elimination, backward)</span>
         
@@ -301,7 +301,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 <div class="proof proof-type-example" id="id3">
 
     <div class="proof-title">
-        <span class="proof-type">Example 4.3</span>
+        <span class="proof-type">Example 3.3</span>
         
     </div><div class="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(S\)</span> and <span class="math notranslate nohighlight">\(T\)</span> be prediates on a type <span class="math notranslate nohighlight">\(U\)</span>. Given <span class="math notranslate nohighlight">\(h_1 : \forall x, S(x)\)</span>,
@@ -377,11 +377,11 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div>
 </div></div>
 <div class="section" id="for-all-introduction">
-<h3><span class="section-number">4.5.2. </span>For all introduction<a class="headerlink" href="#for-all-introduction" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">3.5.2. </span>For all introduction<a class="headerlink" href="#for-all-introduction" title="Permalink to this headline">&#182;</a></h3>
 <div class="proof proof-type-mathsrule" id="id4">
 
     <div class="proof-title">
-        <span class="proof-type">Rule 4.4</span>
+        <span class="proof-type">Rule 3.4</span>
         
             <span class="proof-title-name">(For all introduction)</span>
         
@@ -395,7 +395,7 @@ propositions.</p>
 <div class="proof proof-type-theorem" id="id5">
 
     <div class="proof-title">
-        <span class="proof-type">Theorem 4.5</span>
+        <span class="proof-type">Theorem 3.5</span>
         
             <span class="proof-title-name">(Commutativity of conjunction (IV))</span>
         
@@ -409,7 +409,7 @@ propositions.</p>
     </div><div class="proof-content">
 <p>Assume <span class="math notranslate nohighlight">\(R\)</span> and <span class="math notranslate nohighlight">\(S\)</span> are propositions. It suffices to show
 <span class="math notranslate nohighlight">\(R\land S \leftrightarrow S\land R\)</span>. But this follows by
-<a class="reference internal" href="prop_logic_theory.html#thm-and-comm3"><span class="std std-numref">Theorem 2.25</span></a>.</p>
+<a class="reference internal" href="prop_logic_theory.html#thm-and-comm3"><span class="std std-numref">Theorem 1.25</span></a>.</p>
 </div></div><p>In Lean, we use <code class="docutils literal notranslate"><span class="pre">intro</span></code> to denote for all introduction (as we do for implication introduction).</p>
 <div style="position: relative">
 <div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=example%20%3A%20%E2%88%80%20p%20q%20%3A%20Prop%2C%20p%20%E2%88%A7%20q%20%E2%86%94%20q%20%E2%88%A7%20p%20%3A%3Dbegin%0A%20%20intros%20r%20s%2C%20--%20Assume%20%60r%20%3A%20Prop%60%20and%20%60s%20%3A%20Prop%60.%20It%20suffices%20to%20prove%20%60r%20%E2%88%A7%20s%20%E2%86%94%20s%20%E2%88%A7%20r%60.%0A%20%20split%3B%20--%20By%20iff%20intro.%2C%20it%20suffices%20to%20prove%201.%20%60r%20%E2%88%A7%20s%20%E2%86%92%20s%20%E2%88%A7%20r%60%20and%202.%20%60s%20%E2%88%A7%20r%20%E2%86%92%20r%20%E2%88%A7%20s%60.%20We'll%20use%20the%20same%20proof%20in%20each%20case.%0A%20%20%7B%20intro%20h%2C%20exact%20%E2%9F%A8h.2%2C%20h.1%E2%9F%A9%2C%20%7D%2C%20--%20Assume%20the%20antecedent%2C%20%60h%60.%20The%20goal%20is%20closed%20by%20and%20intro.%20on%20%60h.1%60%20and%20%60h.2%60%0Aend" target="_blank" tryitfile="../examples/pred_logic/unnamed_429.lean">
@@ -424,7 +424,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 <div class="proof proof-type-example" id="id6">
 
     <div class="proof-title">
-        <span class="proof-type">Example 4.6</span>
+        <span class="proof-type">Example 3.6</span>
         
     </div><div class="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> be predicates on a type <span class="math notranslate nohighlight">\(U\)</span>. We have</p>
@@ -447,7 +447,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div></div>
 </div>
 <div class="section" id="existential-quantification">
-<h2><span class="section-number">4.6. </span>Existential quantification<a class="headerlink" href="#existential-quantification" title="Permalink to this headline">&#182;</a></h2>
+<h2><span class="section-number">3.6. </span>Existential quantification<a class="headerlink" href="#existential-quantification" title="Permalink to this headline">&#182;</a></h2>
 <p>The existential quantifier, written <span class="math notranslate nohighlight">\(\exists\)</span> is read &#8216;there exists&#8217;, &#8216;there is&#8217;, or
 &#8216;for some&#8217;. Informally, <span class="math notranslate nohighlight">\(\exists x, P(x)\)</span> is the assertion that there is some <span class="math notranslate nohighlight">\(u\)</span> for
 which <span class="math notranslate nohighlight">\(P(u)\)</span> holds.</p>
@@ -455,11 +455,11 @@ which <span class="math notranslate nohighlight">\(P(u)\)</span> holds.</p>
 writing <span class="math notranslate nohighlight">\(\exists (x : U), P(x)\)</span>, for example.</p>
 <p>Formally, the meaning of the universal quantifier is defined by two rules of inference.</p>
 <div class="section" id="exists-introduction">
-<h3><span class="section-number">4.6.1. </span>Exists introduction<a class="headerlink" href="#exists-introduction" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">3.6.1. </span>Exists introduction<a class="headerlink" href="#exists-introduction" title="Permalink to this headline">&#182;</a></h3>
 <div class="proof proof-type-mathsrule" id="id7">
 
     <div class="proof-title">
-        <span class="proof-type">Rule 4.7</span>
+        <span class="proof-type">Rule 3.7</span>
         
             <span class="proof-title-name">(Exists introduction, forward)</span>
         
@@ -469,7 +469,7 @@ we have a proof of <span class="math notranslate nohighlight">\(\exists x, P(x)\
 </div></div><div class="proof proof-type-example" id="id8">
 
     <div class="proof-title">
-        <span class="proof-type">Example 4.8</span>
+        <span class="proof-type">Example 3.8</span>
         
     </div><div class="proof-content">
 <p>Given <span class="math notranslate nohighlight">\(5 : \mathbb N\)</span> and <span class="math notranslate nohighlight">\(h : 5 \ge 3\)</span>, we have <span class="math notranslate nohighlight">\(\exists x, x \ge 3\)</span>.</p>
@@ -491,7 +491,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div><div class="proof proof-type-mathsrule" id="id9">
 
     <div class="proof-title">
-        <span class="proof-type">Rule 4.9</span>
+        <span class="proof-type">Rule 3.9</span>
         
             <span class="proof-title-name">(Exists introduction, backward)</span>
         
@@ -501,7 +501,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div></div><div class="proof proof-type-example" id="id10">
 
     <div class="proof-title">
-        <span class="proof-type">Example 4.10</span>
+        <span class="proof-type">Example 3.10</span>
         
     </div><div class="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> be predictes on a type <span class="math notranslate nohighlight">\(U\)</span>. Given <span class="math notranslate nohighlight">\(u : U\)</span>,
@@ -537,7 +537,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div>
 </div></div>
 <div class="section" id="exists-elimination">
-<h3><span class="section-number">4.6.2. </span>Exists elimination<a class="headerlink" href="#exists-elimination" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">3.6.2. </span>Exists elimination<a class="headerlink" href="#exists-elimination" title="Permalink to this headline">&#182;</a></h3>
 <p>Suppose you want to prove, &#8216;A person in Britain has competed in the Olympics&#8217; and you have a
 hypothesis <span class="math notranslate nohighlight">\(h\)</span>, &#8216;there exists a person in Britain who has won a gold medal at the Olympics&#8217;.</p>
 <p>By <span class="math notranslate nohighlight">\(h\)</span>, we can take <span class="math notranslate nohighlight">\(u\)</span>, a person in Britain for which we have hypothesis <span class="math notranslate nohighlight">\(k\)</span>,
@@ -547,7 +547,7 @@ of exists elimination, the rule of inference used to eliminate the existential q
 <div class="proof proof-type-mathsrule" id="id11">
 
     <div class="proof-title">
-        <span class="proof-type">Rule 4.11</span>
+        <span class="proof-type">Rule 3.11</span>
         
             <span class="proof-title-name">(Exists elimination, backward)</span>
         
@@ -559,7 +559,7 @@ of exists elimination, the rule of inference used to eliminate the existential q
 <div class="proof proof-type-example" id="id12">
 <span id="example-exsandt-to-exs"></span>
     <div class="proof-title">
-        <span class="proof-type">Example 4.12</span>
+        <span class="proof-type">Example 3.12</span>
         
     </div><div class="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(S\)</span> and <span class="math notranslate nohighlight">\(T\)</span> be predicates on a type <span class="math notranslate nohighlight">\(U\)</span>. Given <span class="math notranslate nohighlight">\(h : \exists x, S(x) \land T(x)\)</span>,
@@ -590,14 +590,14 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div><div class="proof proof-type-mathsrule" id="id13">
 
     <div class="proof-title">
-        <span class="proof-type">Rule 4.13</span>
+        <span class="proof-type">Rule 3.13</span>
         
             <span class="proof-title-name">(Exists elimination, forward)</span>
         
     </div><div class="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(P\)</span> be a predicate on a type <span class="math notranslate nohighlight">\(U\)</span>. Given <span class="math notranslate nohighlight">\(h_1 : \exists (x : U), P(x)\)</span> and
 <span class="math notranslate nohighlight">\(h_2 : \forall (y : U), P(y) \to C\)</span>, we have a proof of <span class="math notranslate nohighlight">\(C\)</span>.</p>
-</div></div><p>We give a forward proof of <a class="reference internal" href="#example-exsandt-to-exs"><span class="std std-numref">Example 4.12</span></a> in Lean below.
+</div></div><p>We give a forward proof of <a class="reference internal" href="#example-exsandt-to-exs"><span class="std std-numref">Example 3.12</span></a> in Lean below.
 The Lean function used in a forward exists elimination proof is <code class="docutils literal notranslate"><span class="pre">exists.elim</span></code>. Given
 <code class="docutils literal notranslate"><span class="pre">h&#8321;</span> <span class="pre">:</span> <span class="pre">&#8707;</span> <span class="pre">(x</span> <span class="pre">:</span> <span class="pre">U),</span> <span class="pre">P</span> <span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">h&#8322;</span> <span class="pre">:</span> <span class="pre">&#8704;</span> <span class="pre">(y</span> <span class="pre">:</span> <span class="pre">U),</span> <span class="pre">P</span> <span class="pre">y</span> <span class="pre">&#8594;</span> <span class="pre">C</span></code>, the expression <code class="docutils literal notranslate"><span class="pre">exists.elim</span> <span class="pre">h&#8321;</span> <span class="pre">h&#8322;</span></code>
 is a proof term for <code class="docutils literal notranslate"><span class="pre">C</span></code>.</p>
@@ -617,7 +617,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div></div>
 </div>
 <div class="section" id="negating-quantifiers">
-<span id="index-3"></span><h2><span class="section-number">4.7. </span>Negating quantifiers<a class="headerlink" href="#negating-quantifiers" title="Permalink to this headline">&#182;</a></h2>
+<span id="index-3"></span><h2><span class="section-number">3.7. </span>Negating quantifiers<a class="headerlink" href="#negating-quantifiers" title="Permalink to this headline">&#182;</a></h2>
 <p>If you had to prove that <em>not</em> every matheamtician is a billionaire, you&#8217;d merely have to point to
 me and show that I&#8217;m not a billionaire. Intuitively, the negation, <span class="math notranslate nohighlight">\(\neg(\forall x, P(x))\)</span>,
 of a universally quantified statement is just the existentially quantified statement
@@ -630,7 +630,7 @@ quantified statement <span class="math notranslate nohighlight">\(\forall x, \ne
 <div class="proof proof-type-theorem" id="id14">
 
     <div class="proof-title">
-        <span class="proof-type">Theorem 4.14</span>
+        <span class="proof-type">Theorem 3.14</span>
         
             <span class="proof-title-name">(Negation of an existentially quantified statement)</span>
         
@@ -663,7 +663,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div><div class="proof proof-type-theorem" id="id15">
 
     <div class="proof-title">
-        <span class="proof-type">Theorem 4.15</span>
+        <span class="proof-type">Theorem 3.15</span>
         
             <span class="proof-title-name">(Negation of a universally quantified statement)</span>
         
@@ -691,14 +691,14 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div>
 </div></div>
 <div class="section" id="even-and-odd-numbers">
-<h2><span class="section-number">4.8. </span>Even and odd numbers<a class="headerlink" href="#even-and-odd-numbers" title="Permalink to this headline">&#182;</a></h2>
+<h2><span class="section-number">3.8. </span>Even and odd numbers<a class="headerlink" href="#even-and-odd-numbers" title="Permalink to this headline">&#182;</a></h2>
 <div class="section" id="even-numbers">
-<h3><span class="section-number">4.8.1. </span>Even numbers<a class="headerlink" href="#even-numbers" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">3.8.1. </span>Even numbers<a class="headerlink" href="#even-numbers" title="Permalink to this headline">&#182;</a></h3>
 <p>As a practical example, we consider the definition of even numbers.</p>
 <div class="proof proof-type-definition" id="id16">
 
     <div class="proof-title">
-        <span class="proof-type">Definition 4.16</span>
+        <span class="proof-type">Definition 3.16</span>
         
     </div><div class="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(a\)</span> be an natural number. <span class="math notranslate nohighlight">\(a\)</span> is even means <span class="math notranslate nohighlight">\(\exists (b : \mathbb N), a = 2b\)</span>.</p>
@@ -713,7 +713,7 @@ predicate logic, we may write <span class="math notranslate nohighlight">\(\math
 <div class="proof proof-type-example" id="id17">
 
     <div class="proof-title">
-        <span class="proof-type">Example 4.17</span>
+        <span class="proof-type">Example 3.17</span>
         
     </div><div class="proof-content">
 <p>Given <span class="math notranslate nohighlight">\(h : 10 = 2\times5\)</span>, we have <span class="math notranslate nohighlight">\(\mathrm{even}\ 10\)</span>.</p>
@@ -745,7 +745,7 @@ We make use of some properties of natural numbers that we have not yet proved.</
 <div class="proof proof-type-example" id="id18">
 
     <div class="proof-title">
-        <span class="proof-type">Example 4.18</span>
+        <span class="proof-type">Example 3.18</span>
         
     </div><div class="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(n : \mathbb N\)</span>. Given <span class="math notranslate nohighlight">\(h : \mathrm{even}\ n\)</span>, we have
@@ -780,11 +780,11 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div>
 </div></div>
 <div class="section" id="odd-numbers">
-<h3><span class="section-number">4.8.2. </span>Odd numbers<a class="headerlink" href="#odd-numbers" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">3.8.2. </span>Odd numbers<a class="headerlink" href="#odd-numbers" title="Permalink to this headline">&#182;</a></h3>
 <div class="proof proof-type-definition" id="id19">
 
     <div class="proof-title">
-        <span class="proof-type">Definition 4.19</span>
+        <span class="proof-type">Definition 3.19</span>
         
     </div><div class="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(a : \mathbb N\)</span> be an integer. Then <span class="math notranslate nohighlight">\(\mathrm{odd}\ a\)</span> means
@@ -792,7 +792,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div></div><div class="proof proof-type-theorem" id="id20">
 
     <div class="proof-title">
-        <span class="proof-type">Theorem 4.20</span>
+        <span class="proof-type">Theorem 3.20</span>
         
     </div><div class="proof-content">
 <p>Given <span class="math notranslate nohighlight">\(n : \mathbb N\)</span>, we have
@@ -825,7 +825,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div><div class="proof proof-type-example" id="id21">
 
     <div class="proof-title">
-        <span class="proof-type">Example 4.21</span>
+        <span class="proof-type">Example 3.21</span>
         
     </div><div class="proof-content">
 <p>Given <span class="math notranslate nohighlight">\(a, b, c, d : \mathbb N\)</span>, given <span class="math notranslate nohighlight">\(h_1 : c = 2a\)</span>, and <span class="math notranslate nohighlight">\(h_2 : d = 2b+1\)</span>.
@@ -845,10 +845,10 @@ Rewriting using <span class="math notranslate nohighlight">\(h_1\)</span> and <s
 </div></div></div>
 </div>
 <div class="section" id="mixing-quantifiers">
-<h2><span class="section-number">4.9. </span>Mixing quantifiers<a class="headerlink" href="#mixing-quantifiers" title="Permalink to this headline">&#182;</a></h2>
+<h2><span class="section-number">3.9. </span>Mixing quantifiers<a class="headerlink" href="#mixing-quantifiers" title="Permalink to this headline">&#182;</a></h2>
 </div>
 <div class="section" id="functions-and-equality">
-<h2><span class="section-number">4.10. </span>Functions and equality<a class="headerlink" href="#functions-and-equality" title="Permalink to this headline">&#182;</a></h2>
+<h2><span class="section-number">3.10. </span>Functions and equality<a class="headerlink" href="#functions-and-equality" title="Permalink to this headline">&#182;</a></h2>
 </div>
 </div>
 
@@ -870,20 +870,19 @@ Rewriting using <span class="math notranslate nohighlight">\(h_1\)</span> and <s
 
 <!-- <h3>Navigation</h3> -->
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. Introduction to reasoning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="prop_logic_theory.html">2. Propositional logic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="prop_logic_lean_summary.html">3. Propositional logic in lean summary</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">4. Predicate logic</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#types">4.1. Types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#functions-and-definitions">4.2. Functions and definitions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#currying-functions">4.3. Currying functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#predicates">4.4. Predicates</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#universal-quantification">4.5. Universal quantification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#existential-quantification">4.6. Existential quantification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#negating-quantifiers">4.7. Negating quantifiers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#even-and-odd-numbers">4.8. Even and odd numbers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#mixing-quantifiers">4.9. Mixing quantifiers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#functions-and-equality">4.10. Functions and equality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="prop_logic_theory.html">1. Propositional logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="prop_logic_lean_summary.html">2. Propositional logic in lean summary</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">3. Predicate logic</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#types">3.1. Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#functions-and-definitions">3.2. Functions and definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#currying-functions">3.3. Currying functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#predicates">3.4. Predicates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#universal-quantification">3.5. Universal quantification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#existential-quantification">3.6. Existential quantification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#negating-quantifiers">3.7. Negating quantifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#even-and-odd-numbers">3.8. Even and odd numbers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mixing-quantifiers">3.9. Mixing quantifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#functions-and-equality">3.10. Functions and equality</a></li>
 </ul>
 </li>
 </ul>
