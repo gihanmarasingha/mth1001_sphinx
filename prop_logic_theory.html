@@ -5,7 +5,7 @@
   <head>
     <meta charset="ascii" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>1. Propositional logic &#8212; MTH1001 in Lean 1.00 documentation</title>
+    <title>2. Propositional logic &#8212; MTH1001 in Lean 1.00 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/proof.css" />
@@ -19,8 +19,8 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="2. Propositional logic in lean summary" href="prop_logic_lean_summary.html" />
-    <link rel="prev" title="MTH1001 in Lean" href="index.html" />
+    <link rel="next" title="3. Propositional logic in lean summary" href="prop_logic_lean_summary.html" />
+    <link rel="prev" title="1. Introduction to reasoning" href="introduction.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -38,9 +38,9 @@
           <div class="body" role="main">
             
   <div class="section" id="propositional-logic">
-<span id="sec-prop-logic-tutorial"></span><h1><span class="section-number">1. </span>Propositional logic<a class="headerlink" href="#propositional-logic" title="Permalink to this headline">&#182;</a></h1>
+<span id="sec-prop-logic-tutorial"></span><h1><span class="section-number">2. </span>Propositional logic<a class="headerlink" href="#propositional-logic" title="Permalink to this headline">&#182;</a></h1>
 <div class="section" id="propositions-and-propositional-variables">
-<h2><span class="section-number">1.1. </span>Propositions and propositional variables<a class="headerlink" href="#propositions-and-propositional-variables" title="Permalink to this headline">&#182;</a></h2>
+<h2><span class="section-number">2.1. </span>Propositions and propositional variables<a class="headerlink" href="#propositions-and-propositional-variables" title="Permalink to this headline">&#182;</a></h2>
 <p>From an informal perspective, propositions are statements that can be assigned
 a truth value.</p>
 <p>From the formal perspective, which is more useful when you want to prove a theorem, propositions are
@@ -51,11 +51,11 @@ labelled <span class="math notranslate nohighlight">\(P_1, P_2, \dots, P_n, \dot
 propositional variables using different letters of the alphabet whether uppercase <span class="math notranslate nohighlight">\(P, Q, R, \dots\)</span>
 or lower case <span class="math notranslate nohighlight">\(p, q, r, \dots\)</span>.</p>
 <p>The five connectives of propositional logic are shown in
-<a class="reference internal" href="#tab-prop-connectives"><span class="std std-numref">Table 1.1</span></a>, listed in decreasing order of precedence. Negation is a unary
+<a class="reference internal" href="#tab-prop-connectives"><span class="std std-numref">Table 2.1</span></a>, listed in decreasing order of precedence. Negation is a unary
 connective, which means that it applies only to one proposition. The remaining connectives are
 binary, applying to two propositions.</p>
 <span id="tab-prop-connectives"></span><table class="colwidths-given docutils align-default" id="id8">
-<caption><span class="caption-number">Table 1.1 </span><span class="caption-text">Connectives of propositional logic and their order of precedence</span><a class="headerlink" href="#id8" title="Permalink to this table">&#182;</a></caption>
+<caption><span class="caption-number">Table 2.1 </span><span class="caption-text">Connectives of propositional logic and their order of precedence</span><a class="headerlink" href="#id8" title="Permalink to this table">&#182;</a></caption>
 <colgroup>
 <col style="width: 33%" />
 <col style="width: 67%" />
@@ -86,7 +86,7 @@ binary, applying to two propositions.</p>
 <div class="proof proof-type-definition" id="id9">
 
     <div class="proof-title">
-        <span class="proof-type">Definition 1.1</span>
+        <span class="proof-type">Definition 2.1</span>
         
             <span class="proof-title-name">(Proposition)</span>
         
@@ -114,16 +114,16 @@ are written <em>identically</em>, with the exception of parenthesis dropping as 
 paragraph.</p>
 <p>Thus <span class="math notranslate nohighlight">\(P\land Q\)</span> is <em>not</em> equal to <span class="math notranslate nohighlight">\(Q\land P\)</span>. However, <span class="math notranslate nohighlight">\(((P\land Q)\lor R)\)</span> is
 equal to <span class="math notranslate nohighlight">\((P\land Q)\lor R\)</span> and to <span class="math notranslate nohighlight">\(P\land Q \lor R\)</span>.</p>
-<p>In <a class="reference internal" href="prop_logic_lean_summary.html#prop-variables"><span class="std std-numref">Section 2.1</span></a>, we discuss how to represent propositions in Lean.</p>
+<p>In <a class="reference internal" href="prop_logic_lean_summary.html#prop-variables"><span class="std std-numref">Section 3.1</span></a>, we discuss how to represent propositions in Lean.</p>
 </div>
 <div class="section" id="derivations-and-rules-of-inference">
-<h2><span class="section-number">1.2. </span>Derivations and rules of inference<a class="headerlink" href="#derivations-and-rules-of-inference" title="Permalink to this headline">&#182;</a></h2>
+<h2><span class="section-number">2.2. </span>Derivations and rules of inference<a class="headerlink" href="#derivations-and-rules-of-inference" title="Permalink to this headline">&#182;</a></h2>
 <p>Propositional logic is concerned with making derivations, based on <em>premises</em>, using
 <em>rules of inference</em>.</p>
 <p>Each premise takes the form <span class="math notranslate nohighlight">\(h : \alpha\)</span>, where <span class="math notranslate nohighlight">\(h\)</span> is any symbol (usually a lowercase
 letter, with or without a subscript) and <span class="math notranslate nohighlight">\(\alpha\)</span> is a proposition.</p>
 <p>Intuitively, the judgment <span class="math notranslate nohighlight">\(h : \alpha\)</span> is to be read &#8216;<span class="math notranslate nohighlight">\(h\)</span> is a proof of <span class="math notranslate nohighlight">\(\alpha\)</span>&#8217;.
-We will give a more rigorous interpretation of this judgment in <a class="reference internal" href="pred_logic.html#sec-types"><span class="std std-numref">Section 3.1</span></a>.</p>
+We will give a more rigorous interpretation of this judgment in <a class="reference internal" href="pred_logic.html#sec-types"><span class="std std-numref">Section 4.1</span></a>.</p>
 <p>Here is an example of a rule of inference. This rule is called left conjunction elimination.</p>
 <blockquote>
 <div><p>Given <span class="math notranslate nohighlight">\(h : P\land Q\)</span>, we have a proof of <span class="math notranslate nohighlight">\(P\)</span>.</p>
@@ -148,14 +148,14 @@ proof, the context initially consists of the premise <span class="math notransla
 will also include the hypothesis <span class="math notranslate nohighlight">\(k_2\)</span>.</p>
 </div>
 <div class="section" id="conjunction">
-<h2><span class="section-number">1.3. </span>Conjunction<a class="headerlink" href="#conjunction" title="Permalink to this headline">&#182;</a></h2>
+<h2><span class="section-number">2.3. </span>Conjunction<a class="headerlink" href="#conjunction" title="Permalink to this headline">&#182;</a></h2>
 <div class="section" id="conjunction-elimination">
-<h3><span class="section-number">1.3.1. </span>Conjunction elimination<a class="headerlink" href="#conjunction-elimination" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">2.3.1. </span>Conjunction elimination<a class="headerlink" href="#conjunction-elimination" title="Permalink to this headline">&#182;</a></h3>
 <p>There are two conjunction elimination rules, left and right.</p>
 <div class="proof proof-type-mathsrule" id="id10">
 
     <div class="proof-title">
-        <span class="proof-type">Rule 1.2</span>
+        <span class="proof-type">Rule 2.2</span>
         
             <span class="proof-title-name">(Conjunction elimination)</span>
         
@@ -172,7 +172,7 @@ by right conjunction elimination on <span class="math notranslate nohighlight">\
 </div></blockquote>
 </div>
 <div class="section" id="conjunction-elimination-in-lean">
-<h3><span class="section-number">1.3.2. </span>Conjunction elimination in Lean<a class="headerlink" href="#conjunction-elimination-in-lean" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">2.3.2. </span>Conjunction elimination in Lean<a class="headerlink" href="#conjunction-elimination-in-lean" title="Permalink to this headline">&#182;</a></h3>
 <p>This is expressed in Lean as follows.</p>
 <div style="position: relative">
 <div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20p%20q%20r%20%3A%20Prop%0A%0Aexample%20(h%20%3A%20(p%20%E2%88%A7%20q)%20%E2%88%A7%20r%20)%20%3A%20q%20%3A%3D%0Abegin%0A%20%20have%20h%E2%82%82%20%3A%20p%20%E2%88%A7%20q%2C%20from%20h.left%2C%0A%20%20exact%20h%E2%82%82.right%0Aend" target="_blank" tryitfile="../examples/prop_logic_theory/unnamed_146.lean">
@@ -274,12 +274,12 @@ respectively, on <span class="math notranslate nohighlight">\(h\)</span>. The re
 </div></blockquote>
 </div>
 <div class="section" id="conjunction-introduction">
-<h3><span class="section-number">1.3.3. </span>Conjunction introduction<a class="headerlink" href="#conjunction-introduction" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">2.3.3. </span>Conjunction introduction<a class="headerlink" href="#conjunction-introduction" title="Permalink to this headline">&#182;</a></h3>
 <p>The rule of conjunction introduction can be expressed in two forms, forward and backward.</p>
 <div class="proof proof-type-mathsrule" id="id11">
 
     <div class="proof-title">
-        <span class="proof-type">Rule 1.3</span>
+        <span class="proof-type">Rule 2.3</span>
         
             <span class="proof-title-name">(Conjunction introduction, forward)</span>
         
@@ -288,7 +288,7 @@ respectively, on <span class="math notranslate nohighlight">\(h\)</span>. The re
 </div></div><div class="proof proof-type-mathsrule" id="id12">
 
     <div class="proof-title">
-        <span class="proof-type">Rule 1.4</span>
+        <span class="proof-type">Rule 2.4</span>
         
             <span class="proof-title-name">(Conjunction introduction, backward)</span>
         
@@ -297,7 +297,7 @@ respectively, on <span class="math notranslate nohighlight">\(h\)</span>. The re
 </div></div><div class="proof proof-type-example" id="id13">
 <span id="example-and-comm1"></span>
     <div class="proof-title">
-        <span class="proof-type">Example 1.5</span>
+        <span class="proof-type">Example 2.5</span>
         
             <span class="proof-title-name">(Commutativity of conjunction (I))</span>
         
@@ -366,11 +366,11 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </pre></div>
 </div>
 </div><div class="section" id="associativity-of-conjunction-in-parts">
-<h4><span class="section-number">1.3.3.1. </span>Associativity of conjunction, in parts<a class="headerlink" href="#associativity-of-conjunction-in-parts" title="Permalink to this headline">&#182;</a></h4>
+<h4><span class="section-number">2.3.3.1. </span>Associativity of conjunction, in parts<a class="headerlink" href="#associativity-of-conjunction-in-parts" title="Permalink to this headline">&#182;</a></h4>
 <div class="proof proof-type-example" id="id14">
 <span id="example-and-assoc1-0"></span>
     <div class="proof-title">
-        <span class="proof-type">Example 1.6</span>
+        <span class="proof-type">Example 2.6</span>
         
     </div><div class="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(P\)</span>, <span class="math notranslate nohighlight">\(Q\)</span>, and <span class="math notranslate nohighlight">\(R\)</span> be propositions. Given <span class="math notranslate nohighlight">\(h : (P \land Q)\land R\)</span>, we
@@ -401,9 +401,9 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 <span class="kd">end</span>
 </pre></div>
 </div>
-</div><p>Here&#8217;s a proof of <a class="reference internal" href="#example-and-assoc1-0"><span class="std std-numref">Example 1.6</span></a> that combines forward and backward reasoning.
+</div><p>Here&#8217;s a proof of <a class="reference internal" href="#example-and-assoc1-0"><span class="std std-numref">Example 2.6</span></a> that combines forward and backward reasoning.
 reasoning. The reiteration tactic is discussed more fully in
-<a class="reference internal" href="#sec-reiteration"><span class="std std-numref">Section 1.4</span></a>.</p>
+<a class="reference internal" href="#sec-reiteration"><span class="std std-numref">Section 2.4</span></a>.</p>
 <div class="proof proof-type-proof">
 
     <div class="proof-title">
@@ -442,7 +442,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 <div class="proof proof-type-example" id="id15">
 <span id="example-and-assoc2-0"></span>
     <div class="proof-title">
-        <span class="proof-type">Example 1.7</span>
+        <span class="proof-type">Example 2.7</span>
         
     </div><div class="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(P\)</span>, <span class="math notranslate nohighlight">\(Q\)</span>, and <span class="math notranslate nohighlight">\(R\)</span> be propositions. Given <span class="math notranslate nohighlight">\(h : P \land (Q\land R)\)</span>,
@@ -473,7 +473,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </pre></div>
 </div>
 </div><p>As an exercise, replace each sorry below to give a mixed forward and backward proof of
-<a class="reference internal" href="#example-and-assoc2-0"><span class="std std-numref">Example 1.7</span></a>.</p>
+<a class="reference internal" href="#example-and-assoc2-0"><span class="std std-numref">Example 2.7</span></a>.</p>
 <div class="proof proof-type-proof">
 
     <div class="proof-title">
@@ -507,11 +507,11 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div>
 </div>
 <div class="section" id="reiteration">
-<span id="sec-reiteration"></span><h2><span class="section-number">1.4. </span>Reiteration<a class="headerlink" href="#reiteration" title="Permalink to this headline">&#182;</a></h2>
+<span id="sec-reiteration"></span><h2><span class="section-number">2.4. </span>Reiteration<a class="headerlink" href="#reiteration" title="Permalink to this headline">&#182;</a></h2>
 <div class="proof proof-type-mathsrule" id="id16">
 
     <div class="proof-title">
-        <span class="proof-type">Rule 1.8</span>
+        <span class="proof-type">Rule 2.8</span>
         
             <span class="proof-title-name">(Reiteration)</span>
         
@@ -523,7 +523,7 @@ required in proving statements such as <span class="math notranslate nohighlight
 <div class="proof proof-type-example" id="id17">
 
     <div class="proof-title">
-        <span class="proof-type">Example 1.9</span>
+        <span class="proof-type">Example 2.9</span>
         
     </div><div class="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> be propositions. Given <span class="math notranslate nohighlight">\(h : P \land Q\)</span>, we have a proof of <span class="math notranslate nohighlight">\(Q\)</span>.</p>
@@ -568,7 +568,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div>
 </div></div>
 <div class="section" id="implication">
-<h2><span class="section-number">1.5. </span>Implication<a class="headerlink" href="#implication" title="Permalink to this headline">&#182;</a></h2>
+<h2><span class="section-number">2.5. </span>Implication<a class="headerlink" href="#implication" title="Permalink to this headline">&#182;</a></h2>
 <p>The <em>conditional</em> connective <span class="math notranslate nohighlight">\(\to\)</span> is read &#8216;implies&#8217;.
 The proposition <span class="math notranslate nohighlight">\(P \to Q\)</span> can be read either as &#8216;<span class="math notranslate nohighlight">\(P\)</span> implies <span class="math notranslate nohighlight">\(Q\)</span>&#8217; or as
 &#8216;if <span class="math notranslate nohighlight">\(P\)</span>, then <span class="math notranslate nohighlight">\(Q\)</span>&#8217;.</p>
@@ -576,11 +576,11 @@ The proposition <span class="math notranslate nohighlight">\(P \to Q\)</span> ca
 and <span class="math notranslate nohighlight">\(Q\)</span> is called the <em>consequent</em>. The proposition <span class="math notranslate nohighlight">\(P\to Q\)</span> is called an <em>implication</em>
 or a <em>conditional</em>.</p>
 <div class="section" id="implication-elimination">
-<span id="sec-imp-elim"></span><h3><span class="section-number">1.5.1. </span>Implication elimination<a class="headerlink" href="#implication-elimination" title="Permalink to this headline">&#182;</a></h3>
+<span id="sec-imp-elim"></span><h3><span class="section-number">2.5.1. </span>Implication elimination<a class="headerlink" href="#implication-elimination" title="Permalink to this headline">&#182;</a></h3>
 <div class="proof proof-type-mathsrule" id="id18">
 
     <div class="proof-title">
-        <span class="proof-type">Rule 1.10</span>
+        <span class="proof-type">Rule 2.10</span>
         
             <span class="proof-title-name">(Implication elimination, forward)</span>
         
@@ -589,7 +589,7 @@ or a <em>conditional</em>.</p>
 </div></div><div class="proof proof-type-mathsrule" id="id19">
 
     <div class="proof-title">
-        <span class="proof-type">Rule 1.11</span>
+        <span class="proof-type">Rule 2.11</span>
         
             <span class="proof-title-name">(Implication elimination, backward)</span>
         
@@ -599,7 +599,7 @@ or a <em>conditional</em>.</p>
 <div class="proof proof-type-example" id="id20">
 <span id="example-imp-trans1"></span>
     <div class="proof-title">
-        <span class="proof-type">Example 1.12</span>
+        <span class="proof-type">Example 2.12</span>
         
     </div><div class="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(P\)</span>, <span class="math notranslate nohighlight">\(Q\)</span>, and <span class="math notranslate nohighlight">\(R\)</span> be propositions. Given <span class="math notranslate nohighlight">\(h_1 : P \to Q\)</span>,
@@ -616,7 +616,7 @@ or a <em>conditional</em>.</p>
 <p>By implication elimination on <span class="math notranslate nohighlight">\(h_1\)</span> and <span class="math notranslate nohighlight">\(h_3\)</span>, we have <span class="math notranslate nohighlight">\(h_4 : Q\)</span>.
 We show <span class="math notranslate nohighlight">\(R\)</span> by implication elimination on <span class="math notranslate nohighlight">\(h_2\)</span> and <span class="math notranslate nohighlight">\(h_4\)</span>.</p>
 </div></div><p>In Lean, the proof of <code class="docutils literal notranslate"><span class="pre">q</span></code> from <code class="docutils literal notranslate"><span class="pre">h&#8321;</span> <span class="pre">:</span> <span class="pre">p</span> <span class="pre">&#8594;</span> <span class="pre">q</span></code> and <code class="docutils literal notranslate"><span class="pre">h&#8322;</span> <span class="pre">:</span> <span class="pre">p</span></code> is simply denoted <code class="docutils literal notranslate"><span class="pre">h&#8321;</span> <span class="pre">h&#8322;</span></code>. The
-Lean translation of the foward proof of <a class="reference internal" href="#example-imp-trans1"><span class="std std-numref">Example 1.12</span></a> is given below.</p>
+Lean translation of the foward proof of <a class="reference internal" href="#example-imp-trans1"><span class="std std-numref">Example 2.12</span></a> is given below.</p>
 <div style="position: relative">
 <div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20p%20q%20r%20%3A%20Prop%0A--%20BEGIN%0Aexample%20(h%E2%82%81%20%3A%20p%20%E2%86%92%20q)%20(h%E2%82%82%20%3A%20q%20%E2%86%92%20r)%20(h%E2%82%83%20%3A%20p)%20%3A%20r%20%3A%3D%0Abegin%0A%20%20have%20h%E2%82%84%20%3A%20q%2C%20from%20h%E2%82%81%20h%E2%82%83%2C%20--%20We%20have%20%60h%E2%82%84%20%3A%20q%60%2C%20by%20implication%20elimination%20on%20%60h%E2%82%81%60%20and%20%20%60h%E2%82%83%60.%0A%20%20show%20r%2C%20from%20h%E2%82%82%20h%E2%82%84%20%20%20%20%20%20%20--%20We%20show%20%60r%60%20by%20implication%20elimination%20on%20%60h%E2%82%82%60%20and%20%60h%E2%82%84%60.%0Aend%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_theory/unnamed_583.lean">
 try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h&#8321;</span> <span class="o">:</span> <span class="n">p</span> <span class="bp">&#8594;</span> <span class="n">q</span><span class="o">)</span> <span class="o">(</span><span class="n">h&#8322;</span> <span class="o">:</span> <span class="n">q</span> <span class="bp">&#8594;</span> <span class="n">r</span><span class="o">)</span> <span class="o">(</span><span class="n">h&#8323;</span> <span class="o">:</span> <span class="n">p</span><span class="o">)</span> <span class="o">:</span> <span class="n">r</span> <span class="o">:=</span>
@@ -658,7 +658,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 We show <span class="math notranslate nohighlight">\(Q\)</span> by implication elimination on <span class="math notranslate nohighlight">\(h_1\)</span> and <span class="math notranslate nohighlight">\(h_3\)</span>.</p>
 </div></div><p>In Lean, given <code class="docutils literal notranslate"><span class="pre">h&#8321;</span> <span class="pre">:</span> <span class="pre">p</span> <span class="pre">&#8594;</span> <span class="pre">q</span></code> and a goal to prove <code class="docutils literal notranslate"><span class="pre">q</span></code>, we transform the goal into one of proving
 <code class="docutils literal notranslate"><span class="pre">p</span></code> using <code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">h&#8321;</span></code>. We use this to translate the above backward proof of
-<a class="reference internal" href="#example-imp-trans1"><span class="std std-numref">Example 1.12</span></a>.</p>
+<a class="reference internal" href="#example-imp-trans1"><span class="std std-numref">Example 2.12</span></a>.</p>
 <div style="position: relative">
 <div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20p%20q%20r%20%3A%20Prop%0A--%20BEGIN%0Aexample%20(h%E2%82%81%20%3A%20p%20%E2%86%92%20q)%20(h%E2%82%82%20%3A%20q%20%E2%86%92%20r)%20(h%E2%82%83%20%3A%20p)%20%3A%20r%20%3A%3D%0Abegin%0A%20%20apply%20h%E2%82%82%2C%20%20%20%20%20%20%20%20%20%20--%20By%20implication%20elimination%20on%20%60h%E2%82%82%60%2C%20it%20suffices%20to%20prove%20%60q%60.%0A%20%20show%20q%2C%20from%20h%E2%82%81%20h%E2%82%83%20--%20We%20show%20%60q%60%20by%20implication%20elimination%20on%20%60h%E2%82%81%60%20and%20%60h%E2%82%83%60.%0Aend%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_theory/unnamed_622.lean">
 try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h&#8321;</span> <span class="o">:</span> <span class="n">p</span> <span class="bp">&#8594;</span> <span class="n">q</span><span class="o">)</span> <span class="o">(</span><span class="n">h&#8322;</span> <span class="o">:</span> <span class="n">q</span> <span class="bp">&#8594;</span> <span class="n">r</span><span class="o">)</span> <span class="o">(</span><span class="n">h&#8323;</span> <span class="o">:</span> <span class="n">p</span><span class="o">)</span> <span class="o">:</span> <span class="n">r</span> <span class="o">:=</span>
@@ -703,14 +703,14 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div>
 </div></div>
 <div class="section" id="implication-introduction">
-<span id="sec-imp-intro"></span><h3><span class="section-number">1.5.2. </span>Implication introduction<a class="headerlink" href="#implication-introduction" title="Permalink to this headline">&#182;</a></h3>
+<span id="sec-imp-intro"></span><h3><span class="section-number">2.5.2. </span>Implication introduction<a class="headerlink" href="#implication-introduction" title="Permalink to this headline">&#182;</a></h3>
 <p>Implication introduction is one of the most important rules of inference. It is the only rule, in
 propositional logic, that permits us to derive a goal on <em>no premises</em>. Due to this, impliciation
 introduction only has a backward form.</p>
 <div class="proof proof-type-mathsrule" id="id21">
 
     <div class="proof-title">
-        <span class="proof-type">Rule 1.13</span>
+        <span class="proof-type">Rule 2.13</span>
         
             <span class="proof-title-name">(Implication introduction)</span>
         
@@ -719,7 +719,7 @@ introduction only has a backward form.</p>
 </div></div><div class="proof proof-type-example" id="id22">
 <span id="example-imp-intro"></span>
     <div class="proof-title">
-        <span class="proof-type">Example 1.14</span>
+        <span class="proof-type">Example 2.14</span>
         
     </div><div class="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> be propositions. Then <span class="math notranslate nohighlight">\(Q \to (P \to Q)\)</span>.</p>
@@ -767,7 +767,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 <div class="proof proof-type-theorem" id="id23">
 <span id="thm-reflexivity-imp"></span>
     <div class="proof-title">
-        <span class="proof-type">Theorem 1.15</span>
+        <span class="proof-type">Theorem 2.15</span>
         
             <span class="proof-title-name">(Reflexivity of implication)</span>
         
@@ -793,7 +793,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div><div class="proof proof-type-theorem" id="id24">
 <span id="thm-and-comm2"></span>
     <div class="proof-title">
-        <span class="proof-type">Theorem 1.16</span>
+        <span class="proof-type">Theorem 2.16</span>
         
             <span class="proof-title-name">(Commutativity of conjunction (II))</span>
         
@@ -818,7 +818,7 @@ and 2. <span class="math notranslate nohighlight">\(P\)</span>.</p>
 </ul>
 </div></div><p>Here is the same proof in Lean. Note that we use <code class="docutils literal notranslate"><span class="pre">theorem</span></code> below instead of <code class="docutils literal notranslate"><span class="pre">example</span></code>. This
 produces a named result. Here, we call the result <code class="docutils literal notranslate"><span class="pre">and_of_and</span></code>. We&#8217;ll discuss theorems further
-in <a class="reference internal" href="#sec-theorems"><span class="std std-numref">Section 1.6</span></a>.</p>
+in <a class="reference internal" href="#sec-theorems"><span class="std std-numref">Section 2.6</span></a>.</p>
 <div style="position: relative">
 <div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20p%20q%20%3A%20Prop%0A--%20BEGIN%0Atheorem%20and_of_and%20%3A%20p%20%E2%88%A7%20q%20%E2%86%92%20q%20%E2%88%A7%20p%20%3A%3D%0Abegin%0A%20%20intro%20h%2C%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20--%20Assume%20%60h%20%3A%20p%20%E2%88%A7%20q%60.%20It%20suffices%20to%20prove%20%60q%20%E2%88%A7%20p%60.%0A%20%20split%2C%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20--%20By%20%60%E2%88%A7%60%20intro.%2C%20it%20suffices%20to%20prove%20both%20%60q%60%20and%20%60p%60.%0A%20%20%7B%20show%20q%2C%20from%20h.right%2C%20%7D%2C%20--%20We%20show%20%60q%60%20from%20right%20%60%E2%88%A7%60%20elimination%20on%20%60h%60.%0A%20%20%7B%20show%20p%2C%20from%20h.left%2C%20%7D%2C%20%20--%20We%20show%20%60p%60%20from%20left%20%60%E2%88%A7%60%20elimination%20on%20%60h%60.%0Aend%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_theory/unnamed_786.lean">
 try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">theorem</span> <span class="n">and_of_and</span> <span class="o">:</span> <span class="n">p</span> <span class="bp">&#8743;</span> <span class="n">q</span> <span class="bp">&#8594;</span> <span class="n">q</span> <span class="bp">&#8743;</span> <span class="n">p</span> <span class="o">:=</span>
@@ -845,7 +845,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </pre></div>
 </div>
 </div><p>If you&#8217;ve been paying close attention, you&#8217;ll note that the proofs above virtually the same as
-our proofs of <a class="reference internal" href="#example-and-comm1"><span class="std std-numref">Example 1.5</span></a>, the result that given <span class="math notranslate nohighlight">\(h : P \land Q\)</span>,
+our proofs of <a class="reference internal" href="#example-and-comm1"><span class="std std-numref">Example 2.5</span></a>, the result that given <span class="math notranslate nohighlight">\(h : P \land Q\)</span>,
 we have a proof of <span class="math notranslate nohighlight">\(Q \land P\)</span>. The only difference is the addition of <code class="docutils literal notranslate"><span class="pre">intro</span> <span class="pre">h</span></code> as the
 first line of the Lean proof or &#8216;Assume <span class="math notranslate nohighlight">\(h : P \land Q\)</span>, it suffices to prove
 <span class="math notranslate nohighlight">\(Q \land P\)</span>&#8217; as the first line of the mathematical proof.</p>
@@ -854,19 +854,19 @@ involves premises into a result with no premises.</p>
 </div>
 </div>
 <div class="section" id="theorems">
-<span id="sec-theorems"></span><h2><span class="section-number">1.6. </span>Theorems<a class="headerlink" href="#theorems" title="Permalink to this headline">&#182;</a></h2>
+<span id="sec-theorems"></span><h2><span class="section-number">2.6. </span>Theorems<a class="headerlink" href="#theorems" title="Permalink to this headline">&#182;</a></h2>
 <div class="section" id="reusing-results">
-<h3><span class="section-number">1.6.1. </span>Reusing results<a class="headerlink" href="#reusing-results" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">2.6.1. </span>Reusing results<a class="headerlink" href="#reusing-results" title="Permalink to this headline">&#182;</a></h3>
 <p>One great thing about mathematics is that we don&#8217;t constantly have to reinvent the wheel. Once
 a result is proved, we can use it to prove other results.</p>
 <p>A <em>theorem</em> is a named result. In the previous section, we have a mathematical theorem we can refer
-to by number as <a class="reference internal" href="#thm-and-comm2"><span class="std std-numref">Theorem 1.16</span></a> or by name as the <a class="reference internal" href="#thm-and-comm2"><span class="std std-ref">Commutativity of conjunction (II)</span></a> theorem.
+to by number as <a class="reference internal" href="#thm-and-comm2"><span class="std std-numref">Theorem 2.16</span></a> or by name as the <a class="reference internal" href="#thm-and-comm2"><span class="std std-ref">Commutativity of conjunction (II)</span></a> theorem.
 We called the corresponding Lean theorem <code class="docutils literal notranslate"><span class="pre">and_of_and</span></code>.</p>
 <p>Think about how you might prove the following.</p>
 <div class="proof proof-type-example" id="id25">
 <span id="example-and-comm-funny"></span>
     <div class="proof-title">
-        <span class="proof-type">Example 1.17</span>
+        <span class="proof-type">Example 2.17</span>
         
     </div><div class="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> be propositions. Then
@@ -886,18 +886,18 @@ By conjunction introduction, it suffices to prove both 1. <span class="math notr
 <li><p>This follows from right conjunction elimination on <span class="math notranslate nohighlight">\(h\)</span>.</p></li>
 <li><p>This follows from left conjunction elimination on <span class="math notranslate nohighlight">\(h\)</span>.</p></li>
 </ol>
-</div></div><p>But this proof is virtually identical to our proof of <a class="reference internal" href="#thm-and-comm2"><span class="std std-numref">Theorem 1.16</span></a>.
-Indeed, the <em>statement</em> of <a class="reference internal" href="#example-and-comm-funny"><span class="std std-numref">Example 1.17</span></a> is essentially that of
-<a class="reference internal" href="#thm-and-comm2"><span class="std std-numref">Theorem 1.16</span></a>, only with <span class="math notranslate nohighlight">\(A\to B\)</span> in place of <span class="math notranslate nohighlight">\(P\)</span> and
+</div></div><p>But this proof is virtually identical to our proof of <a class="reference internal" href="#thm-and-comm2"><span class="std std-numref">Theorem 2.16</span></a>.
+Indeed, the <em>statement</em> of <a class="reference internal" href="#example-and-comm-funny"><span class="std std-numref">Example 2.17</span></a> is essentially that of
+<a class="reference internal" href="#thm-and-comm2"><span class="std std-numref">Theorem 2.16</span></a>, only with <span class="math notranslate nohighlight">\(A\to B\)</span> in place of <span class="math notranslate nohighlight">\(P\)</span> and
 <span class="math notranslate nohighlight">\(B\land A\)</span> in place of <span class="math notranslate nohighlight">\(Q\)</span>.</p>
-<p>Indeed, one should think of <a class="reference internal" href="#thm-and-comm2"><span class="std std-numref">Theorem 1.16</span></a> as stating that
+<p>Indeed, one should think of <a class="reference internal" href="#thm-and-comm2"><span class="std std-numref">Theorem 2.16</span></a> as stating that
 <span class="math notranslate nohighlight">\(P \land Q \to Q \land P\)</span> <em>for all</em> propositions <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span>. We will develop the
-notion of &#8216;for all&#8217; further in <a class="reference internal" href="pred_logic.html#sec-pred-logic"><span class="std std-numref">Section 3</span></a>.</p>
+notion of &#8216;for all&#8217; further in <a class="reference internal" href="pred_logic.html#sec-pred-logic"><span class="std std-numref">Section 4</span></a>.</p>
 <p>For the moment, we should think of the variables <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> that appear in the
-statement of <a class="reference internal" href="#thm-and-comm2"><span class="std std-numref">Theorem 1.16</span></a> as being <em>placeholders</em>, <em>inputs</em> or <em>parameters</em>
+statement of <a class="reference internal" href="#thm-and-comm2"><span class="std std-numref">Theorem 2.16</span></a> as being <em>placeholders</em>, <em>inputs</em> or <em>parameters</em>
 that we can replace with any given terms, called <em>arguments</em>.</p>
 <p>For example, taking <span class="math notranslate nohighlight">\(A\to B\)</span> and <span class="math notranslate nohighlight">\(B\land A\)</span> as arguments to the theorem gives a
-one-line proof of <a class="reference internal" href="#example-and-comm-funny"><span class="std std-numref">Example 1.17</span></a>.</p>
+one-line proof of <a class="reference internal" href="#example-and-comm-funny"><span class="std std-numref">Example 2.17</span></a>.</p>
 <div class="proof proof-type-proof">
 
     <div class="proof-title">
@@ -906,10 +906,10 @@ one-line proof of <a class="reference internal" href="#example-and-comm-funny"><
             <span class="proof-title-name">(Using a previously proved theorem with explicit arguments)</span>
         
     </div><div class="proof-content">
-<p>The result follows by <a class="reference internal" href="#thm-and-comm2"><span class="std std-numref">Theorem 1.16</span></a> applied to <span class="math notranslate nohighlight">\(A \to B\)</span> and
+<p>The result follows by <a class="reference internal" href="#thm-and-comm2"><span class="std std-numref">Theorem 2.16</span></a> applied to <span class="math notranslate nohighlight">\(A \to B\)</span> and
 <span class="math notranslate nohighlight">\(B \land A\)</span>.</p>
 </div></div><p>A Lean proof of the result above uses the theorem <code class="docutils literal notranslate"><span class="pre">and_of_and</span></code>, our Lean version of
-<a class="reference internal" href="#thm-and-comm2"><span class="std std-numref">Theorem 1.16</span></a>. We repeat (a more concise version of) this theorem below along
+<a class="reference internal" href="#thm-and-comm2"><span class="std std-numref">Theorem 2.16</span></a>. We repeat (a more concise version of) this theorem below along
 with our proof of the new result.</p>
 <div style="position: relative">
 <div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20a%20b%20%3A%20Prop%0A--%20BEGIN%0Atheorem%20and_of_and%20(p%20q%20%3A%20Prop)%20%3A%20p%20%E2%88%A7%20q%20%E2%86%92%20q%20%E2%88%A7%20p%20%3A%3D%0Abegin%0A%20%20intro%20h%2C%0A%20%20exact%20and.intro%20(h.right)%20(h.left)%0Aend%0A%0Aexample%20%3A%20(a%20%E2%86%92%20b)%20%E2%88%A7%20(b%20%E2%88%A7%20a)%20%E2%86%92%20(b%20%E2%88%A7%20a)%20%E2%88%A7%20(a%20%E2%86%92%20b)%20%3A%3D%0Aby%20exact%20and_of_and%20(a%20%E2%86%92%20b)%20(b%20%E2%88%A7%20a)%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_theory/unnamed_887.lean">
@@ -925,7 +925,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div>
 </div></div>
 <div class="section" id="placeholders">
-<h3><span class="section-number">1.6.2. </span>Placeholders<a class="headerlink" href="#placeholders" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">2.6.2. </span>Placeholders<a class="headerlink" href="#placeholders" title="Permalink to this headline">&#182;</a></h3>
 <p>Often, it isn&#8217;t necessary to present the arguments explicitly. There are two alternatives. One is
 the use of the Lean placeholder, denoted by an underscore character, <code class="docutils literal notranslate"><span class="pre">_</span></code>. Whenever Lean
 encounters an <code class="docutils literal notranslate"><span class="pre">_</span></code>, it tries to <em>infer</em> an appropriate term. In the example below, Lean will infer
@@ -938,12 +938,12 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div>
 </div></div>
 <div class="section" id="implicit-arguments">
-<h3><span class="section-number">1.6.3. </span>Implicit arguments<a class="headerlink" href="#implicit-arguments" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">2.6.3. </span>Implicit arguments<a class="headerlink" href="#implicit-arguments" title="Permalink to this headline">&#182;</a></h3>
 <p>In situations like the above, it is evident that the arguments <em>must be</em> <span class="math notranslate nohighlight">\(A\to B\)</span> and
 <span class="math notranslate nohighlight">\(B\land A\)</span> because those are the arguments that match
 the form of the theorem with the form of the goal. It is typical in such situations not to
 state the arguments explicity in a mathematical proof but to leave them implicit.</p>
-<p>Here&#8217;s our shortened proof of <a class="reference internal" href="#example-and-comm-funny"><span class="std std-numref">Example 1.17</span></a>.</p>
+<p>Here&#8217;s our shortened proof of <a class="reference internal" href="#example-and-comm-funny"><span class="std std-numref">Example 2.17</span></a>.</p>
 <div class="proof proof-type-proof">
 
     <div class="proof-title">
@@ -952,7 +952,7 @@ state the arguments explicity in a mathematical proof but to leave them implicit
             <span class="proof-title-name">(Using a previously proved theorem with implicit arguments)</span>
         
     </div><div class="proof-content">
-<p>The result follows by <a class="reference internal" href="#thm-and-comm2"><span class="std std-numref">Theorem 1.16</span></a>.</p>
+<p>The result follows by <a class="reference internal" href="#thm-and-comm2"><span class="std std-numref">Theorem 2.16</span></a>.</p>
 </div></div><p>To enable the use of implicit arguments in Lean, we need to use a special syntax when stating our
 theorem. In the statement of theorem <code class="docutils literal notranslate"><span class="pre">and_of_and_v2</span></code> below, we enclose the variable declarations
 in braces <code class="docutils literal notranslate"><span class="pre">{p</span> <span class="pre">q</span> <span class="pre">:</span> <span class="pre">Prop}</span></code> in contrast to the parentheses <code class="docutils literal notranslate"><span class="pre">(p</span> <span class="pre">q</span> <span class="pre">:</span> <span class="pre">Prop)</span></code> in the earlier version.</p>
@@ -973,8 +973,8 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div>
 </div></div>
 <div class="section" id="using-theorems-with-the-apply-tactic">
-<h3><span class="section-number">1.6.4. </span>Using theorems with the <code class="docutils literal notranslate"><span class="pre">apply</span></code> tactic<a class="headerlink" href="#using-theorems-with-the-apply-tactic" title="Permalink to this headline">&#182;</a></h3>
-<p>Another way to use a theorem is via the <code class="docutils literal notranslate"><span class="pre">apply</span></code> tactic. In <a class="reference internal" href="#sec-imp-elim"><span class="std std-numref">Section 1.5.1</span></a>,
+<h3><span class="section-number">2.6.4. </span>Using theorems with the <code class="docutils literal notranslate"><span class="pre">apply</span></code> tactic<a class="headerlink" href="#using-theorems-with-the-apply-tactic" title="Permalink to this headline">&#182;</a></h3>
+<p>Another way to use a theorem is via the <code class="docutils literal notranslate"><span class="pre">apply</span></code> tactic. In <a class="reference internal" href="#sec-imp-elim"><span class="std std-numref">Section 2.5.1</span></a>,
 we used <code class="docutils literal notranslate"><span class="pre">apply</span></code> with terms of type <code class="docutils literal notranslate"><span class="pre">p</span> <span class="pre">&#8594;</span> <span class="pre">q</span></code> when the goal is of type <code class="docutils literal notranslate"><span class="pre">q</span></code>. In that case, the
 apply tactic replaces the goal with one of proving <code class="docutils literal notranslate"><span class="pre">p</span></code>.</p>
 <p>More generally, the <code class="docutils literal notranslate"><span class="pre">apply</span></code> tactic can be used on a term <code class="docutils literal notranslate"><span class="pre">h</span></code> whenever the type of the goal
@@ -1004,7 +1004,7 @@ implication.</p>
 <div class="proof proof-type-theorem" id="id26">
 <span id="thm-imp-trans1"></span>
     <div class="proof-title">
-        <span class="proof-type">Theorem 1.18</span>
+        <span class="proof-type">Theorem 2.18</span>
         
             <span class="proof-title-name">(Transitivity of implication)</span>
         
@@ -1036,7 +1036,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 <span class="kd">end</span>
 </pre></div>
 </div>
-</div><p>There are several ways to think about <a class="reference internal" href="#thm-imp-trans1"><span class="std std-numref">Theorem 1.18</span></a>.</p>
+</div><p>There are several ways to think about <a class="reference internal" href="#thm-imp-trans1"><span class="std std-numref">Theorem 2.18</span></a>.</p>
 <p>First, it can be seen as a statement with propositional parameters <span class="math notranslate nohighlight">\(P\)</span>, <span class="math notranslate nohighlight">\(Q\)</span>,
 and <span class="math notranslate nohighlight">\(R\)</span> that can be replaced with arguments, say <span class="math notranslate nohighlight">\(S\)</span>, <span class="math notranslate nohighlight">\(T\)</span>, and <span class="math notranslate nohighlight">\(U\)</span> to
 give a proof of</p>
@@ -1053,7 +1053,7 @@ determine.</p>
 <div class="proof proof-type-example" id="id27">
 
     <div class="proof-title">
-        <span class="proof-type">Example 1.19</span>
+        <span class="proof-type">Example 2.19</span>
         
     </div><div class="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(S\)</span>, <span class="math notranslate nohighlight">\(T\)</span>, and <span class="math notranslate nohighlight">\(U\)</span> be propositions. Given <span class="math notranslate nohighlight">\(k_1 : S \to T \land S\)</span> and
@@ -1064,7 +1064,7 @@ determine.</p>
         <span class="proof-type">Proof </span>
         
     </div><div class="proof-content">
-<p>Applying <a class="reference internal" href="#thm-imp-trans1"><span class="std std-numref">Theorem 1.18</span></a> (to propositions <span class="math notranslate nohighlight">\(S\)</span>, <span class="math notranslate nohighlight">\(T\land S\)</span>, and
+<p>Applying <a class="reference internal" href="#thm-imp-trans1"><span class="std std-numref">Theorem 2.18</span></a> (to propositions <span class="math notranslate nohighlight">\(S\)</span>, <span class="math notranslate nohighlight">\(T\land S\)</span>, and
 <span class="math notranslate nohighlight">\(U\)</span>),
 it suffices to prove <span class="math notranslate nohighlight">\(S \to T\land S\)</span> and <span class="math notranslate nohighlight">\(T\land S \to U\)</span>.</p>
 <ol class="arabic simple">
@@ -1090,13 +1090,13 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div>
 </div></div>
 <div class="section" id="exercises">
-<h3><span class="section-number">1.6.5. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">2.6.5. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">&#182;</a></h3>
 <p>Prove the following result, a variant (with no premises) of our previous result
-<a class="reference internal" href="#example-and-assoc1-0"><span class="std std-numref">Example 1.6</span></a>.</p>
+<a class="reference internal" href="#example-and-assoc1-0"><span class="std std-numref">Example 2.6</span></a>.</p>
 <div class="proof proof-type-theorem" id="id28">
 
     <div class="proof-title">
-        <span class="proof-type">Theorem 1.20</span>
+        <span class="proof-type">Theorem 2.20</span>
         
             <span class="proof-title-name">(Associativity of conjunction)</span>
         
@@ -1115,11 +1115,11 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div><p>As an exercise in applying theorems, prove the following, subject to the following restrictions.
 Your proof must begin with implication introduction. It must end with reiteration.
 All other steps must be applications of either the above theorem or our result on the commutativity
-of conjunction, <a class="reference internal" href="#example-and-comm1"><span class="std std-numref">Theorem 1.5</span></a></p>
+of conjunction, <a class="reference internal" href="#example-and-comm1"><span class="std std-numref">Theorem 2.5</span></a></p>
 <div class="proof proof-type-theorem" id="id29">
 
     <div class="proof-title">
-        <span class="proof-type">Theorem 1.21</span>
+        <span class="proof-type">Theorem 2.21</span>
         
     </div><div class="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(S\)</span>, <span class="math notranslate nohighlight">\(T\)</span>, and <span class="math notranslate nohighlight">\(U\)</span> be propositions. Then
@@ -1137,7 +1137,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div></div>
 </div>
 <div class="section" id="if-and-only-if">
-<h2><span class="section-number">1.7. </span>If and only if<a class="headerlink" href="#if-and-only-if" title="Permalink to this headline">&#182;</a></h2>
+<h2><span class="section-number">2.7. </span>If and only if<a class="headerlink" href="#if-and-only-if" title="Permalink to this headline">&#182;</a></h2>
 <p>The biconditional connective <span class="math notranslate nohighlight">\(\leftrightarrow\)</span> is also called &#8216;if and only if&#8217; or &#8216;iff&#8217;.
 The proposition <span class="math notranslate nohighlight">\(P \leftrightarrow Q\)</span> is read &#8216;<span class="math notranslate nohighlight">\(P\)</span> if and only if <span class="math notranslate nohighlight">\(Q\)</span>&#8217; or
 &#8216;<span class="math notranslate nohighlight">\(P\)</span> is equivalent to <span class="math notranslate nohighlight">\(Q\)</span>&#8217;.</p>
@@ -1145,7 +1145,7 @@ The proposition <span class="math notranslate nohighlight">\(P \leftrightarrow Q
 <div class="proof proof-type-mathsrule" id="id30">
 
     <div class="proof-title">
-        <span class="proof-type">Rule 1.22</span>
+        <span class="proof-type">Rule 2.22</span>
         
             <span class="proof-title-name">(If and only if elimination)</span>
         
@@ -1159,7 +1159,7 @@ Likewise, <code class="docutils literal notranslate"><span class="pre">h.2</span
 <div class="proof proof-type-mathsrule" id="id31">
 
     <div class="proof-title">
-        <span class="proof-type">Rule 1.23</span>
+        <span class="proof-type">Rule 2.23</span>
         
             <span class="proof-title-name">(Iff introduction, forward)</span>
         
@@ -1172,19 +1172,19 @@ as <code class="docutils literal notranslate"><span class="pre">&#10216;h&#8321;
 <div class="proof proof-type-mathsrule" id="id32">
 
     <div class="proof-title">
-        <span class="proof-type">Rule 1.24</span>
+        <span class="proof-type">Rule 2.24</span>
         
             <span class="proof-title-name">(Iff introduction, backward)</span>
         
     </div><div class="proof-content">
 <p>To prove <span class="math notranslate nohighlight">\(P\leftrightarrow Q\)</span>, it suffices to prove <span class="math notranslate nohighlight">\(P\to Q\)</span> and <span class="math notranslate nohighlight">\(Q\to P\)</span>.</p>
 </div></div><p>We&#8217;ll use these rules of inference to prove our (almost) final form of commutativity of conjunction.
-The proof below uses <a class="reference internal" href="#thm-and-comm2"><span class="std std-numref">Theorem 1.16</span></a>, that if <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> are
+The proof below uses <a class="reference internal" href="#thm-and-comm2"><span class="std std-numref">Theorem 2.16</span></a>, that if <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> are
 propositions, then <span class="math notranslate nohighlight">\(P \land Q\to Q \land P\)</span>.</p>
 <div class="proof proof-type-theorem" id="id33">
 <span id="thm-and-comm3"></span>
     <div class="proof-title">
-        <span class="proof-type">Theorem 1.25</span>
+        <span class="proof-type">Theorem 2.25</span>
         
             <span class="proof-title-name">(Commutativity of conjunction (III))</span>
         
@@ -1197,7 +1197,7 @@ propositions, then <span class="math notranslate nohighlight">\(P \land Q\to Q \
         
     </div><div class="proof-content">
 <p>By iff introduction, it suffices to prove 1. <span class="math notranslate nohighlight">\(R\land S\to S\land R\)</span> and
-2. <span class="math notranslate nohighlight">\(S\land R\to R\land S\)</span>. We close both goals by <a class="reference internal" href="#thm-and-comm2"><span class="std std-numref">Theorem 1.16</span></a>.</p>
+2. <span class="math notranslate nohighlight">\(S\land R\to R\land S\)</span>. We close both goals by <a class="reference internal" href="#thm-and-comm2"><span class="std std-numref">Theorem 2.16</span></a>.</p>
 </div></div><p>In Lean, using one proof to close more than one goal is denoted by the <code class="docutils literal notranslate"><span class="pre">;</span></code> tactic combinator, as
 used in the proof below.</p>
 <div style="position: relative">
@@ -1210,13 +1210,13 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </pre></div>
 </div>
 </div><div class="section" id="converse">
-<h3><span class="section-number">1.7.1. </span>Converse<a class="headerlink" href="#converse" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">2.7.1. </span>Converse<a class="headerlink" href="#converse" title="Permalink to this headline">&#182;</a></h3>
 <p>Given a conditional <span class="math notranslate nohighlight">\(P\to Q\)</span>, its <em>converse</em> is the conditional <span class="math notranslate nohighlight">\(Q\to P\)</span>. The rules of
 inference for iff effectively assert that to prove a biconditional <span class="math notranslate nohighlight">\(P \leftrightarrow Q\)</span>
 is to prove a conditional <span class="math notranslate nohighlight">\(P\to Q\)</span> and its converse <span class="math notranslate nohighlight">\(Q\to P\)</span>.</p>
 </div>
 <div class="section" id="reflexivity-symmetry-transitivity-of-iff">
-<span id="sec-refl-sym-trans-iff"></span><h3><span class="section-number">1.7.2. </span>Reflexivity, symmetry, transitivity of iff<a class="headerlink" href="#reflexivity-symmetry-transitivity-of-iff" title="Permalink to this headline">&#182;</a></h3>
+<span id="sec-refl-sym-trans-iff"></span><h3><span class="section-number">2.7.2. </span>Reflexivity, symmetry, transitivity of iff<a class="headerlink" href="#reflexivity-symmetry-transitivity-of-iff" title="Permalink to this headline">&#182;</a></h3>
 <p>Iff has some particularly nice properties.</p>
 <ul class="simple">
 <li><p>Reflexivity. For every proposition <span class="math notranslate nohighlight">\(P\)</span>, we have <span class="math notranslate nohighlight">\(P\leftrightarrow P\)</span>.</p></li>
@@ -1235,7 +1235,7 @@ we have <span class="math notranslate nohighlight">\(Q \leftrightarrow P\)</span
         
     </div><div class="proof-content">
 <p>By iff introduction, it suffices to prove <span class="math notranslate nohighlight">\(P\to P\)</span> and <span class="math notranslate nohighlight">\(P \to P\)</span>. Both these goals
-are closed by <a class="reference internal" href="#thm-reflexivity-imp"><span class="std std-numref">Theorem 1.15</span></a>, the reflexivity of implication.</p>
+are closed by <a class="reference internal" href="#thm-reflexivity-imp"><span class="std std-numref">Theorem 2.15</span></a>, the reflexivity of implication.</p>
 </div></div><div style="position: relative">
 <div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20(p%20%3A%20Prop)%0A%0A--%20BEGIN%0Aexample%20%3A%20p%20%E2%86%94%20p%20%3A%3D%0Abegin%0A%20%20split%2C%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20--%20By%20iff%20introduction%2C%20it%20suffices%20to%20prove%20%60p%20%E2%86%92%20p%60%20and%20%60p%20%E2%86%92%20p%60%0A%20%20%7B%20show%20p%20%E2%86%92%20p%2C%20from%20id%20%7D%2C%20--%20We%20show%20%60p%20%E2%86%92%20p%60%20from%20reflexivity%20of%20implication.%0A%20%20%7B%20show%20p%20%E2%86%92%20p%2C%20from%20id%20%7D%2C%20--%20We%20show%20%60p%20%E2%86%92%20p%60%20from%20reflexivity%20of%20implication.%0Aend%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_theory/unnamed_1250.lean">
 try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">:</span> <span class="n">p</span> <span class="bp">&#8596;</span> <span class="n">p</span> <span class="o">:=</span>
@@ -1246,7 +1246,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 <span class="kd">end</span>
 </pre></div>
 </div>
-</div><p>As in our Lean proof of <a class="reference internal" href="#thm-and-comm3"><span class="std std-numref">Theorem 1.25</span></a>, we may employ the  <code class="docutils literal notranslate"><span class="pre">;</span></code> tactic
+</div><p>As in our Lean proof of <a class="reference internal" href="#thm-and-comm3"><span class="std std-numref">Theorem 2.25</span></a>, we may employ the  <code class="docutils literal notranslate"><span class="pre">;</span></code> tactic
 combinator to combine the proofs of the two subgoals that arise from the use of the <code class="docutils literal notranslate"><span class="pre">split</span></code> tactic.</p>
 <div style="position: relative">
 <div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20(p%20%3A%20Prop)%0A%0A--%20BEGIN%0Aexample%20%3A%20p%20%E2%86%94%20p%20%3A%3D%0Abegin%0A%20%20split%3B%20%20%20%20%20%20%20%20--%20By%20iff%20introduction%2C%20it%20suffices%20to%20prove%20%60p%20%E2%86%92%20p%60%20and%20%60p%20%E2%86%92%20p%60.%0A%20%20%7B%20exact%20id%20%7D%2C%20--%20We%20close%20both%20subgoals%20by%20reflexivity%20of%20implication.%0Aend%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_theory/unnamed_1266.lean">
@@ -1258,7 +1258,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </pre></div>
 </div>
 </div><p>The proof of symmetry of iff is almost identical to the proof of
-<a class="reference internal" href="#example-and-comm1"><span class="std std-numref">Exampe 1.5</span></a>, the commutativity of conjunction.</p>
+<a class="reference internal" href="#example-and-comm1"><span class="std std-numref">Exampe 2.5</span></a>, the commutativity of conjunction.</p>
 <div class="proof proof-type-proof">
 
     <div class="proof-title">
@@ -1270,7 +1270,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 <p>By iff introduction, it suffices to prove <span class="math notranslate nohighlight">\(Q\to P\)</span> and <span class="math notranslate nohighlight">\(P \to Q\)</span>.
 We show <span class="math notranslate nohighlight">\(Q \to P\)</span> by right iff elimination on <span class="math notranslate nohighlight">\(h\)</span>. We show <span class="math notranslate nohighlight">\(P\to Q\)</span> by left iff
 elimination on <span class="math notranslate nohighlight">\(h\)</span>.</p>
-</div></div><p>The Lean proof is virtually identical that that of <a class="reference internal" href="#example-and-comm1"><span class="std std-numref">Exampe 1.5</span></a></p>
+</div></div><p>The Lean proof is virtually identical that that of <a class="reference internal" href="#example-and-comm1"><span class="std std-numref">Exampe 2.5</span></a></p>
 <div style="position: relative">
 <div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20(p%20q%20%3A%20Prop)%0A%0A--%20BEGIN%0Aexample%20(h%20%3A%20p%20%E2%86%94%20q)%20%3A%20q%20%E2%86%94%20p%20%3A%3D%0Abegin%0A%20%20split%2C%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20--%20By%20iff%20introduction%2C%20it%20suffices%20to%20prove%20%60q%20%E2%86%92%20p%60%20and%20%60p%20%E2%86%92%20q%60.%0A%20%20%7B%20show%20q%20%E2%86%92%20p%2C%20from%20h.2%20%7D%2C%20--%20We%20show%20%60q%20%E2%86%92%20p%60%20by%20right%20iff%20elimination%20on%20%60h%60.%0A%20%20%7B%20show%20p%20%E2%86%92%20q%2C%20from%20h.1%20%7D%2C%20--%20We%20show%20%60p%20%E2%86%92%20q%60%20by%20left%20iff%20elimination%20on%20%60h%60.%0Aend%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_theory/unnamed_1289.lean">
 try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h</span> <span class="o">:</span> <span class="n">p</span> <span class="bp">&#8596;</span> <span class="n">q</span><span class="o">)</span> <span class="o">:</span> <span class="n">q</span> <span class="bp">&#8596;</span> <span class="n">p</span> <span class="o">:=</span>
@@ -1294,7 +1294,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 <p>By iff introduction, it suffices to prove 1. <span class="math notranslate nohighlight">\(P\to R\)</span> and 2. <span class="math notranslate nohighlight">\(R\to P\)</span>.</p>
 <ol class="arabic simple">
 <li><p>We show <span class="math notranslate nohighlight">\(P\to R\)</span>. Applying the transtivity of implication
-(<a class="reference internal" href="#thm-imp-trans1"><span class="std std-numref">Theorem 1.18</span></a>), it suffices to prove a. <span class="math notranslate nohighlight">\(P\to A\)</span> and
+(<a class="reference internal" href="#thm-imp-trans1"><span class="std std-numref">Theorem 2.18</span></a>), it suffices to prove a. <span class="math notranslate nohighlight">\(P\to A\)</span> and
 b. <span class="math notranslate nohighlight">\(A\to R\)</span> (for some proposition <span class="math notranslate nohighlight">\(A\)</span>).</p>
 <ol class="loweralpha simple">
 <li><p>We show <span class="math notranslate nohighlight">\(P\to Q\)</span> by left iff eliminiation on <span class="math notranslate nohighlight">\(h_1\)</span>.</p></li>
@@ -1318,17 +1318,17 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div></div>
 </div>
 <div class="section" id="rewriting">
-<span id="sec-rewriting"></span><h2><span class="section-number">1.8. </span>Rewriting<a class="headerlink" href="#rewriting" title="Permalink to this headline">&#182;</a></h2>
+<span id="sec-rewriting"></span><h2><span class="section-number">2.8. </span>Rewriting<a class="headerlink" href="#rewriting" title="Permalink to this headline">&#182;</a></h2>
 <p>Whenever two propositions <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> are judged to be equal, the proposition <span class="math notranslate nohighlight">\(P\)</span>
 can be replaced with <span class="math notranslate nohighlight">\(P\)</span>, wherever <span class="math notranslate nohighlight">\(P\)</span> appears. This process is called <em>rewriting</em>.
 Technically, equality is a notion of predicate logic rather than propositional logic.</p>
 <div class="section" id="rewriting-a-goal">
-<h3><span class="section-number">1.8.1. </span>Rewriting a goal<a class="headerlink" href="#rewriting-a-goal" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">2.8.1. </span>Rewriting a goal<a class="headerlink" href="#rewriting-a-goal" title="Permalink to this headline">&#182;</a></h3>
 <p>We&#8217;ll use rewriting in proving the following result.</p>
 <div class="proof proof-type-example" id="id34">
 
     <div class="proof-title">
-        <span class="proof-type">Example 1.26</span>
+        <span class="proof-type">Example 2.26</span>
         
     </div><div class="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(x, y, z\)</span> be natural numbers. Then <span class="math notranslate nohighlight">\(x * (y + z) = x * z + y * x\)</span>.</p>
@@ -1336,7 +1336,7 @@ Technically, equality is a notion of predicate logic rather than propositional l
 <div class="proof proof-type-theorem" id="id35">
 
     <div class="proof-title">
-        <span class="proof-type">Theorem 1.27</span>
+        <span class="proof-type">Theorem 2.27</span>
         
             <span class="proof-title-name">((Left) distributivity of multiplication over addition)</span>
         
@@ -1345,7 +1345,7 @@ Technically, equality is a notion of predicate logic rather than propositional l
 </div></div><div class="proof proof-type-theorem" id="id36">
 
     <div class="proof-title">
-        <span class="proof-type">Theorem 1.28</span>
+        <span class="proof-type">Theorem 2.28</span>
         
             <span class="proof-title-name">(Commutativity of addition)</span>
         
@@ -1354,7 +1354,7 @@ Technically, equality is a notion of predicate logic rather than propositional l
 </div></div><div class="proof proof-type-theorem" id="id37">
 
     <div class="proof-title">
-        <span class="proof-type">Theorem 1.29</span>
+        <span class="proof-type">Theorem 2.29</span>
         
             <span class="proof-title-name">(Commutativity of multiplication)</span>
         
@@ -1426,13 +1426,13 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div>
 </div></div>
 <div class="section" id="rewriting-a-hypothesis">
-<h3><span class="section-number">1.8.2. </span>Rewriting a hypothesis<a class="headerlink" href="#rewriting-a-hypothesis" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">2.8.2. </span>Rewriting a hypothesis<a class="headerlink" href="#rewriting-a-hypothesis" title="Permalink to this headline">&#182;</a></h3>
 <p>Given a hypothesis <span class="math notranslate nohighlight">\(h : P = Q\)</span>, we can rewrite any other hypothesis <span class="math notranslate nohighlight">\(k\)</span> by replacing
 occurrences of <span class="math notranslate nohighlight">\(P\)</span> in <span class="math notranslate nohighlight">\(k\)</span> with <span class="math notranslate nohighlight">\(Q\)</span>.</p>
 <div class="proof proof-type-example" id="id38">
 
     <div class="proof-title">
-        <span class="proof-type">Example 1.30</span>
+        <span class="proof-type">Example 2.30</span>
         
     </div><div class="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(x, y, z\)</span> be natural numbers. Given <span class="math notranslate nohighlight">\(k : y * x = z\)</span>, we have
@@ -1459,7 +1459,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div>
 </div></div>
 <div class="section" id="rewriting-in-reverse">
-<h3><span class="section-number">1.8.3. </span>Rewriting in reverse<a class="headerlink" href="#rewriting-in-reverse" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">2.8.3. </span>Rewriting in reverse<a class="headerlink" href="#rewriting-in-reverse" title="Permalink to this headline">&#182;</a></h3>
 <p>Given a hypothesis <span class="math notranslate nohighlight">\(h : P = Q\)</span>, we&#8217;ve seen that we  can rewrite the goal (or another hypothesis)
 by replacing occurrences of <span class="math notranslate nohighlight">\(P\)</span> with <span class="math notranslate nohighlight">\(Q\)</span>. However, by symmetry of <span class="math notranslate nohighlight">\(=\)</span>, we can
 express <span class="math notranslate nohighlight">\(h\)</span> as <span class="math notranslate nohighlight">\(h : Q = P\)</span> and then go on to replace occurrences of <span class="math notranslate nohighlight">\(Q\)</span> in the
@@ -1471,7 +1471,7 @@ We can use this (in reverse) to rewrite the expression <span class="math notrans
 <div class="proof proof-type-example" id="id39">
 
     <div class="proof-title">
-        <span class="proof-type">Example 1.31</span>
+        <span class="proof-type">Example 2.31</span>
         
     </div><div class="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span> and <span class="math notranslate nohighlight">\(z\)</span> be natural numbers. Then
@@ -1500,7 +1500,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div></div>
 </div>
 <div class="section" id="propositional-extensionality-and-rewriting">
-<h2><span class="section-number">1.9. </span>Propositional extensionality and rewriting<a class="headerlink" href="#propositional-extensionality-and-rewriting" title="Permalink to this headline">&#182;</a></h2>
+<h2><span class="section-number">2.9. </span>Propositional extensionality and rewriting<a class="headerlink" href="#propositional-extensionality-and-rewriting" title="Permalink to this headline">&#182;</a></h2>
 <p>In advanced courses on mathematical logic (for the avoidance of doubt, this is not an advanced course),
 one typically proves theorems <em>about</em> systems of logic. One such theorem is that given propositions
 <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> and given <span class="math notranslate nohighlight">\(h : P \leftrightarrow Q\)</span>, if the proposition <span class="math notranslate nohighlight">\(Q\)</span> is
@@ -1515,7 +1515,7 @@ extensionality.</p>
 <div class="proof proof-type-mathsrule" id="id40">
 
     <div class="proof-title">
-        <span class="proof-type">Rule 1.32</span>
+        <span class="proof-type">Rule 2.32</span>
         
             <span class="proof-title-name">(Propositional extensionality)</span>
         
@@ -1523,9 +1523,9 @@ extensionality.</p>
 <p>Let <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> be propositions. Given <span class="math notranslate nohighlight">\(h : P \leftrightarrow Q\)</span>, we have
 <span class="math notranslate nohighlight">\(P = Q\)</span>.</p>
 </div></div><div class="section" id="id1">
-<h3><span class="section-number">1.9.1. </span>Rewriting a goal<a class="headerlink" href="#id1" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">2.9.1. </span>Rewriting a goal<a class="headerlink" href="#id1" title="Permalink to this headline">&#182;</a></h3>
 <p>Given <span class="math notranslate nohighlight">\(h : P \leftrightarrow Q\)</span>, we can denote the use of propositional extensionality on the
-by writing, &#8216;Rewriting using <span class="math notranslate nohighlight">\(h\)</span>, the goal is &#8230;&#8217;, as in <a class="reference internal" href="#sec-rewriting"><span class="std std-numref">Section 1.8</span></a>.
+by writing, &#8216;Rewriting using <span class="math notranslate nohighlight">\(h\)</span>, the goal is &#8230;&#8217;, as in <a class="reference internal" href="#sec-rewriting"><span class="std std-numref">Section 2.8</span></a>.
 We use this form of expression in the examples below.</p>
 <p>In our first example, we use propositional extensionality to give a quick proof of transitivity of
 implication. Given <span class="math notranslate nohighlight">\(h_1 : P \leftrightarrow Q\)</span> and <span class="math notranslate nohighlight">\(h_2 : Q \leftrightarrow R\)</span> we have
@@ -1538,7 +1538,7 @@ a proof of <span class="math notranslate nohighlight">\(P \leftrightarrow R\)</s
     </div><div class="proof-content">
 <p>Rewriting using <span class="math notranslate nohighlight">\(h_1\)</span>, the goal is to prove prove <span class="math notranslate nohighlight">\(Q \leftrightarrow R\)</span>.
 This holds by reiteration on <span class="math notranslate nohighlight">\(h_2\)</span>.</p>
-</div></div><p>Compare this to the rather more involved proof given in <a class="reference internal" href="#sec-refl-sym-trans-iff"><span class="std std-numref">Section 1.7.2</span></a>.</p>
+</div></div><p>Compare this to the rather more involved proof given in <a class="reference internal" href="#sec-refl-sym-trans-iff"><span class="std std-numref">Section 2.7.2</span></a>.</p>
 <p>In Lean, we use the <code class="docutils literal notranslate"><span class="pre">rw</span></code> tactic to rewrite the goal.</p>
 <div style="position: relative">
 <div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20p%20q%20r%20%3A%20Prop%0A%0A--%20BEGIN%0Aexample%20(h%E2%82%81%20%3A%20p%20%E2%86%94%20q)%20(h%E2%82%82%20%3A%20q%20%E2%86%94%20r)%20%3A%20p%20%E2%86%94%20r%20%3A%3D%0Abegin%0A%20%20rw%20h%E2%82%81%2C%20%20%20%20--%20Rewriting%20using%20%60h%E2%82%81%60%2C%20the%20goal%20is%20to%20prove%20%60q%20%E2%86%94%20r%60.%0A%20%20exact%20h%E2%82%82%2C%20--%20This%20holds%20by%20reiteration%20on%20%60h%E2%82%82%60.%0Aend%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_theory/unnamed_1576.lean">
@@ -1551,11 +1551,11 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div>
 </div><p>In the next example, we rewrite using De Morgan&#8217;s law <a class="footnote-reference brackets" href="#id3" id="id2">1</a> <span class="math notranslate nohighlight">\(\neg(P \lor Q) \leftrightarrow
 \neg P \land \neg Q\)</span> and our commtativity of conjunction result,
-<a class="reference internal" href="#thm-and-comm3"><span class="std std-numref">Theorem 1.25</span></a>.</p>
+<a class="reference internal" href="#thm-and-comm3"><span class="std std-numref">Theorem 2.25</span></a>.</p>
 <div class="proof proof-type-example" id="id41">
 
     <div class="proof-title">
-        <span class="proof-type">Example 1.33</span>
+        <span class="proof-type">Example 2.33</span>
         
     </div><div class="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> be propositions. Then <span class="math notranslate nohighlight">\(\neg(P \lor Q) \leftrightarrow
@@ -1581,19 +1581,19 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div>
 </div><dl class="footnote brackets">
 <dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
-<dd><p>We&#8217;ll prove this later as <a class="reference internal" href="#thm-not-or-distrib"><span class="std std-numref">Theorem 1.56</span></a>. Another of De Morgan&#8217;s
-laws is <a class="reference internal" href="#thm-not-and-distrib"><span class="std std-numref">Theorem 1.62</span></a>, which asserts
+<dd><p>We&#8217;ll prove this later as <a class="reference internal" href="#thm-not-or-distrib"><span class="std std-numref">Theorem 2.56</span></a>. Another of De Morgan&#8217;s
+laws is <a class="reference internal" href="#thm-not-and-distrib"><span class="std std-numref">Theorem 2.62</span></a>, which asserts
 <span class="math notranslate nohighlight">\(\neg(P\land Q) \leftrightarrow\neg P\lor\neg Q\)</span>.</p>
 </dd>
 </dl>
 </div>
 <div class="section" id="id4">
-<h3><span class="section-number">1.9.2. </span>Rewriting a hypothesis<a class="headerlink" href="#id4" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">2.9.2. </span>Rewriting a hypothesis<a class="headerlink" href="#id4" title="Permalink to this headline">&#182;</a></h3>
 <p>We can use rewriting (i.e. propositional extensionality) on hypotheses just as we can on goals.</p>
 <div class="proof proof-type-example" id="id42">
 <span id="example-rumtumtugger"></span>
     <div class="proof-title">
-        <span class="proof-type">Example 1.34</span>
+        <span class="proof-type">Example 2.34</span>
         
     </div><div class="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> be propositions. Given <span class="math notranslate nohighlight">\(k : \neg(P \lor Q)\)</span>, we have a proof of
@@ -1619,13 +1619,13 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div>
 </div></div>
 <div class="section" id="id5">
-<h3><span class="section-number">1.9.3. </span>Rewriting in reverse<a class="headerlink" href="#id5" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">2.9.3. </span>Rewriting in reverse<a class="headerlink" href="#id5" title="Permalink to this headline">&#182;</a></h3>
 <p>Given <span class="math notranslate nohighlight">\(h : P \leftrightarrow Q\)</span> to rewrite using <span class="math notranslate nohighlight">\(h\)</span> in reverse is to replace occurrences
 of <span class="math notranslate nohighlight">\(Q\)</span> in the goal (or in another hypothesis) with <span class="math notranslate nohighlight">\(P\)</span>.</p>
-<p>By rewriting in reverse, we give an alternative proof of <a class="reference internal" href="#example-rumtumtugger"><span class="std std-numref">Example 1.34</span></a>.
+<p>By rewriting in reverse, we give an alternative proof of <a class="reference internal" href="#example-rumtumtugger"><span class="std std-numref">Example 2.34</span></a>.
 For this, we need the commutative law of disjunction (to be proved later). Namely, given propositions
 <span class="math notranslate nohighlight">\(S\)</span> and <span class="math notranslate nohighlight">\(T\)</span>, we have <span class="math notranslate nohighlight">\(S \lor T \leftrightarrow T \lor S\)</span>.</p>
-<p>We are now in a position to prove <a class="reference internal" href="#example-rumtumtugger"><span class="std std-numref">Example 1.34</span></a>.</p>
+<p>We are now in a position to prove <a class="reference internal" href="#example-rumtumtugger"><span class="std std-numref">Example 2.34</span></a>.</p>
 <div class="proof proof-type-proof">
 
     <div class="proof-title">
@@ -1635,7 +1635,7 @@ For this, we need the commutative law of disjunction (to be proved later). Namel
 <p>Rewriting using De Morgan&#8217;s law in reverse, the goal is <span class="math notranslate nohighlight">\(\neg(Q \lor P)\)</span>.</p>
 <p>Rewriting using commutativity of disjunction, the goal is <span class="math notranslate nohighlight">\(\neg(P \lor Q)\)</span>.</p>
 <p>We close the goal by reiteration on <span class="math notranslate nohighlight">\(k\)</span>.</p>
-</div></div><p>As in <a class="reference internal" href="#sec-rewriting"><span class="std std-numref">Section 1.8</span></a>, we denote rewriting using <code class="docutils literal notranslate"><span class="pre">h</span></code> in reverse as
+</div></div><p>As in <a class="reference internal" href="#sec-rewriting"><span class="std std-numref">Section 2.8</span></a>, we denote rewriting using <code class="docutils literal notranslate"><span class="pre">h</span></code> in reverse as
 <code class="docutils literal notranslate"><span class="pre">rw</span> <span class="pre">&#8592;mul_add</span></code>, as in the example below.</p>
 <div style="position: relative">
 <div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=import%20logic.basic%0A%0Avariables%20p%20q%20%3A%20Prop%0A%0A--%20BEGIN%0Aexample%20(h%20%3A%20%C2%AC(p%20%E2%88%A8%20q))%20%3A%20%C2%ACq%20%E2%88%A7%20%C2%ACp%20%3A%3D%0Abegin%0A%20%20rw%20%E2%86%90not_or_distrib%2C%0A%20%20rw%20or_comm%2C%0A%20%20exact%20h%2C%0Aend%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_theory/unnamed_1680.lean">
@@ -1650,15 +1650,15 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div></div>
 </div>
 <div class="section" id="disjunction">
-<h2><span class="section-number">1.10. </span>Disjunction<a class="headerlink" href="#disjunction" title="Permalink to this headline">&#182;</a></h2>
+<h2><span class="section-number">2.10. </span>Disjunction<a class="headerlink" href="#disjunction" title="Permalink to this headline">&#182;</a></h2>
 <div class="section" id="disjunction-introduction">
-<h3><span class="section-number">1.10.1. </span>Disjunction introduction<a class="headerlink" href="#disjunction-introduction" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">2.10.1. </span>Disjunction introduction<a class="headerlink" href="#disjunction-introduction" title="Permalink to this headline">&#182;</a></h3>
 <p>There are two disjunction introduction rules, left and right. Each comes in both a forward and a
 backward flavour.</p>
 <div class="proof proof-type-mathsrule" id="id43">
 
     <div class="proof-title">
-        <span class="proof-type">Rule 1.35</span>
+        <span class="proof-type">Rule 2.35</span>
         
             <span class="proof-title-name">(Disjunction introduction, forward)</span>
         
@@ -1670,7 +1670,7 @@ backward flavour.</p>
 </div></div><div class="proof proof-type-example" id="id44">
 <span id="example-s-or-t-or-u-intro"></span>
     <div class="proof-title">
-        <span class="proof-type">Example 1.36</span>
+        <span class="proof-type">Example 2.36</span>
         
     </div><div class="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(S\)</span>, <span class="math notranslate nohighlight">\(T\)</span>, and <span class="math notranslate nohighlight">\(U\)</span> be propositions. Given <span class="math notranslate nohighlight">\(h : T\)</span>, we have
@@ -1699,7 +1699,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div><div class="proof proof-type-mathsrule" id="id45">
 
     <div class="proof-title">
-        <span class="proof-type">Rule 1.37</span>
+        <span class="proof-type">Rule 2.37</span>
         
             <span class="proof-title-name">(Disjunction introduction, backward)</span>
         
@@ -1708,7 +1708,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 <li><p>(<em>Left or introduction</em>) to prove <span class="math notranslate nohighlight">\(P \lor Q\)</span>, it suffices to prove <span class="math notranslate nohighlight">\(P\)</span>.</p></li>
 <li><p>(<em>Right or introduction</em>) to prove <span class="math notranslate nohighlight">\(P \lor Q\)</span>, it suffices to prove <span class="math notranslate nohighlight">\(Q\)</span>.</p></li>
 </ul>
-</div></div><p>We give a backward proof of <a class="reference internal" href="#example-s-or-t-or-u-intro"><span class="std std-numref">Example 1.36</span></a>.</p>
+</div></div><p>We give a backward proof of <a class="reference internal" href="#example-s-or-t-or-u-intro"><span class="std std-numref">Example 2.36</span></a>.</p>
 <div class="proof proof-type-proof">
 
     <div class="proof-title">
@@ -1734,7 +1734,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div>
 </div></div>
 <div class="section" id="disjunction-elimination">
-<h3><span class="section-number">1.10.2. </span>Disjunction elimination<a class="headerlink" href="#disjunction-elimination" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">2.10.2. </span>Disjunction elimination<a class="headerlink" href="#disjunction-elimination" title="Permalink to this headline">&#182;</a></h3>
 <p>This is the most challenging rule so far. We start with an example.</p>
 <p>Suppose we know of Peggy that she keeps rabbits or she grows strawberries.
 Further, we have 1. if Peggy keeps rabbits, then she needs straw as bedding material for the rabbits.
@@ -1744,7 +1744,7 @@ ground and help keep them clean. We deduce that Peggy needs straw.</p>
 <div class="proof proof-type-mathsrule" id="id46">
 
     <div class="proof-title">
-        <span class="proof-type">Rule 1.38</span>
+        <span class="proof-type">Rule 2.38</span>
         
             <span class="proof-title-name">(Disjunction elimination, backward)</span>
         
@@ -1756,7 +1756,7 @@ ground and help keep them clean. We deduce that Peggy needs straw.</p>
 <div class="proof proof-type-example" id="id47">
 
     <div class="proof-title">
-        <span class="proof-type">Example 1.39</span>
+        <span class="proof-type">Example 2.39</span>
         
     </div><div class="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(P\)</span>, <span class="math notranslate nohighlight">\(Q\)</span>, and <span class="math notranslate nohighlight">\(R\)</span> be propositions. Given <span class="math notranslate nohighlight">\(h : P \lor Q\)</span>,
@@ -1794,7 +1794,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 <div class="proof proof-type-mathsrule" id="id48">
 
     <div class="proof-title">
-        <span class="proof-type">Rule 1.40</span>
+        <span class="proof-type">Rule 2.40</span>
         
             <span class="proof-title-name">(Disjunction elimination, forward)</span>
         
@@ -1814,12 +1814,12 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div>
 </div></div>
 <div class="section" id="commutativity-and-associativity-of-disjunction">
-<h3><span class="section-number">1.10.3. </span>Commutativity and associativity of disjunction<a class="headerlink" href="#commutativity-and-associativity-of-disjunction" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">2.10.3. </span>Commutativity and associativity of disjunction<a class="headerlink" href="#commutativity-and-associativity-of-disjunction" title="Permalink to this headline">&#182;</a></h3>
 <p>As a more interesting example, we have a preliminary result on the commutativity of disjunction.</p>
 <div class="proof proof-type-theorem" id="id49">
 <span id="thm-or-comm1"></span>
     <div class="proof-title">
-        <span class="proof-type">Theorem 1.41</span>
+        <span class="proof-type">Theorem 2.41</span>
         
             <span class="proof-title-name">(Commutativity of disjunction (I))</span>
         
@@ -1852,7 +1852,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 <div class="proof proof-type-theorem" id="id50">
 
     <div class="proof-title">
-        <span class="proof-type">Theorem 1.42</span>
+        <span class="proof-type">Theorem 2.42</span>
         
             <span class="proof-title-name">(Commutativity of disjunction (II))</span>
         
@@ -1866,7 +1866,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
     </div><div class="proof-content">
 <p>By iff introduction, it suffices to prove 1. <span class="math notranslate nohighlight">\(P\lor Q\to Q\lor P\)</span> and 2.
 <span class="math notranslate nohighlight">\(Q\lor P\to P\lor Q\)</span>. Both these goals can be closed by applying
-<a class="reference internal" href="#thm-or-comm1"><span class="std std-numref">Theorem 1.41</span></a>.</p>
+<a class="reference internal" href="#thm-or-comm1"><span class="std std-numref">Theorem 2.41</span></a>.</p>
 </div></div><div style="position: relative">
 <div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20p%20q%20s%20t%20%3A%20Prop%0A%0Atheorem%20or_of_or%20(h%20%3A%20s%20%E2%88%A8%20t)%20%3A%20t%20%E2%88%A8%20s%20%3A%3D%0Abegin%0A%20%20cases%20h%20with%20h%E2%82%81%20h%E2%82%82%2C%0A%20%20%7B%20exact%20or.inr%20h%E2%82%81%2C%7D%2C%0A%20%20%7B%20show%20t%20%E2%88%A8%20s%2C%20from%20or.inl%20h%E2%82%82%2C%20%7D%2C%0Aend%0Anamespace%20hidden%0A--%20BEGIN%0Atheorem%20or_comm%20%3A%20p%20%E2%88%A8%20q%20%E2%86%94%20q%20%E2%88%A8%20p%20%3A%3D%0Abegin%0A%20%20split%3B%0A%20%20apply%20or_of_or%0Aend%0A--%20END%0Aend%20hidden" target="_blank" tryitfile="../examples/prop_logic_theory/unnamed_1901.lean">
 try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">theorem</span> <span class="n">or_comm</span> <span class="o">:</span> <span class="n">p</span> <span class="bp">&#8744;</span> <span class="n">q</span> <span class="bp">&#8596;</span> <span class="n">q</span> <span class="bp">&#8744;</span> <span class="n">p</span> <span class="o">:=</span>
@@ -1896,9 +1896,9 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div></div>
 </div>
 <div class="section" id="false-and-negation">
-<h2><span class="section-number">1.11. </span>False and negation<a class="headerlink" href="#false-and-negation" title="Permalink to this headline">&#182;</a></h2>
+<h2><span class="section-number">2.11. </span>False and negation<a class="headerlink" href="#false-and-negation" title="Permalink to this headline">&#182;</a></h2>
 <div class="section" id="rules-for-false-and-negation">
-<h3><span class="section-number">1.11.1. </span>Rules for false and negation<a class="headerlink" href="#rules-for-false-and-negation" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">2.11.1. </span>Rules for false and negation<a class="headerlink" href="#rules-for-false-and-negation" title="Permalink to this headline">&#182;</a></h3>
 <p>The symbol <span class="math notranslate nohighlight">\(\bot\)</span>, read &#8216;arbitrary contradiction&#8217; or &#8216;false&#8217; is a constant proposition.
 Its use is governed most fundamentally by the principle <em>ex falso sequitur quodlibet</em>, &#8216;out of false,
 whatever you like follows&#8217;, also called false elimination.</p>
@@ -1908,7 +1908,7 @@ contradiction, I can derive anything from its assumption.</p>
 <div class="proof proof-type-mathsrule" id="id51">
 
     <div class="proof-title">
-        <span class="proof-type">Rule 1.43</span>
+        <span class="proof-type">Rule 2.43</span>
         
             <span class="proof-title-name">(False elimination (<em>ex falso</em>), forward)</span>
         
@@ -1917,7 +1917,7 @@ contradiction, I can derive anything from its assumption.</p>
 </div></div><div class="proof proof-type-mathsrule" id="id52">
 
     <div class="proof-title">
-        <span class="proof-type">Rule 1.44</span>
+        <span class="proof-type">Rule 2.44</span>
         
             <span class="proof-title-name">(False elimination (<em>ex falso</em>), backward)</span>
         
@@ -1926,7 +1926,7 @@ contradiction, I can derive anything from its assumption.</p>
 </div></div><div class="proof proof-type-example" id="id53">
 <span id="ex-neg-elim"></span>
     <div class="proof-title">
-        <span class="proof-type">Example 1.45</span>
+        <span class="proof-type">Example 2.45</span>
         
     </div><div class="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> be propositions. We have <span class="math notranslate nohighlight">\((P \to \bot) \to (P \to Q)\)</span>.</p>
@@ -1973,12 +1973,12 @@ example.</p>
 <div class="proof proof-type-theorem" id="id54">
 
     <div class="proof-title">
-        <span class="proof-type">Theorem 1.46</span>
+        <span class="proof-type">Theorem 2.46</span>
         
     </div><div class="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> be propositions. Given <span class="math notranslate nohighlight">\(h_1 : \neg P\)</span> and <span class="math notranslate nohighlight">\(h_2 : P\)</span>, we
 have a proof of <span class="math notranslate nohighlight">\(Q\)</span>.</p>
-</div></div><p>This follows on applying <a class="reference internal" href="#ex-neg-elim"><span class="std std-numref">Example 1.45</span></a> with <span class="math notranslate nohighlight">\(h_1\)</span> and <span class="math notranslate nohighlight">\(h_2\)</span>.</p>
+</div></div><p>This follows on applying <a class="reference internal" href="#ex-neg-elim"><span class="std std-numref">Example 2.45</span></a> with <span class="math notranslate nohighlight">\(h_1\)</span> and <span class="math notranslate nohighlight">\(h_2\)</span>.</p>
 <div style="position: relative">
 <div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20%7Bp%20q%20%3A%20Prop%7D%0A--%20BEGIN%0Aexample%20(h%E2%82%81%20%3A%20%C2%ACp)%20(h%E2%82%82%20%3A%20p)%20%3A%20q%20%3A%3D%0Abegin%0A%20%20exfalso%2C%0A%20%20show%20false%2C%20from%20h%E2%82%81%20h%E2%82%82%0Aend%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_theory/unnamed_2023.lean">
 try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">(</span><span class="n">h&#8321;</span> <span class="o">:</span> <span class="bp">&#172;</span><span class="n">p</span><span class="o">)</span> <span class="o">(</span><span class="n">h&#8322;</span> <span class="o">:</span> <span class="n">p</span><span class="o">)</span> <span class="o">:</span> <span class="n">q</span> <span class="o">:=</span>
@@ -2004,7 +2004,7 @@ disguise.</p>
 <div class="proof proof-type-theorem" id="id55">
 
     <div class="proof-title">
-        <span class="proof-type">Theorem 1.47</span>
+        <span class="proof-type">Theorem 2.47</span>
         
             <span class="proof-title-name">(False introduction, forward)</span>
         
@@ -2013,7 +2013,7 @@ disguise.</p>
 </div></div><div class="proof proof-type-theorem" id="id56">
 
     <div class="proof-title">
-        <span class="proof-type">Theorem 1.48</span>
+        <span class="proof-type">Theorem 2.48</span>
         
             <span class="proof-title-name">(False introduction, backward)</span>
         
@@ -2024,7 +2024,7 @@ disguise.</p>
 <div class="proof proof-type-theorem" id="id57">
 
     <div class="proof-title">
-        <span class="proof-type">Theorem 1.49</span>
+        <span class="proof-type">Theorem 2.49</span>
         
             <span class="proof-title-name">(Negation introduction)</span>
         
@@ -2033,11 +2033,11 @@ disguise.</p>
 <span class="math notranslate nohighlight">\(P\)</span>.</p>
 </div></div></div>
 <div class="section" id="applications-of-false-and-negation">
-<h3><span class="section-number">1.11.2. </span>Applications of false and negation<a class="headerlink" href="#applications-of-false-and-negation" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">2.11.2. </span>Applications of false and negation<a class="headerlink" href="#applications-of-false-and-negation" title="Permalink to this headline">&#182;</a></h3>
 <div class="proof proof-type-example" id="id58">
 
     <div class="proof-title">
-        <span class="proof-type">Example 1.50</span>
+        <span class="proof-type">Example 2.50</span>
         
     </div><div class="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> be propositions. Given <span class="math notranslate nohighlight">\(h : \neg(P\lor Q)\)</span>, we have <span class="math notranslate nohighlight">\(\neg P\)</span>.</p>
@@ -2070,7 +2070,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 <div class="proof proof-type-example" id="id59">
 
     <div class="proof-title">
-        <span class="proof-type">Example 1.51</span>
+        <span class="proof-type">Example 2.51</span>
         
             <span class="proof-title-name">(One direction of material conditional)</span>
         
@@ -2106,11 +2106,11 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </pre></div>
 </div>
 </div><p>The next result is one half of a result that shows <span class="math notranslate nohighlight">\(P\)</span> is equivalent to <span class="math notranslate nohighlight">\(\neg\neg P\)</span>.
-We prove the other half of this result in <a class="reference internal" href="#sec-classical-reasoning"><span class="std std-numref">Section 1.12</span></a>.</p>
+We prove the other half of this result in <a class="reference internal" href="#sec-classical-reasoning"><span class="std std-numref">Section 2.12</span></a>.</p>
 <div class="proof proof-type-theorem" id="id60">
 <span id="thm-not-not-of-self"></span>
     <div class="proof-title">
-        <span class="proof-type">Theorem 1.52</span>
+        <span class="proof-type">Theorem 2.52</span>
         
             <span class="proof-title-name">(One direction of double negation)</span>
         
@@ -2137,12 +2137,12 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </pre></div>
 </div>
 </div><p>The contrapositive of a conditional <span class="math notranslate nohighlight">\(P\to Q\)</span> is the proposition <span class="math notranslate nohighlight">\(\neg Q\to\neg P\)</span>.
-In <a class="reference internal" href="#sec-classical-reasoning"><span class="std std-numref">Section 1.12</span></a>, we&#8217;ll prove that a proposition is equivalent to
+In <a class="reference internal" href="#sec-classical-reasoning"><span class="std std-numref">Section 2.12</span></a>, we&#8217;ll prove that a proposition is equivalent to
 its contrapositive. We&#8217;ll prove one half of that assertion now.</p>
 <div class="proof proof-type-theorem" id="id61">
 <span id="thm-mt"></span>
     <div class="proof-title">
-        <span class="proof-type">Theorem 1.53</span>
+        <span class="proof-type">Theorem 2.53</span>
         
             <span class="proof-title-name">(One direction of contrapositive theorem, <em>modus tollens</em>)</span>
         
@@ -2164,11 +2164,11 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div><p>De Morgan&#8217;s laws state 1. <span class="math notranslate nohighlight">\(\neg(P \land Q)\leftrightarrow\neg P\lor \neg Q\)</span> and 2.
 <span class="math notranslate nohighlight">\(\neg(P\lor Q)\leftrightarrow\neg P \land \neg Q\)</span>.</p>
 <p>In total, there are four directions to prove. We give proofs of three directions in this section
-and the remaining direction in <a class="reference internal" href="#sec-classical-reasoning"><span class="std std-numref">Section 1.12</span></a>.</p>
+and the remaining direction in <a class="reference internal" href="#sec-classical-reasoning"><span class="std std-numref">Section 2.12</span></a>.</p>
 <div class="proof proof-type-theorem" id="id62">
 <span id="thm-not-or-of-not-and-not"></span>
     <div class="proof-title">
-        <span class="proof-type">Theorem 1.54</span>
+        <span class="proof-type">Theorem 2.54</span>
         
             <span class="proof-title-name">(De Morgan, &#8216;not or of not and not&#8217;)</span>
         
@@ -2227,7 +2227,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div><div class="proof proof-type-theorem" id="id63">
 <span id="thm-not-and-not-of-not-or"></span>
     <div class="proof-title">
-        <span class="proof-type">Theorem 1.55</span>
+        <span class="proof-type">Theorem 2.55</span>
         
             <span class="proof-title-name">(De Morgan, &#8216;not and not of not or&#8217;)</span>
         
@@ -2246,12 +2246,12 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 <span class="kd">end</span>
 </pre></div>
 </div>
-</div><p>By iff introduction on <a class="reference internal" href="#thm-not-or-of-not-and-not"><span class="std std-numref">Theorem 1.54</span></a> and
-<a class="reference internal" href="#thm-not-and-not-of-not-or"><span class="std std-numref">Theorem 1.55</span></a>, we have our first complete De Morgan&#8217;s law.</p>
+</div><p>By iff introduction on <a class="reference internal" href="#thm-not-or-of-not-and-not"><span class="std std-numref">Theorem 2.54</span></a> and
+<a class="reference internal" href="#thm-not-and-not-of-not-or"><span class="std std-numref">Theorem 2.55</span></a>, we have our first complete De Morgan&#8217;s law.</p>
 <div class="proof proof-type-theorem" id="id64">
 <span id="thm-not-or-distrib"></span>
     <div class="proof-title">
-        <span class="proof-type">Theorem 1.56</span>
+        <span class="proof-type">Theorem 2.56</span>
         
             <span class="proof-title-name">(De Morgan, &#8216;not or distrib&#8217;)</span>
         
@@ -2271,7 +2271,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div><div class="proof proof-type-theorem" id="id65">
 <span id="thm-not-and-of-not-or-not"></span>
     <div class="proof-title">
-        <span class="proof-type">Theorem 1.57</span>
+        <span class="proof-type">Theorem 2.57</span>
         
             <span class="proof-title-name">(De Morgan, &#8216;not and of not or not&#8217;)</span>
         
@@ -2294,9 +2294,9 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div></div>
 </div>
 <div class="section" id="classical-reasoning">
-<span id="sec-classical-reasoning"></span><h2><span class="section-number">1.12. </span>Classical reasoning<a class="headerlink" href="#classical-reasoning" title="Permalink to this headline">&#182;</a></h2>
+<span id="sec-classical-reasoning"></span><h2><span class="section-number">2.12. </span>Classical reasoning<a class="headerlink" href="#classical-reasoning" title="Permalink to this headline">&#182;</a></h2>
 <div class="section" id="intuitionistic-and-constructive-reasoning">
-<h3><span class="section-number">1.12.1. </span>Intuitionistic and constructive reasoning<a class="headerlink" href="#intuitionistic-and-constructive-reasoning" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">2.12.1. </span>Intuitionistic and constructive reasoning<a class="headerlink" href="#intuitionistic-and-constructive-reasoning" title="Permalink to this headline">&#182;</a></h3>
 <p>You&#8217;ve now seen all the rules of inference for &#8216;intuitionistic&#8217; propositional logic.
 Congratulations! Intuitionistic logic (more generally &#8216;constructive reasoning&#8217;) is a form of
 reasoning first investigated by L. E. J. Brouwer in the early 20th century.</p>
@@ -2316,13 +2316,13 @@ Queen doesn&#8217;t like tea&#8217; unless they can prove either that the Queen 
 doesn&#8217;t like tea.</p>
 </div>
 <div class="section" id="the-law-of-the-excluded-middle">
-<h3><span class="section-number">1.12.2. </span>The law of the excluded middle<a class="headerlink" href="#the-law-of-the-excluded-middle" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">2.12.2. </span>The law of the excluded middle<a class="headerlink" href="#the-law-of-the-excluded-middle" title="Permalink to this headline">&#182;</a></h3>
 <p>To resolve this issue, &#8216;classical reasoning&#8217; takes <span class="math notranslate nohighlight">\(P\lor\neg P\)</span> as an axiom <a class="footnote-reference brackets" href="#id7" id="id6">2</a>, called the
 law of the excluded middle.</p>
 <div class="proof proof-type-axiom" id="id66">
 
     <div class="proof-title">
-        <span class="proof-type">Axiom 1.58</span>
+        <span class="proof-type">Axiom 2.58</span>
         
             <span class="proof-title-name">(Law of the excluded middle)</span>
         
@@ -2339,11 +2339,11 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div>
 </div><p>We&#8217;ll give a proof of the result below, using the law of the excluded middle. The proof needs
 elements of predicate logic together with results on even and odd numbers. We will cover this
-in-depth in <a class="reference internal" href="pred_logic.html#sec-pred-logic"><span class="std std-numref">Section 3</span></a>.</p>
+in-depth in <a class="reference internal" href="pred_logic.html#sec-pred-logic"><span class="std std-numref">Section 4</span></a>.</p>
 <div class="proof proof-type-example" id="id67">
 <span id="ex-x-xplus3-even"></span>
     <div class="proof-title">
-        <span class="proof-type">Example 1.59</span>
+        <span class="proof-type">Example 2.59</span>
         
     </div><div class="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(x\)</span> be an integer. Then <span class="math notranslate nohighlight">\(x(x+3)\)</span> is even.</p>
@@ -2381,13 +2381,13 @@ excluded middle.</p>
 </dl>
 </div>
 <div class="section" id="proof-by-cases">
-<h3><span class="section-number">1.12.3. </span>Proof by cases<a class="headerlink" href="#proof-by-cases" title="Permalink to this headline">&#182;</a></h3>
-<p><a class="reference internal" href="#ex-x-xplus3-even"><span class="std std-numref">Example 1.59</span></a> is an instance of a method of proof called <em>proof by cases</em>.
+<h3><span class="section-number">2.12.3. </span>Proof by cases<a class="headerlink" href="#proof-by-cases" title="Permalink to this headline">&#182;</a></h3>
+<p><a class="reference internal" href="#ex-x-xplus3-even"><span class="std std-numref">Example 2.59</span></a> is an instance of a method of proof called <em>proof by cases</em>.
 Below, give a proof of the general proof method.</p>
 <div class="proof proof-type-theorem" id="id68">
 
     <div class="proof-title">
-        <span class="proof-type">Theorem 1.60</span>
+        <span class="proof-type">Theorem 2.60</span>
         
             <span class="proof-title-name">(Proof by cases)</span>
         
@@ -2412,7 +2412,7 @@ By or elimination applied to <span class="math notranslate nohighlight">\(h\)</s
 <div class="proof proof-type-theorem" id="id69">
 <span id="thm-not-or-not-of-not-and"></span>
     <div class="proof-title">
-        <span class="proof-type">Theorem 1.61</span>
+        <span class="proof-type">Theorem 2.61</span>
         
             <span class="proof-title-name">(De Morgan&#8217;s law, &#8216;not or not of not and&#8217;)</span>
         
@@ -2454,12 +2454,12 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 <span class="kd">end</span>
 </pre></div>
 </div>
-</div><p>By iff introduction on our previous <a class="reference internal" href="#thm-not-and-of-not-or-not"><span class="std std-numref">Theorem 1.57</span></a> and
-<a class="reference internal" href="#thm-not-or-not-of-not-and"><span class="std std-numref">Theorem 1.61</span></a>, we deduce the final iff De Morgan&#8217;s law.</p>
+</div><p>By iff introduction on our previous <a class="reference internal" href="#thm-not-and-of-not-or-not"><span class="std std-numref">Theorem 2.57</span></a> and
+<a class="reference internal" href="#thm-not-or-not-of-not-and"><span class="std std-numref">Theorem 2.61</span></a>, we deduce the final iff De Morgan&#8217;s law.</p>
 <div class="proof proof-type-theorem" id="id70">
 <span id="thm-not-and-distrib"></span>
     <div class="proof-title">
-        <span class="proof-type">Theorem 1.62</span>
+        <span class="proof-type">Theorem 2.62</span>
         
             <span class="proof-title-name">(De Morgan&#8217;s law, &#8216;not and distrib&#8217;)</span>
         
@@ -2478,11 +2478,11 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div>
 </div></div>
 <div class="section" id="double-negation">
-<h3><span class="section-number">1.12.4. </span>Double negation<a class="headerlink" href="#double-negation" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">2.12.4. </span>Double negation<a class="headerlink" href="#double-negation" title="Permalink to this headline">&#182;</a></h3>
 <div class="proof proof-type-theorem" id="id71">
 <span id="thm-double-negation"></span>
     <div class="proof-title">
-        <span class="proof-type">Theorem 1.63</span>
+        <span class="proof-type">Theorem 2.63</span>
         
             <span class="proof-title-name">(Double negation)</span>
         
@@ -2505,7 +2505,7 @@ and b. <span class="math notranslate nohighlight">\(h_2 : \neg P\)</span>.</p>
 We show <span class="math notranslate nohighlight">\(\bot\)</span> by false introduction on <span class="math notranslate nohighlight">\(h_1\)</span> and <span class="math notranslate nohighlight">\(h_2\)</span>.</p></li>
 </ol>
 </li>
-<li><p>This follows by <a class="reference internal" href="#thm-not-not-of-self"><span class="std std-numref">Theorem 1.52</span></a>.</p></li>
+<li><p>This follows by <a class="reference internal" href="#thm-not-not-of-self"><span class="std std-numref">Theorem 2.52</span></a>.</p></li>
 </ol>
 </div></div><div style="position: relative">
 <div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=variables%20%7Bp%20%3A%20Prop%7D%0Atheorem%20not_not_of_self%20%3A%20p%20%E2%86%92%20%C2%AC%C2%ACp%20%3A%3D%20%CE%BB%20hp%20hnp%2C%20hnp%20hp%0Alocal%20attribute%20%5Binstance%5D%20classical.prop_decidable%0A--%20BEGIN%0Atheorem%20not_not%20%3A%20%C2%AC%C2%ACp%20%E2%86%94%20p%20%3A%3D%0Abegin%0A%20%20split%2C%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20--%20By%20iff%20intro.%2C%20it%20suffices%20to%20prove%201.%20%60p%20%E2%86%92%20%C2%AC%C2%ACp%60%20and%202.%20%60%C2%AC%C2%ACp%20%E2%86%92%20p%60.%0A%20%20%7B%20assume%20h%E2%82%81%20%3A%20%C2%AC%C2%ACp%2C%20%20%20%20%20%20%20%20%20%20--%20Assume%20%60h%E2%82%81%20%3A%20%C2%AC%C2%ACp%60.%20It%20suffices%20to%20prove%20%60p%60.%0A%20%20%20%20by_cases%20h%E2%82%82%20%3A%20p%2C%20%20%20%20%20%20%20%20%20%20--%20We'll%20show%20%60p%60%20via%20proof%20by%20cases%20on%20%60p%60.%0A%20%20%20%20%7B%20exact%20h%E2%82%82%2C%20%20%7D%2C%20%20%20%20%20%20%20%20%20%20%20--%20Assume%20%60h%E2%82%82%20%3A%20p%60.%20The%20goal%2C%20%60p%60%20follows%20by%20reiteration%20on%20%60h%E2%82%82%60.%0A%20%20%20%20%7B%20exfalso%2C%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20--%20By%20false%20elimination%2C%20it%20suffices%20to%20prove%20%60false%60.%0A%20%20%20%20%20%20exact%20h%E2%82%81%20h%E2%82%82%2C%20%7D%2C%20%7D%2C%20%20%20%20%20%20--%20This%20follows%20by%20false%20introduction%20on%20%60h%E2%82%81%60%20and%20%60h%E2%82%82%60.%0A%20%20%7B%20exact%20not_not_of_self%2C%20%7D%2C%20--%20Goal%202.%20follows%20by%20a%20previously-proved%20theorem.%0Aend%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_theory/unnamed_2564.lean">
@@ -2522,7 +2522,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </pre></div>
 </div>
 </div><p>As an example application, we give another proof of
-:<a class="reference internal" href="#thm-not-or-not-of-not-and"><span class="std std-numref">Theorem 1.61</span></a>, this time using double negation instead of
+:<a class="reference internal" href="#thm-not-or-not-of-not-and"><span class="std std-numref">Theorem 2.61</span></a>, this time using double negation instead of
 proof by cases. Recall that <code class="docutils literal notranslate"><span class="pre">not_or_distrib</span></code> is our constructive result <code class="docutils literal notranslate"><span class="pre">&#172;(a</span> <span class="pre">&#8744;</span> <span class="pre">b)</span> <span class="pre">&#8596;</span> <span class="pre">&#172;a</span> <span class="pre">&#8743;</span> <span class="pre">&#172;b</span></code>.</p>
 <div style="position: relative">
 <div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=import%20logic.basic%0Avariables%20%7Bp%20q%20%3A%20Prop%7D%0Alocal%20attribute%20%5Binstance%5D%20classical.prop_decidable%0A--%20BEGIN%0Aexample%20%3A%20%C2%AC(p%20%E2%88%A7%20q)%20%E2%86%92%20%C2%ACp%20%E2%88%A8%20%C2%AC%20q%20%3A%3D%0Abegin%0A%20%20assume%20h%E2%82%81%20%3A%20%C2%AC(p%20%E2%88%A7%20q)%2C%20--%20Assume%20%60h%E2%82%81%20%3A%20%C2%AC(p%20%E2%88%A7%20q)%60.%20It%20sfufice%20to%20prove%20%60%C2%ACp%20%E2%88%A8%20%C2%ACq%60.%0A%20%20have%20h%E2%82%82%20%3A%20%C2%AC%C2%AC(%C2%ACp%20%E2%88%A8%20%C2%ACq)%20%E2%86%94%20%C2%ACp%20%E2%88%A8%20%C2%ACq%2C%20from%20not_not%2C%20--%20By%20double%20negation%2C%20we%20have%20%60%C2%AC%C2%AC(%C2%ACp%20%E2%88%A8%20%C2%ACq)%20%E2%86%94%20%C2%ACp%20%E2%88%A8%20%C2%ACq%60.%0A%20%20rw%20%E2%86%90h%E2%82%82%2C%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20--%20Rewriting%20with%20%60h%E2%82%82%60%2C%20the%20goal%20is%20to%20show%20%60%C2%AC%C2%AC(%C2%ACp%20%E2%88%A8%20%C2%ACq)%60.%0A%20%20rw%20not_or_distrib%2C%20%20%20%20%20%20--%20Rewriting%20with%20%60not_or_distrib%60%2C%20the%20goal%20is%20to%20show%20%60%C2%AC(%C2%AC%C2%ACp%20%E2%88%A7%20%C2%AC%C2%ACq)%60%0A%20%20repeat%20%7B%20rw%20not_not%2C%20%7D%2C%20--%20Repeatedly%20rewriting%20with%20double%20negation%2C%20the%20goal%20is%20to%20show%20%60%C2%AC(p%20%E2%88%A7%20q)%60.%0A%20%20show%20%C2%AC(p%20%E2%88%A7%20q)%2C%20from%20h%E2%82%81%2C%20--%20We%20show%20%60%C2%AC(p%20%E2%88%A7%20q)%60%20from%20%60h%E2%82%81%60.%0Aend%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_theory/unnamed_2586.lean">
@@ -2539,14 +2539,14 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div>
 </div></div>
 <div class="section" id="proof-by-contradiction">
-<h3><span class="section-number">1.12.5. </span>Proof by contradiction<a class="headerlink" href="#proof-by-contradiction" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">2.12.5. </span>Proof by contradiction<a class="headerlink" href="#proof-by-contradiction" title="Permalink to this headline">&#182;</a></h3>
 <p>Negation introduction is the (derived) rule that <span class="math notranslate nohighlight">\(\neg P\)</span> is proved by assuming <span class="math notranslate nohighlight">\(P\)</span>
 and deriving <span class="math notranslate nohighlight">\(\bot\)</span>. Proof by contradiction (also called <em>reductio ad absurdum</em>) is a similar
 result, formed by subsituting <span class="math notranslate nohighlight">\(Q\)</span> for <span class="math notranslate nohighlight">\(\neg P\)</span> and using double negation.</p>
 <div class="proof proof-type-theorem" id="id72">
 
     <div class="proof-title">
-        <span class="proof-type">Theorem 1.64</span>
+        <span class="proof-type">Theorem 2.64</span>
         
             <span class="proof-title-name">(Proof by contradiction)</span>
         
@@ -2560,13 +2560,13 @@ derive <span class="math notranslate nohighlight">\(\bot\)</span>.</p>
         <span class="proof-type">Proof </span>
         
     </div><div class="proof-content">
-<p>By left iff elimination on the double negation result, <a class="reference internal" href="#thm-double-negation"><span class="std std-numref">Theorem 1.63</span></a>,
+<p>By left iff elimination on the double negation result, <a class="reference internal" href="#thm-double-negation"><span class="std std-numref">Theorem 2.63</span></a>,
 we have <span class="math notranslate nohighlight">\(\neg\neg Q \to Q\)</span>.</p>
 <p>By implication introduction, this means <span class="math notranslate nohighlight">\(Q\)</span> follows on the assumption <span class="math notranslate nohighlight">\(\neg\neg Q\)</span>
 By definition of <span class="math notranslate nohighlight">\(\neg\)</span>, to prove <span class="math notranslate nohighlight">\(\neg\neg Q\)</span> is to assume <span class="math notranslate nohighlight">\(\neg Q\)</span> and
 derive <span class="math notranslate nohighlight">\(\bot\)</span>.</p>
 </div></div><p>In Lean, we invoke proof by contradiction using the <code class="docutils literal notranslate"><span class="pre">by_contradiction</span></code> tactic. We see this in
-use below in yet another proof of <a class="reference internal" href="#thm-not-or-not-of-not-and"><span class="std std-numref">Theorem 1.61</span></a></p>
+use below in yet another proof of <a class="reference internal" href="#thm-not-or-not-of-not-and"><span class="std std-numref">Theorem 2.61</span></a></p>
 <div style="position: relative">
 <div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=import%20logic.basic%0Avariables%20%7Bp%20q%20%3A%20Prop%7D%0Alocal%20attribute%20%5Binstance%5D%20classical.prop_decidable%0A--%20BEGIN%0Aexample%20%3A%20%C2%AC(p%20%E2%88%A7%20q)%20%E2%86%92%20%C2%ACp%20%E2%88%A8%20%C2%AC%20q%20%3A%3D%0Abegin%0A%20%20assume%20h%E2%82%81%20%3A%20%C2%AC(p%20%E2%88%A7%20q)%2C%20%20%20%20%20%20--%20Assume%20%60h%E2%82%81%20%3A%20%C2%AC(p%20%E2%88%A7%20q)%60.%20It%20sfufice%20to%20prove%20%60%C2%ACp%20%E2%88%A8%20%C2%ACq%60.%0A%20%20by_contradiction%20h%E2%82%82%2C%20%20%20%20%20%20%20--%20For%20a%20contradiciton%2C%20assume%20%60h%E2%82%82%20%3A%20%C2%AC(%C2%ACp%20%E2%88%A8%20%C2%ACq)%60.%20It%20suffices%20to%20prove%20%60false%60.%0A%20%20rw%20not_or_distrib%20at%20h%E2%82%82%2C%20%20%20--%20Rewriting%20using%20De%20Morgan's%20law%20%60not_or_distrib%60%2C%20%60h%E2%82%82%60%20is%20%60%C2%AC%C2%ACp%20%E2%88%A7%20%C2%AC%C2%ACq%60.%0A%20%20repeat%20%7Brw%20not_not%20at%20h%E2%82%82%7D%2C%20--%20Repeatedly%20using%20double%20negation%2C%20%60h%E2%82%82%60%20is%20%60p%20%E2%88%A7%20q%60.%0A%20%20show%20false%2C%20from%20h%E2%82%81%20h%E2%82%82%2C%20%20%20%20--%20We%20show%20false%20by%20false%20introduction%20on%20%60h%E2%82%81%60%20and%20%60h%E2%82%82%60.%0Aend%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_theory/unnamed_2631.lean">
 try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">:</span> <span class="bp">&#172;</span><span class="o">(</span><span class="n">p</span> <span class="bp">&#8743;</span> <span class="n">q</span><span class="o">)</span> <span class="bp">&#8594;</span> <span class="bp">&#172;</span><span class="n">p</span> <span class="bp">&#8744;</span> <span class="bp">&#172;</span> <span class="n">q</span> <span class="o">:=</span>
@@ -2581,16 +2581,16 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </div>
 </div></div>
 <div class="section" id="proof-by-contrapositive">
-<h3><span class="section-number">1.12.6. </span>Proof by contrapositive<a class="headerlink" href="#proof-by-contrapositive" title="Permalink to this headline">&#182;</a></h3>
+<h3><span class="section-number">2.12.6. </span>Proof by contrapositive<a class="headerlink" href="#proof-by-contrapositive" title="Permalink to this headline">&#182;</a></h3>
 <p>Recall that the contrapositive of a conditional <span class="math notranslate nohighlight">\(P\to Q\)</span> is the proposition
 <span class="math notranslate nohighlight">\(\neg Q\to\neg P\)</span>. Using constructive reasoning, we previously proved
-<a class="reference internal" href="#thm-mt"><span class="std std-numref">Theorem 1.53</span></a>, that <span class="math notranslate nohighlight">\((P\to Q)\to(\neg Q\to\neg P)\)</span>.</p>
+<a class="reference internal" href="#thm-mt"><span class="std std-numref">Theorem 2.53</span></a>, that <span class="math notranslate nohighlight">\((P\to Q)\to(\neg Q\to\neg P)\)</span>.</p>
 <p>By proving the converse of this result we will have, by iff introduction,
 <span class="math notranslate nohighlight">\((\neg Q\to\neg P) \leftrightarrow (P\to Q)\)</span>.</p>
 <div class="proof proof-type-theorem" id="id73">
 
     <div class="proof-title">
-        <span class="proof-type">Theorem 1.65</span>
+        <span class="proof-type">Theorem 2.65</span>
         
             <span class="proof-title-name">(Proof by contrapositive, &#8216;not imp not&#8217;)</span>
         
@@ -2610,7 +2610,7 @@ Assume <span class="math notranslate nohighlight">\(h_2 : P\)</span>. It suffice
 For a contradiction, assume <span class="math notranslate nohighlight">\(h_3 : \neg Q\)</span>. It suffices to prove <span class="math notranslate nohighlight">\(\bot\)</span>.
 We have <span class="math notranslate nohighlight">\(h_4 : \neg P\)</span> from implication elimination on <span class="math notranslate nohighlight">\(h_1\)</span> and <span class="math notranslate nohighlight">\(h_3\)</span>.
 We show <span class="math notranslate nohighlight">\(\bot\)</span> by false introduction on <span class="math notranslate nohighlight">\(h_4\)</span> and <span class="math notranslate nohighlight">\(h_2\)</span>.</p></li>
-<li><p>We show <span class="math notranslate nohighlight">\((P\to Q)\to(\neg Q\to\neg P)\)</span> by <a class="reference internal" href="#thm-mt"><span class="std std-numref">Theorem 1.53</span></a>, modus tollens.</p></li>
+<li><p>We show <span class="math notranslate nohighlight">\((P\to Q)\to(\neg Q\to\neg P)\)</span> by <a class="reference internal" href="#thm-mt"><span class="std std-numref">Theorem 2.53</span></a>, modus tollens.</p></li>
 </ol>
 </div></div><div style="position: relative">
 <div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=import%20logic.basic%0Avariables%20%7Bp%20q%20%3A%20Prop%7D%0Alocal%20attribute%20%5Binstance%5D%20classical.prop_decidable%0Anamespace%20hidden%0A--%20BEGIN%0Atheorem%20not_imp_not%20%3A%20(%C2%ACq%20%E2%86%92%20%C2%ACp)%20%E2%86%94%20(p%20%E2%86%92%20q)%20%3A%3D%0Abegin%0A%20%20split%2C%20--%20By%20iff%20intro.%2C%20it%20suffices%20to%20prove%201.%20%60%C2%ACq%20%E2%86%92%20%C2%ACp%20%E2%86%92%20p%20%E2%86%92%20q%60%20and%202.%20%60p%20%E2%86%92%20q%20%E2%86%92%20%C2%ACq%20%E2%86%92%20%C2%ACp%60.%0A%20%20%7B%20intros%20h%E2%82%81%20h%E2%82%82%2C%20--%20Assume%20%60h%E2%82%81%20%3A%20%C2%ACq%20%E2%86%92%20%C2%ACp%60%2C%20%60h%E2%82%82%20%3A%20p%60.%20It%20suffices%20to%20prove%20%60q%60.%0A%20%20%20%20by_contradiction%20h%E2%82%83%2C%20--%20For%20a%20contradiction%2C%20assume%20%60h%E2%82%83%20%3A%20%C2%ACq%60.%20It%20suffices%20to%20prove%20%60false%60.%0A%20%20%20%20have%20h%E2%82%84%20%3A%20%C2%ACp%2C%20from%20h%E2%82%81%20h%E2%82%83%2C%20--%20We%20have%20%60h%E2%82%84%20%3A%20%C2%ACp%60%20by%20implication%20elimination%20on%20%60h%E2%82%81%60%20and%20%60h%E2%82%83%60.%0A%20%20%20%20show%20false%2C%20from%20h%E2%82%84%20h%E2%82%82%2C%20--%20We%20show%20%60false%60%20by%20false%20introduction%20on%20%60h%E2%82%84%60%20and%20%60h%E2%82%82%60.%0A%20%20%7D%2C%0A%20%20%7B%20exact%20mt%20%7D%2C%20--%20We%20show%20%60(p%20%E2%86%92%20q)%20%E2%86%92%20(%C2%ACq%20%E2%86%92%20%C2%ACp)%60%20by%20modus%20tollens.%0Aend%0A--%20END%0Aend%20hidden" target="_blank" tryitfile="../examples/prop_logic_theory/unnamed_2674.lean">
@@ -2627,7 +2627,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 </pre></div>
 </div>
 </div><p>As an example, we&#8217;ll use proof by contrapositive to give another proof of
-<a class="reference internal" href="#thm-not-or-not-of-not-and"><span class="std std-numref">Theorem 1.61</span></a>.</p>
+<a class="reference internal" href="#thm-not-or-not-of-not-and"><span class="std std-numref">Theorem 2.61</span></a>.</p>
 <div style="position: relative">
 <div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=import%20logic.basic%0Avariables%20%7Bp%20q%20%3A%20Prop%7D%0Alocal%20attribute%20%5Binstance%5D%20classical.prop_decidable%0A--%20BEGIN%0Aexample%20%3A%20%C2%AC(p%20%E2%88%A7%20q)%20%E2%86%92%20%C2%ACp%20%E2%88%A8%20%C2%AC%20q%20%3A%3D%0Abegin%0A%20%20rw%20%E2%86%90not_imp_not%2C%20--%20It%20suffices%20to%20prove%20the%20contrapositive%2C%20%60%C2%AC(%C2%ACp%20%E2%88%A8%20%C2%ACq)%20%E2%86%92%20%C2%AC%C2%AC(p%20%E2%88%A7%20q)%60.%0A%20%20rw%20not_or_distrib%2C%20--%20By%20De%20Morgan's%20Law%20%60not_or_distrib%60%2C%20it%20suffices%20to%20prove%20%60%C2%AC%C2%ACp%20%E2%88%A7%20%C2%AC%C2%ACq%20%E2%86%92%20%C2%AC%C2%AC(p%20%E2%88%A7%20q)%60.%0A%20%20repeat%20%7Brw%20not_not%7D%2C%20--%20By%20repeated%20double%20negation%2C%20it%20suffices%20to%20prove%20%60p%20%E2%88%A7%20q%20%E2%86%92%20p%20%E2%88%A7%20q%60.%0A%20%20exact%20id%2C%20--%20This%20follows%20by%20%60id%60%2C%20the%20reflexivity%20of%20implication.%0Aend%0A--%20END" target="_blank" tryitfile="../examples/prop_logic_theory/unnamed_2697.lean">
 try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kd">example</span> <span class="o">:</span> <span class="bp">&#172;</span><span class="o">(</span><span class="n">p</span> <span class="bp">&#8743;</span> <span class="n">q</span><span class="o">)</span> <span class="bp">&#8594;</span> <span class="bp">&#172;</span><span class="n">p</span> <span class="bp">&#8744;</span> <span class="bp">&#172;</span> <span class="n">q</span> <span class="o">:=</span>
@@ -2661,23 +2661,24 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 
 <!-- <h3>Navigation</h3> -->
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">1. Propositional logic</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#propositions-and-propositional-variables">1.1. Propositions and propositional variables</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#derivations-and-rules-of-inference">1.2. Derivations and rules of inference</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#conjunction">1.3. Conjunction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#reiteration">1.4. Reiteration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#implication">1.5. Implication</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#theorems">1.6. Theorems</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#if-and-only-if">1.7. If and only if</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#rewriting">1.8. Rewriting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#propositional-extensionality-and-rewriting">1.9. Propositional extensionality and rewriting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#disjunction">1.10. Disjunction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#false-and-negation">1.11. False and negation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#classical-reasoning">1.12. Classical reasoning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. Introduction to reasoning</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. Propositional logic</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#propositions-and-propositional-variables">2.1. Propositions and propositional variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#derivations-and-rules-of-inference">2.2. Derivations and rules of inference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#conjunction">2.3. Conjunction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reiteration">2.4. Reiteration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#implication">2.5. Implication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#theorems">2.6. Theorems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#if-and-only-if">2.7. If and only if</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rewriting">2.8. Rewriting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#propositional-extensionality-and-rewriting">2.9. Propositional extensionality and rewriting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#disjunction">2.10. Disjunction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#false-and-negation">2.11. False and negation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#classical-reasoning">2.12. Classical reasoning</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="prop_logic_lean_summary.html">2. Propositional logic in lean summary</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pred_logic.html">3. Predicate logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="prop_logic_lean_summary.html">3. Propositional logic in lean summary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pred_logic.html">4. Predicate logic</a></li>
 </ul>
 
 
